@@ -31,6 +31,11 @@ end
 get '/login' do
     haml :login
 end
+post '/login' do
+  #Loguear al usuario
+  #if Digest::MD5.hexdigest(password_introducido) = usuario.password then login
+  redirect("/profile")
+end
 get '/signup' do
     haml :signup
 end
@@ -40,6 +45,7 @@ end
 post '/signup' do
   aux = User.new
   aux.attributes = params
+  aux.password = Digest::MD5.hexdigest(aux.password)
   aux.save
   redirect("/showall")
 end
@@ -47,5 +53,3 @@ end
 get '/showall' do
   haml :showall, :locals => { :us => User.all }
 end
-
-
