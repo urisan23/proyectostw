@@ -22,7 +22,7 @@ end
 #Actualiza los cambios
 DataMapper.auto_upgrade!
 
-#Activa las cockies
+#Activa las coockies
 configure do
 	enable :sessions
 end
@@ -39,14 +39,17 @@ get '/login' do
 end
 
 post '/login' do
-  #Loguear al usuario
-  #if Digest::MD5.hexdigest(password_introducido) = usuario.password then login
+  name = params[:name]
+  pass = params[:password]
+  if Digest::MD5.hexdigest(pass) == User.first(:name => name).password
+    session[:current_user] = User.first(:name => name) 
+  end
   redirect("/profile")
 end
 
 get '/logout' do
-	session.clear
-	redirect '/'
+  session.clear
+  redirect '/'
 end
 
 get '/signup' do
@@ -54,8 +57,8 @@ get '/signup' do
 end
 
 get '/profile' do
-	session[:log] = "1"
-   haml :profile
+   session[:log] = "1"
+   haml :profile, :locals => { :us => session[:current_user]}
 end
 
 post '/signup' do

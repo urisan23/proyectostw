@@ -1,6 +1,14 @@
 %html
+  %link{:href => "/style.css", :rel => "stylesheet", :type => "text/css"}
   %head
     %title Proyecto PAU
-    %link{:href => "/style.css", :rel => "stylesheet", :type => "text/css"}
+    %header
+      %h1 [Logotipo]
+      %p Barra de Referencia P.Ej: Mis asignaturas -> Bases de datos -> Exámenes
+      %hr
   %body
     = yield
+  %footer
+    %hr
+    %p Esto es el footer
+
