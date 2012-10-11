@@ -583,6 +583,10 @@ p {
   margin: 0 0 10px;
 }
 
+.carousel-inner {
+  color: white;
+}
+
 .lead {
   margin-bottom: 20px;
   font-size: 21px;

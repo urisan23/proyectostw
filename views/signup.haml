@@ -1,18 +1,36 @@
-%h1 Create a new user
-%form(action="signup" method="POST")
-  %label(for="nombre") Nombre
-  %input(type="text" name="name")
-  %br
+.container-fluid
+  .row-fluid
+    .span7
+      %p las fotos no son estas, esta claro xD
+      #myCarousel.carousel.slide
+        .carousel-inner
+          .item
+            %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-01.jpg"}
+              .carousel-caption
+                %h4 Comparte Archivos de todo tipo
+          .item.active
+            %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-02.jpg"}
+              .carousel-caption
+                %h4 Colabora con la comunidad en el foro
+          .item
+            %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-03.jpg"}
+              .carousel-caption
+                %h4 Gestiona y ordena tus archivos
+        %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
+        %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
+    .span1
+    .span4
+      %h3{:align => "center"} Nuevo usuario
+      %form(action="signup" method="POST")
+        %input.span12(placeholder= "Nombre de usuario" type="text" name="name")
+        %input.span12(placeholder= "Correo electrónico" type="text" name="email")
+        %input.span12(placeholder= "Contraseña" type="password" name="password")
+        %table.span12
+          %tr
+            %td.span6
+              %button.btn.btn-success{:type => "submit"} Registrarse
+            %td.span6
+              %button.btn.btn-success{:type => "reset"} Reestablecer
 
-  %label(for="email") Email
-  %input(type="text" name="email")
-  %br
-
-  %label(for="password") Contraseña
-  %input(type="password" name="password")
-  %br
-  %input(type="submit")
-  %input(type="reset")
-  %br
 
 
