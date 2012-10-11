@@ -1,5 +1,18 @@
 .container-fluid
   .row-fluid
+    .span4
+      %h3{:align => "center"} Nuevo usuario
+      %form(action="signup" method="POST")
+        %input.span12(placeholder= "Nombre de usuario" type="text" name="name")
+        %input.span12(placeholder= "Correo electrónico" type="text" name="email")
+        %input.span12(placeholder= "Contraseña" type="password" name="password")
+        %table.span12
+          %tr
+            %td.span6
+              %button.btn.btn-success{:type => "submit"} Registrarse
+            %td.span6
+              %button.btn.btn-success{:type => "reset"} Reestablecer
+    .span1
     .span7
       %p las fotos no son estas, esta claro xD
       #myCarousel.carousel.slide
@@ -18,19 +31,3 @@
                 %h4 Gestiona y ordena tus archivos
         %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
         %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
-    .span1
-    .span4
-      %h3{:align => "center"} Nuevo usuario
-      %form(action="signup" method="POST")
-        %input.span12(placeholder= "Nombre de usuario" type="text" name="name")
-        %input.span12(placeholder= "Correo electrónico" type="text" name="email")
-        %input.span12(placeholder= "Contraseña" type="password" name="password")
-        %table.span12
-          %tr
-            %td.span6
-              %button.btn.btn-success{:type => "submit"} Registrarse
-            %td.span6
-              %button.btn.btn-success{:type => "reset"} Reestablecer
-
-
-
