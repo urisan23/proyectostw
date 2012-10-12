@@ -11,12 +11,12 @@ DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/usuarios.db" )
 # Define modelo de la base de datos
 class User
   include DataMapper::Resource
-
   property :id, Serial
   property :name, String
+  property :surnames, String
+  property :username, String
   property :email, String
   property :password, String
-
 end
 
 #Actualiza los cambios
@@ -39,19 +39,19 @@ get '/login' do
 end
 
 post '/login' do
-  name = params[:name]
+  email = params[:email]
   pass = params[:password]
   session[:opc] = "0"
   User.each { |c| 
-              if c.name == name 
+              if c.email == email 
 					  session[:opc] = "1"
 				  else
 					  session[:opc] = "0"
 				  end}
   
 	if session[:opc] == "1"
-		if Digest::MD5.hexdigest(pass) == User.first(:name => name).password
-			session[:current_user] = User.first(:name => name) 
+               if Digest::MD5.hexdigest(pass) == User.first(:email => email).password
+                        session[:current_user] = User.first(:email => email) 
 			redirect '/profile'
 		else
 			haml :badpassword
@@ -77,10 +77,14 @@ end
 
 post '/signup' do
   aux = User.new
-  aux.attributes = params
+  aux.name = params[:name]
+  aux.surnames = params[:surnames]
+  aux.email = params[:email]
+  aux.password = params[:password]
+  aux.username = params[:username]
   aux.password = Digest::MD5.hexdigest(aux.password)
   aux.save
-  redirect '/showall'
+  redirect("/showall")
 end
 
 get '/showall' do

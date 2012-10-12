@@ -3,9 +3,12 @@
     .span4
       %h3{:align => "center"} Nuevo usuario
       %form(action="signup" method="POST")
-        %input.span12(placeholder= "Nombre de usuario" type="text" name="name")
+        %input.span12(placeholder= "Nombre" type="text" name="name")
+        %input.span12(placeholder= "Apellidos" type="text" name="surnames")
         %input.span12(placeholder= "Correo electrónico" type="text" name="email")
         %input.span12(placeholder= "Contraseña" type="password" name="password")
+        %input.span12(placeholder= "Confirmación de contraseña" type="password" name="passwordconfirm")
+        %input.span12(placeholder= "Nombre de usuario" type="text" name="username")
         %table.span12
           %tr
             %td.span6
