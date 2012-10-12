@@ -2,7 +2,7 @@
   .row-fluid
     .span4
       %h3{:align => "center"} Nuevo usuario
-      %form(action="signup" method="POST")
+      %form(action="signup" method="POST" onSubmit="return Valida_signup(this);")
         %input.span12(placeholder= "Nombre" type="text" name="name")
         %input.span12(placeholder= "Apellidos" type="text" name="surnames")
         %input.span12(placeholder= "Correo electrónico" type="text" name="email")
