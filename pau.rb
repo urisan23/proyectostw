@@ -41,10 +41,24 @@ end
 post '/login' do
   name = params[:name]
   pass = params[:password]
-  if Digest::MD5.hexdigest(pass) == User.first(:name => name).password
-    session[:current_user] = User.first(:name => name) 
-  end
-  redirect("/profile")
+  session[:opc] = "0"
+  User.each { |c| 
+              if c.name == name 
+					  session[:opc] = "1"
+				  else
+					  session[:opc] = "0"
+				  end}
+  
+	if session[:opc] == "1"
+		if Digest::MD5.hexdigest(pass) == User.first(:name => name).password
+			session[:current_user] = User.first(:name => name) 
+			redirect '/profile'
+		else
+			haml :badpassword
+		end
+	else
+		haml :badlogin
+	end
 end
 
 get '/logout' do
@@ -66,7 +80,7 @@ post '/signup' do
   aux.attributes = params
   aux.password = Digest::MD5.hexdigest(aux.password)
   aux.save
-  redirect("/showall")
+  redirect '/showall'
 end
 
 get '/showall' do
