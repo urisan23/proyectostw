@@ -1,4 +1,7 @@
+%body{:onload => "Valida_login(#{opc});"}/
 .container-fluid
+  .row-fluid
+    #alert_placeholder
   .row-fluid
     .span8
       %p las fotos no son estas, esta claro xD
@@ -28,4 +31,3 @@
       %h4{:align=> "center"} ¿Eres nuevo?
       %form(action="signup")
         %button.btn.btn-info.span12{:type => "submit"} ¡Registrate ahora!
-

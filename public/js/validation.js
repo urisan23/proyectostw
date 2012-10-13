@@ -39,6 +39,26 @@ function Valida_signup( form ) {
   }
 } 
 
+function Valida_login( opc ) {
+  var message = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>';
+  var ok = true;
+  if (opc == 1) {
+    message += '<span>La contraseña es incorrecta</span><br/>';
+    ok = false;
+  }
+  if (opc == 2) {
+    message += '<span>El email introducido no está registrado</span><br/>';
+    ok = false;
+  }
+  message += '</div>';
+  if (!ok) {
+    $('#alert_placeholder').html(message);
+    return false;
+  } else {
+    return true;
+  }
+}
+
 function cambia_color( element ) {
   var texto = /[a-zA-Z]/;
   var num = /[0-9]/;
