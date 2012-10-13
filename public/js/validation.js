@@ -6,6 +6,12 @@ function Valida_signup( form ) {
     message += '<span>El email introducido no es válido.</span><br/>';
     ok = false;
   }
+  for each (var email in emails_ar) {
+    if ( form.email.value == email ) {
+      message += '<span>El email ya está en uso</span><br/>';
+      ok = false;
+    }
+  }
   if (form.password.value != form.passwordconfirm.value) {
     message += '<span>Las contraseñas no coinciden.</span><br/>';
     ok = false;
@@ -14,9 +20,15 @@ function Valida_signup( form ) {
     message += '<span>La contraseña es muy corta.</span><br/>';
     ok = false;
   }
-  if (form.username.value.length < 6) {
+  if (form.username.value.length < 4) {
     message += '<span>El nombre de usuario es muy corto.</span><br/>';
     ok = false;
+  }
+  for each (var user in users_ar) {
+    if ( form.username.value == user ) {
+      message += '<span>El nombre de usuario ya está en uso</span><br/>';
+      ok = false;
+    }
   }
   message += '</div>';
   if (!ok) {

@@ -36,3 +36,9 @@
                 %h4 Gestiona y ordena tus archivos
         %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
         %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
+
+%SCRIPT
+  var emails_ar = new Array()
+  var users_ar = new Array()
+  emails_ar = #{"['#{used_emails.join('\',\'')}']"}
+  users_ar = #{"['#{used_usrs.join('\',\'')}']"}

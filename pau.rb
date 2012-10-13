@@ -67,7 +67,13 @@ get '/logout' do
 end
 
 get '/signup' do
-    haml :signup
+  emails,usernames = [],[]
+  User.all.each{|us|
+    emails << us[:email]
+    usernames << us[:username]
+  }
+puts emails
+  haml :signup, :locals => { :used_usrs => usernames, :used_emails => emails}
 end
 
 get '/profile' do
