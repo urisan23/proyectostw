@@ -35,30 +35,27 @@ get '\/' do
 end
 
 get '/login' do
-   haml :login
+   redirect '/profile' if session[:log] == "1"
+   session[:failed_log] = 0
+   haml :login, :locals => { :opc => session[:failed_log]}
 end
 
 post '/login' do
   email = params[:email]
   pass = params[:password]
-  session[:opc] = "0"
-  User.each { |c| 
-              if c.email == email 
-					  session[:opc] = "1"
-				  else
-					  session[:opc] = "0"
-				  end}
-  
-	if session[:opc] == "1"
-               if Digest::MD5.hexdigest(pass) == User.first(:email => email).password
-                        session[:current_user] = User.first(:email => email) 
-			redirect '/profile'
-		else
-			haml :badpassword
-		end
-	else
-		haml :badlogin
-	end
+  user = User.first(:email => email)
+  if user != nil
+    if Digest::MD5.hexdigest(pass) == User.first(:email => email).password
+      session[:current_user] = User.first(:email => email)
+      session[:log] = 1
+      redirect '/profile'
+    else
+      session[:failed_log] = 1   #[usuario existe, contraseña incorrecta]   
+    end
+  else
+    session[:failed_log] = 2   #[usuario no existe]
+  end
+  haml :login, :locals => { :opc => session[:failed_log]}
 end
 
 get '/logout' do
@@ -67,12 +64,12 @@ get '/logout' do
 end
 
 get '/signup' do
-    haml :signup
-end
-
-get '/profile' do
-   session[:log] = "1"
-   haml :profile, :locals => { :us => session[:current_user]}
+  emails,usernames = [],[]
+  User.all.each{|us|
+    emails << us[:email]
+    usernames << us[:username]
+  }
+  haml :signup, :locals => { :used_usrs => usernames, :used_emails => emails}
 end
 
 post '/signup' do
@@ -84,9 +81,22 @@ post '/signup' do
   aux.username = params[:username]
   aux.password = Digest::MD5.hexdigest(aux.password)
   aux.save
-  redirect("/showall")
+  redirect '/login'
+end
+
+get '/profile' do
+   session[:log] = "1"
+   haml :profile, :locals => { :us => session[:current_user]}
 end
 
 get '/showall' do
   haml :showall, :locals => { :us => User.all }
+end
+
+get '/help' do
+	haml :help
+end
+
+get '/contact' do
+	haml :contact
 end
