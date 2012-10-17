@@ -81,7 +81,12 @@ post '/signup' do
   aux.username = params[:username]
   aux.password = Digest::MD5.hexdigest(aux.password)
   aux.save
-  redirect("/showall")
+  redirect '/login'
+end
+
+get '/profile' do
+   session[:log] = "1"
+   haml :profile, :locals => { :us => session[:current_user]}
 end
 
 get '/profile' do
@@ -91,4 +96,12 @@ end
 
 get '/showall' do
   haml :showall, :locals => { :us => User.all }
+end
+
+get '/help' do
+	haml :help
+end
+
+get '/contact' do
+	haml :contact
 end
