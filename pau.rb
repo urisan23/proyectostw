@@ -4,6 +4,7 @@ require 'sinatra'
 require 'haml'
 require 'data_mapper'
 require 'erb'
+require 'pony'
 
 # Define ruta de la base de datos
 DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/usuarios.db" )
@@ -81,7 +82,25 @@ post '/signup' do
   aux.username = params[:username]
   aux.password = Digest::MD5.hexdigest(aux.password)
   aux.save
+#mandar email
   redirect '/login'
+end
+get '/mail' do
+  Pony.mail(
+    :to => "urisan91@gmail.com",
+    :from => "micropost.ull@gmail.com",
+    :subject => "Bienvenido a proyecto PAU, Tu!",
+#    :body => erb(:mail_welcome),
+    :html_body => (haml :mail_welcome),
+    :via => :smtp,
+    :smtp => {
+      :host => 'smtp.gmail.com',
+      :port => '587',
+      :user => 'proyectopau100@gmail.com',
+      :password => 'pau123456',
+      :auth => :plain,
+      :tls => true } )
+
 end
 
 get '/profile' do
