@@ -1,3 +1,30 @@
+function Valida_changepass( form ) {
+  var b=/^[^@\s]+@[^@\.\s]+(\.[^@\.\s]+)+$/
+  var message = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>';
+  var ok = true;
+  if (!b.test(form.email.value)) {
+    message += '<span>El email introducido no es válido.</span><br/>';
+    ok = false;
+  } else {
+    exist = false;
+    for each (var email in emails_ar) {
+      if ( form.email.value == email ) {
+        exist = true;
+      }
+    }
+    if ( exist == false ) {
+      message += '<span>El email introducido no está registrado.</span><br/>';
+      ok = false;
+    }
+  }
+  message += '</div>';
+  if (!ok) {
+    $('#alert_placeholder').html(message);
+    return false;
+  } else {
+    return true;
+  }
+}
 function Valida_signup( form ) {
   var b=/^[^@\s]+@[^@\.\s]+(\.[^@\.\s]+)+$/
   var message = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>';
@@ -42,12 +69,16 @@ function Valida_signup( form ) {
 function Valida_login( opc ) {
   var message = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>';
   var ok = true;
-  if (opc == 1) {
-    message += '<span>La contraseña es incorrecta</span><br/>';
+  if (opc == "1") {
+    message += '<span>La contraseña es incorrecta.</span><br/>';
     ok = false;
   }
-  if (opc == 2) {
-    message += '<span>El email introducido no está registrado</span><br/>';
+  if (opc == "2") {
+    message += '<span>El email introducido no está registrado.</span><br/>';
+    ok = false;
+  }
+  if (opc == "3") {
+    message += '<span>Se ha generado una nueva contraseña. La recibirá en su correo electrónico.</span><br/>';
     ok = false;
   }
   message += '</div>';
