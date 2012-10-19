@@ -1,4 +1,16 @@
-%h1 Se ha generado una nueva contraseña
-
-%h2 Hola #{us.name}.
-%h3  -Tu nueva contraseña es: #{us.password}
+%div
+  %div
+    %a{:href => "localhost:4567", :target => "_blank"}
+      %img{:alt => "ir a Página principal de PAU", "margin-right" => "20px", :style => "vertical-align: middle;", :height => "50px", :width => "50px", :src => "http://web.educastur.princast.es/conc/patronatosanjose/Material/Libros/libros.gif"} 
+    %span{:style => "font-size:40px;"} Plataforma Académica Universitaria
+  %div{"padding-left" => "30px"}
+    %h2 Se ha generado una nueva contraseña
+    %h3 Hola #{us.name}. Tal y como haz solixitado, hemos creado una nueva contraseña para la cuanta con correo #{us.email}
+    %h4 Tu nueva contraseña es: #{us.password}
+    %br
+    Para iniciar sesión ahora haz click en este enlace: 
+    %a{:href => "localhost:4567/login", :target => "_blank"} localhost:4567/login
+  %br
+  %div
+    Copyright &copy; 2012 
+    %a{:href => "localhost:4567", :target => "_blank"} localhost:4567

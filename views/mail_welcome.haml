@@ -1,5 +1,18 @@
-%h1 Bienvenido a proyecto PAU!
-
-%h2 Hola #{us.name}, gracias por registrarte. Estos son tus datos:
-%h3  -Email: #{us.email}
-%h3  -Contraseña: #{us.password}
+%div
+  %div
+    %a{:href => "localhost:4567", :target => "_blank"}
+      %img{:alt => "ir a Página principal de PAU", "margin-right" => "20px", :style => "vertical-align: middle;", :height => "50px", :width => "50px", :src => "http://web.educastur.princast.es/conc/patronatosanjose/Material/Libros/libros.gif"} 
+    %span{:style => "font-size:40px;"} Plataforma Académica Universitaria
+  %div{"padding-left" => "30px"}
+    %h2 Bienvenido a PAU!
+    %h3 Hola #{us.name}, gracias por registrarte. Puedes usar estos datos para iniciar sesión:
+    %ul
+      %li  Email: #{us.email}
+      %li  Contraseña: #{us.password}
+    %br
+    Para iniciar sesión ahora haz click en este enlace: 
+    %a{:href => "localhost:4567/login", :target => "_blank"} localhost:4567/login
+  %br
+  %div
+    Copyright &copy; 2012 
+    %a{:href => "localhost:4567", :target => "_blank"} localhost:4567

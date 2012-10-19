@@ -6,10 +6,11 @@
       %h3{:align => "center"} Nueva Contraseña
       %form(action="/forgotten_pass" method="POST" onSubmit="return Valida_changepass(this);")
         %input.span12(placeholder= "Correo electrónico" type="text" name="email")
-        %button.btn.btn-success{:type => "submit"} Enviar
+        %center
+          %button.btn.btn-success{:type => "submit"} Enviar
     .span1
     .span7
-      %p las fotos no son estas, esta claro xD
+      %p 
       #myCarousel.carousel.slide
         .carousel-inner
           .item

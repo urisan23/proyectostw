@@ -4,7 +4,7 @@
     #alert_placeholder
   .row-fluid
     .span8
-      %p las fotos no son estas, esta claro xD
+      %p
       #myCarousel.carousel.slide
         .carousel-inner
           .item
@@ -24,11 +24,12 @@
     .span1
     .span3
       %h3 Inicio de sesión
-      %form(action="login" method="POST")
+      %form(action="login" method="POST" align="center")
         %input.span12(placeholder= "Correo electrónico" type="text" name="email")
         %input.span12(placeholder= "Contraseña" type="password" name="password")
-        %a{:href => "/forgotten_pass"} Olvidó su contraseña?
-        %button.btn.btn-warning{:type => "submit"} Entrar
+        %center
+          %a.span12{:href => "/forgotten_pass"} ¿Olvidó su contraseña?
+          %button.btn.btn-warning{:type => "submit"} Entrar
       %h4{:align=> "center"} ¿Eres nuevo?
       %form(action="signup")
         %button.btn.btn-info.span12{:type => "submit"} ¡Registrate ahora!
