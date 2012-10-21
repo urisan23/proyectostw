@@ -1,64 +1,130 @@
 %h3 Página de ayuda
+.tabbable.tabs-left{:style => "margin-bottom: 18px;"}
+  %ul.nav.nav-tabs
+    %li.active
+      %a{"data-toggle" => "tab", :href => "#signup"} Registro
+    %li
+      %a{"data-toggle" => "tab", :href => "#files"} Archivos
+    %li
+      %a{"data-toggle" => "tab", :href => "#groups"} Grupos
+    %li
+      %a{"data-toggle" => "tab", :href => "#profile"} Perfil
+    %li
+      %a{"data-toggle" => "tab", :href => "#faqs"} FAQs
+  .tab-content{:style => "padding-bottom: 9px; border-bottom: 1px solid #ddd;"}
+    #signup.tab-pane.active
+      %p Explicación del registro.
+    #files.tab-pane
+      %p Explicación de subida y descarga de archivos.
+    #groups.tab-pane
+      %p Explicación grupos.
+    #profile.tab-pane
+      %p Explicación perfil.
+    #faqs.tab-pane
+      %p FAQs.
 
-%font{:size => "4"}
-	%b FAQs
-%p
-%li
-	%b 
-		¿Qué es PAU?
-		%p
-			PAU son las siglas de Plataforma Académica Universitaria. Es una plataforma web donde los alumnos de cualquier universidad
-			pueden registrarse y matricularse en las asignaturas de su titulación. En ella, podrán gestionar sus asignaturas y descargar
-			y compartir apuntes y demás recursos. Actualmente, está en fase de desarrollo.
-%li
-	%b
-		¿Cómo entrar?
-		%p
-			Simplemente debes ir a la 
-			%a{:href => '/'}página de inicio 
-			y hacer clic en
-			%i Regístrate ahora.
-			Rellena el formulario y una vez hecho se te enviará al correo un email de confirmación. Pincha en el link que te aparezca
-			y serás dado de alta correctamente.
-%li
-	%b
-		¿Qué hago si he olvidado la contraseña?
-		%p
-			Pincha sobre el botón
-			%i¿Olvidó su contraseña?
-			en el menú inicio y sigue los pasos en pantalla.
-%li
-	%b
-		¿Cómo matricularse de una asignatura?
-		%p
-%li
-	%b
-		¿Cómo se pueden subir archivos para compartir?
-		%p
-%li
-	%b
-		¿Cómo modifico mis datos de perfil?
-		%p
-%li
-	%b
-		¿Cómo puedo entrar en un grupo de discusión?
-		%p
-%li
-	%b
-		Mi pregunta no figura aquí. ¿Cómo puedo ponerme en contacto con el soporte?
-		%p
-			Debes dirigirte a la
-			%a{:href => '/contact'}página de contacto.
-			En ella aparece los integrantes del soporte y sus direcciones de correo para cualquier incidencia. También se encuentran abiertos
-			a cualquier sugerencia o mejora de la plataforma.
-%li
-	%b
-		Estoy interesado en colaborar en este proyecto. ¿Es posible?
-		%p
-			Por supuesto. Todo lo que tienes que hacer es clonar el repositorio de nuestro proyecto en
-			%a{:href => 'https://github.com/urisan23/proyectostw'}GitHub
-			y hacer un notificarnos de los cambios que has introducido.
-			Si nos parece interesante la propuesta, la añadiremos a la plataforma.
-			
-%font{:size => "4"}
-	%a{:href => "/"} Regresar
+.container
+  .row
+    .span3.bs-docs-sidebar
+      %ul.nav.nav-list.bs-docs-sidenav
+        %li
+          %a{:href => "#signup"}
+            %i.icon-chevron-right
+            Registro
+        %li
+          %a{:href => "#files"}
+            %i.icon-chevron-right
+            Archivos
+        %li
+          %a{:href => "#groups"}
+            %i.icon-chevron-right
+            Grupos
+        %li
+          %a{:href => "#profile"}
+            %i.icon-chevron-right
+            Perfil
+        %li
+          %a{:href => "#FAQs"}
+            %i.icon-chevron-right
+            FAQs
+    .span7
+      %section#signup
+        %font{:size => "4"}
+          %b Registro
+        %p
+      %section#files
+        %font{:size => "4"}
+          %b Archivos
+        %p
+      %section#groups
+        %font{:size => "4"}
+          %b Grupos
+        %p
+      %section#profile
+        %font{:size => "4"}
+          %b Perfil
+        %p
+      %section#FAQs        
+      
+        %font{:size => "4"}
+          %b FAQs
+        %p
+        %li
+          %b 
+            ¿Qué es PAU?
+            %p
+              PAU son las siglas de Plataforma Académica Universitaria. Es una plataforma web donde los alumnos de cualquier universidad
+              pueden registrarse y matricularse en las asignaturas de su titulación. En ella, podrán gestionar sus asignaturas y descargar
+              y compartir apuntes y demás recursos. Actualmente, está en fase de desarrollo.
+        %li
+          %b
+            ¿Cómo entrar?
+            %p
+              Simplemente debes ir a la 
+              %a{:href => '/'}página de inicio 
+              y hacer clic en
+              %i Regístrate ahora.
+              Rellena el formulario y una vez hecho se te enviará al correo un email de confirmación. Pincha en el link que te aparezca
+              y serás dado de alta correctamente.
+        %li
+          %b
+            ¿Qué hago si he olvidado la contraseña?
+            %p
+              Pincha sobre el botón
+              %i¿Olvidó su contraseña?
+              en el menú inicio y sigue los pasos en pantalla.
+        %li
+          %b
+            ¿Cómo matricularse de una asignatura?
+            %p
+        %li
+          %b
+            ¿Cómo se pueden subir archivos para compartir?
+            %p
+        %li
+          %b
+            ¿Cómo modifico mis datos de perfil?
+            %p
+        %li
+          %b
+            ¿Cómo puedo entrar en un grupo de discusión?
+            %p
+        %li
+          %b
+            Mi pregunta no figura aquí. ¿Cómo puedo ponerme en contacto con el soporte?
+            %p
+              Debes dirigirte a la
+              %a{:href => '/contact'}página de contacto.
+              En ella aparece los integrantes del soporte y sus direcciones de correo para cualquier incidencia. También se encuentran abiertos
+              a cualquier sugerencia o mejora de la plataforma.
+        %li
+          %b
+            Estoy interesado en colaborar en este proyecto. ¿Es posible?
+            %p
+              Por supuesto. Todo lo que tienes que hacer es clonar el repositorio de nuestro proyecto en
+              %a{:href => 'https://github.com/urisan23/proyectostw'}GitHub
+              y hacer un notificarnos de los cambios que has introducido.
+              Si nos parece interesante la propuesta, la añadiremos a la plataforma.
+
+        %font{:size => "4"}
+          %a{:href => "/"} Regresar
