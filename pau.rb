@@ -97,15 +97,12 @@ end
 
 post '/edit_profile' do
    aux = session[:current_user]
-   aux.name = params[:name] if params[:name] != nil
-	aux.surnames = params[:surnames] if params[:surnames] != nil
-	aux.email = params[:email] if params[:email] != nil
-	aux.username = params[:username] if params[:username] != nil
-	aux.password = params[:password] if params[:password] != nil
-	aux.comment = params[:comment] if params[:comment] != nil
-   aux.password = Digest::MD5.hexdigest(aux.password)
+   aux.name = params[:name]
+   aux.surnames = params[:surnames]
+   aux.comment = params[:comment]
    aux.save
-	session.clear
+
+   session.clear
    redirect '/'
 end
 
