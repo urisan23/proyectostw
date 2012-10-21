@@ -1,5 +1,27 @@
 %h1 Mi Perfil
 
 %h2 Hola #{us.name}, bienvenido    
+%br
 
+%b Nombre completo:
+#{us.name} #{us.surnames}
+%br
+
+%b Email: 
+#{us.email}
+%br
+
+%b Archivos compartidos:
+Poner aqui un contador
+%br
+
+%b Sobre mi:
+#{us.comment}
+%br
+
+%br
+%a{:href => "/edit_profile"} Editar perfil   
+%br
+
+%br
 %a{:href => "/logout"} Cerrar sesión

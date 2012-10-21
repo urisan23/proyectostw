@@ -17,6 +17,7 @@ class User
   property :username, String
   property :email, String
   property :password, String
+  property :comment, String
 end
 
 #Actualiza los cambios
@@ -79,6 +80,7 @@ post '/signup' do
   aux.email = params[:email]
   aux.password = params[:password]
   aux.username = params[:username]
+  aux.comment = ""
   aux.password = Digest::MD5.hexdigest(aux.password)
   aux.save
   redirect '/login'
@@ -89,9 +91,22 @@ get '/profile' do
    haml :profile, :locals => { :us => session[:current_user]}
 end
 
-get '/profile' do
-   session[:log] = "1"
-   haml :profile, :locals => { :us => session[:current_user]}
+get '/edit_profile' do
+   haml :edit_profile, :locals => { :us => session[:current_user]}
+end
+
+post '/edit_profile' do
+   aux = session[:current_user]
+   aux.name = params[:name] if params[:name] != nil
+	aux.surnames = params[:surnames] if params[:surnames] != nil
+	aux.email = params[:email] if params[:email] != nil
+	aux.username = params[:username] if params[:username] != nil
+	aux.password = params[:password] if params[:password] != nil
+	aux.comment = params[:comment] if params[:comment] != nil
+   aux.password = Digest::MD5.hexdigest(aux.password)
+   aux.save
+	session.clear
+   redirect '/'
 end
 
 get '/showall' do

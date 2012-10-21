@@ -1,0 +1,32 @@
+%h1 Editar perfil
+%br
+%form{:action => "/edit_profile", :method => "post"}
+  Nuevo nombre: 
+  %input{:type => "text", :name => "name"}
+  %br
+  
+  Nuevos apellidos: 
+  %input{:type => "text", :name => "surnames"}
+  %br
+  
+  Nuevo email: 
+  %input{:type => "text", :name => "email"}
+  %br
+  
+  Nuevo username: 
+  %input{:type => "text", :name => "username"}
+  %br
+  
+  Nuevo password: 
+  %input{:type => "password", :name => "password"}
+  %br
+  
+  Sobre mi:
+  %input{:type => "text", :name => "comment"}
+  %br
+  
+  %center
+    %button{:type => "submit"}Aceptar
+  %br
+%br
+%a{:href => "/"} Regresar
