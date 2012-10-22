@@ -4,6 +4,7 @@ require 'sinatra'
 require 'haml'
 require 'data_mapper'
 require 'erb'
+require 'aws/s3'
 
 # Define ruta de la base de datos
 DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/usuarios.db" )
@@ -105,3 +106,26 @@ end
 get '/contact' do
 	haml :contact
 end
+
+#Subida de archivos a Amazon
+get '/upload' do
+   haml :upload
+end
+
+post '/upload' do
+   unless params[:file] && (tmpfile = params:[:file][:tempfile]) && (name = params[:file][:filename])
+     return haml(:upload)
+   end
+   while blk = tmpfile.read(65536)
+      AWS::S3::Base.establish_connection!(:access_key_id => settings.s3_key, :secret_access_key => settings.s3.secret)
+      AWS::S3::S3Object.store(name, open(tmpfile), settings.bucket, :access => :public_read)
+      #File.open(File.join(Dir.pwd,"public/uploads", name), "wb") {|f| f.write(tmpfile.read)}
+   end
+   'success'
+end
+
+set :bucket, 'mybucket'
+set :s3_key, #Colocar aqui clave de ID (mas adelante)
+set :s3_secret, #Ejemplo de secreto (mas adelante)
+
+
