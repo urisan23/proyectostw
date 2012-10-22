@@ -2,4 +2,31 @@
 
 %h2 Hola #{us.name}, bienvenido    
 
+%table{:border => "1"}
+  %tr
+    %td
+      %img{:src => "/img/f1.png", :alt => "image"}
+%br
+
+%b Nombre completo:
+#{us.name} #{us.surnames}
+%br
+
+%b Email: 
+#{us.email}
+%br
+
+%b Archivos compartidos:
+Poner aqui un contador
+%br
+
+%b Sobre mi:
+#{us.comment}
+%br
+
+%br
+%a{:href => "/edit_profile"} Editar perfil   
+%br
+
+%br
 %a{:href => "/logout"} Cerrar sesión
