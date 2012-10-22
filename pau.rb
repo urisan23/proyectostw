@@ -25,20 +25,25 @@ DataMapper.auto_upgrade!
 
 #Activa las coockies
 configure do
-	enable :sessions
+  enable :sessions
 end
 
 
 get '\/' do
-	session[:log] = "0" if session[:log].nil?
-	redirect '/login' if session[:log] == "0"
-	redirect '/profile' if session[:log] == "1"
+  if session[:log]
+    redirect '/login'
+  else
+    redirect '/profile'
+  end
 end
 
 get '/login' do
-   redirect '/profile' if session[:log] == "1"
-   session[:failed_log] = 0
-   haml :login, :locals => { :opc => session[:failed_log]}
+  session[:failed_log] = 0
+  if session[:log]
+    redirect '/profile' 
+  else
+    haml :login, :locals => { :opc => session[:failed_log]}
+  end
 end
 
 post '/login' do
@@ -48,7 +53,7 @@ post '/login' do
   if user != nil
     if Digest::MD5.hexdigest(pass) == User.first(:email => email).password
       session[:current_user] = User.first(:email => email)
-      session[:log] = 1
+      session[:log] = TRUE
       redirect '/profile'
     else
       session[:failed_log] = 1   #[usuario existe, contraseña incorrecta]   
@@ -87,8 +92,11 @@ post '/signup' do
 end
 
 get '/profile' do
-   session[:log] = "1"
-   haml :profile, :locals => { :us => session[:current_user]}
+  if session[:log] == nil
+    redirect '/login'
+  else
+    haml :profile, :locals => { :us => session[:current_user]}
+  end
 end
 
 get '/edit_profile' do
@@ -96,14 +104,18 @@ get '/edit_profile' do
 end
 
 post '/edit_profile' do
-   aux = session[:current_user]
-   aux.name = params[:name]
-   aux.surnames = params[:surnames]
-   aux.comment = params[:comment]
-   aux.save
-
-   session.clear
-   redirect '/'
+  aux = session[:current_user]
+  aux.name = params[:name]
+  aux.surnames = params[:surnames]
+  aux.comment = params[:comment]
+  if params[:password] != ""
+    aux.password = Digest::MD5.hexdigest(params[:password])
+  end
+  session.clear
+  aux.save
+  session[:current_user] = User.first(:email => aux.email)
+  session[:log] = TRUE
+  redirect '/profile'
 end
 
 get '/showall' do
@@ -111,9 +123,9 @@ get '/showall' do
 end
 
 get '/help' do
-	haml :help
+  haml :help
 end
 
 get '/contact' do
-	haml :contact
+  haml :contact
 end
