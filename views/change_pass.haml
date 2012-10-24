@@ -1,0 +1,20 @@
+%h1 Cambiar contraseña
+%br
+
+%form{:action => "/change_pass", :method => "post"}
+  Contraseña actual
+  %input{:type => "password", :name => "password"}
+  %br
+  
+  Nueva contraseña
+  %input{:type => "password", :name => "new_password"}
+  %br
+  
+  Repita la nueva contraseña
+  %input{:type => "password", :name => "repeat_new_password"}
+  %br
+  
+  %button{:type => "submit"} Aceptar
+  %br
+%br
+%a{:href => "/"} Regresar

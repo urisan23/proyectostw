@@ -26,10 +26,8 @@ end
 #Actualiza los cambios
 DataMapper.auto_upgrade!
 
-#Activa las coockies
-configure do
-  enable :sessions
-end
+#Activa las coockies y expiran en 30 minutos
+use Rack::Session::Cookie, :expire_after => 1800
 
 get '\/' do
   if session[:log]
@@ -78,6 +76,7 @@ get '/signup' do
   }
   haml :signup, :locals => { :used_usrs => usernames, :used_emails => emails}
 end
+
 post '/signup' do
   aux = User.new
   aux.name = params[:name]
@@ -116,14 +115,13 @@ post '/edit_profile' do
   aux.name = params[:name]
   aux.surnames = params[:surnames]
   aux.comment = params[:comment]
-  if params[:password] != ""
-    aux.password = Digest::MD5.hexdigest(params[:password])
-  end
   session.clear
   aux.save
   session[:current_user] = User.first(:email => aux.email)
   session[:log] = TRUE
   redirect '/profile'
+end
+
 get '/forgotten_pass' do
   emails = []
   User.all.each{|us|
@@ -131,6 +129,7 @@ get '/forgotten_pass' do
   }
   haml :forgotten_pass, :locals => { :used_emails => emails}
 end
+
 post '/forgotten_pass' do
   user = User.first(:email => params[:email])
   user.password=""
@@ -149,12 +148,45 @@ post '/forgotten_pass' do
   user.save
   haml :login, :locals => { :opc => "3"}
 end
+
+get '/change_pass' do
+  haml :change_pass
+end
+
+post '/change_pass' do
+  aux = session[:current_user]
+  session[:change_password] = FALSE
+  
+  if aux.password == Digest::MD5.hexdigest(params[:password])
+    if params[:new_password] != ""
+      if params[:repeat_new_password] != ""
+        if params[:new_password] == params[:repeat_new_password]
+          aux.password = Digest::MD5.hexdigest(params[:new_password])
+          session[:change_password] = TRUE
+        end
+      end
+    end
+  end
+  
+  if session[:change_password] == FALSE
+    redirect 'change_pass'
+  end
+  
+  session.clear
+  aux.save
+  session[:current_user] = User.first(:email => aux.email)
+  session[:log] = TRUE
+  redirect '/profile'
+end
+
 get '/showall' do
   haml :showall, :locals => { :us => User.all }
 end
+
 get '/help' do
   haml :help
 end
+
 get '/contact' do
   haml :contact
 end

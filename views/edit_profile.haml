@@ -16,10 +16,6 @@
   Username: 
   %input{:type => "text", :name => "username", :value => "#{us.username}", :disabled => "disabled"}
   %br
-  
-  Contraseña: 
-  %input{:type => "text", :name => "password"}
-  %br
 
   Sobre mi:
   %input{:type => "text", :name => "comment", :value => "#{us.comment}"}
@@ -28,10 +24,9 @@
   Foto:
   %input{:type => "text", :value => "url foto"}
   %br
+  %br
   
-  %center
-    %button{:type => "submit"}Aceptar
-    *¡Aviso, requiere loguearse de nuevo!
+  %button{:type => "submit"}Aceptar
   %br
 %br
 %a{:href => "/"} Regresar
