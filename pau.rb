@@ -124,8 +124,8 @@ post '/upload' do
    'success'
 end
 
-set :bucket, 'mybucket'
-set :s3_key, #Colocar aqui clave de ID (mas adelante)
-set :s3_secret, #Ejemplo de secreto (mas adelante)
+set :bucket, 'Proyecto PAU'
+set :s3_key, 'AKIAJIJ3MM5NBA7KR3NQ'
+set :s3_secret,'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'
 
 
