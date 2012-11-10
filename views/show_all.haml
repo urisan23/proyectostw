@@ -1,0 +1,21 @@
+%h1 BBDD
+%h2 Users
+%table
+  - us.each do|u|
+    %tr
+      %td= u.name
+      %td= u.email
+%h2 Subjects
+%table
+  - sub.each do|s|
+    %tr
+      %td= s.subjectname
+      %td= s.course
+      %td
+%h2 Files
+%table
+  - sub_f.each do|sf|
+    %tr
+      %td= sf.filename
+      %td
+

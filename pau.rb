@@ -5,13 +5,19 @@ require 'haml'
 require 'data_mapper'
 require 'erb'
 require 'pony'
+require_relative 'bbdd'
 #Configuración smtp
 smtp_options = {:host => 'smtp.gmail.com',:port => '587',:user => 'proyectopau100@gmail.com',
                 :password => 'pau123456', :auth => :plain, :tls => true }
 # Define ruta de la base de datos
-DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/usuarios.db" )
+DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/bbdd.db" )
 
-# Define modelo de la base de datos
+#ESQUEMA BBDD
+
+# Usuario -(matriculado_de)(n)-> Asignaturas
+# Asignatura -(tiene)(n)-> Archivos
+
+##Modelo de Usuario
 class User
   include DataMapper::Resource
   property :id, Serial
@@ -21,9 +27,27 @@ class User
   property :email, String
   property :password, String
   property :comment, String
+  #has n, :subjects
 end
 
+##Modelo de Asignatura
+class Subject
+  include DataMapper::Resource
+  property :id, Serial
+  property :subjectname, String
+  property :course, Integer
+  #belongs_to :user
+end
+
+
+##Modelo de Archivo de una Asignatura
+class Subject_File
+  include DataMapper::Resource
+  property :id, Serial
+  property :filename, String
+end
 #Actualiza los cambios
+DataMapper.auto_migrate!
 DataMapper.auto_upgrade!
 
 #Activa las coockies
@@ -124,6 +148,7 @@ post '/edit_profile' do
   session[:current_user] = User.first(:email => aux.email)
   session[:log] = TRUE
   redirect '/profile'
+end
 get '/forgotten_pass' do
   emails = []
   User.all.each{|us|
