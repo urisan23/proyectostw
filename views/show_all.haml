@@ -5,6 +5,8 @@
     %tr
       %td= u.name
       %td= u.email
+      - u.subjects.each do |a|
+        %td= a.subjectname
 %h2 Subjects
 %table
   - sub.each do|s|

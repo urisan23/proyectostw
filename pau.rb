@@ -13,10 +13,8 @@ smtp_options = {:host => 'smtp.gmail.com',:port => '587',:user => 'proyectopau10
 DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/bbdd.db" )
 
 #ESQUEMA BBDD
-
 # Usuario -(matriculado_de)(n)-> Asignaturas
 # Asignatura -(tiene)(n)-> Archivos
-
 ##Modelo de Usuario
 class User
   include DataMapper::Resource
@@ -27,21 +25,18 @@ class User
   property :email, String
   property :password, String
   property :comment, String
-  #has n, :subjects
+  has n, :subjects, :through => Resource
 end
-
 ##Modelo de Asignatura
 class Subject
   include DataMapper::Resource
   property :id, Serial
   property :subjectname, String
   property :course, Integer
-  #belongs_to :user
+  has n, :files, :through => Resource
 end
-
-
 ##Modelo de Archivo de una Asignatura
-class Subject_File
+class File
   include DataMapper::Resource
   property :id, Serial
   property :filename, String

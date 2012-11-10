@@ -4,10 +4,6 @@
 #
 #
 #
-
-
-
-
 get '/bbdd/populate_subjects' do
   primero = ["Informatica Basica","Algebra","Calculo","Fundamentos Fisicos para la Ingenieria","Organizaciones Empresariales","Algoritmos y Estructura de Datos","Principios de Computadores","Optimizacion","Sistemas Electronicos Digitales","Expresion Grafica en Ingenieria"]
   segundo = ["Estadistica","Computabilidad y Algoritmia","Estructura de Computadores","Sistemas Operativos","Ingles Tecnico","Algoritmos y Estructura de Datos Avanzados","Redes y Sistemas Distribuidos","Administracion de Sistemas","Fundamentos de Ingenieria del Software","Codigo Deontologico y Aspectos Legales"]
@@ -39,6 +35,6 @@ get '/bbdd/populate_subjects' do
   }
 end
 get '/bbdd/show_all' do
-  haml :show_all, :locals => { :us => User.all, :sub => Subject.all, :sub_f => Subject_File.all }
+  haml :show_all, :locals => { :us => User.all, :sub => Subject.all, :sub_f => File.all }
 end
 
