@@ -6,7 +6,7 @@ DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/bbdd.db" )
 # Asignatura -(tiene)(n)-> Archivos
 
 #Metodos:
-#  -bbdd/populate_subjects
+#  -bbdd/populate
 #  -bbdd/show_all
 #  -bbdd/destroy_users
 #  -bbdd/destroy_subjects
@@ -43,7 +43,11 @@ end
 #Actualiza los cambios
 DataMapper.auto_upgrade!
 
-get '/bbdd/populate_subjects' do
+get '/bbdd/populate' do
+#BORRAR BBDD
+Subject.all.each{|aux| aux.destroy!}
+User.all.each{|aux| aux.destroy!}
+#SUBJECTS
   primero = ["Informatica Basica","Algebra","Calculo","Fundamentos Fisicos para la Ingenieria","Organizaciones Empresariales","Algoritmos y Estructura de Datos","Principios de Computadores","Optimizacion","Sistemas Electronicos Digitales","Expresion Grafica en Ingenieria"]
   segundo = ["Estadistica","Computabilidad y Algoritmia","Estructura de Computadores","Sistemas Operativos","Ingles Tecnico","Algoritmos y Estructura de Datos Avanzados","Redes y Sistemas Distribuidos","Administracion de Sistemas","Fundamentos de Ingenieria del Software","Codigo Deontologico y Aspectos Legales"]
   tercero = ["Procesadores de Lenguajes","Diseno y Analisis de Algoritmos","Program. de Aplicaciones Interactivas","Inteligencia Artificial Avanzada","Tratamiento Inteligente de Datos","Diseno de Procesadores","Arquitectura de Computadores","Redes de Computadores","Laboratorio de Redes","Sistemas Operativos Avanzados","Modelado de Sistemas de Software","Analisis de Sistemas de Software","Modelado de Datos","Gestion de Riesgos","Gestion de la Calidad","Control de Calidad","Sistemas de Informacion para las Organizaciones","Seguridad en Sistemas Informaticos","Desarrollo de Sistemas Informaticos","Usabilidad y Accesibilidad"]
@@ -72,6 +76,15 @@ get '/bbdd/populate_subjects' do
     subject.course = 4
     subject.save
   }
+#USER (añade el tuyo)
+  aux = User.new
+  aux.name = "Uriel"
+  aux.surnames = "Sanchez"
+  aux.email = "urisan91@gmail.com"
+  aux.password = Digest::MD5.hexdigest("123456")
+  aux.username = "urisan"
+  aux.comment = ""
+  aux.save
 end
 get '/bbdd/show_all' do
   haml :show_all, :locals => { :us => User.all, :sub => Subject.all, :sub_f => File.all }

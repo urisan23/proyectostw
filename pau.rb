@@ -126,9 +126,6 @@ post '/forgotten_pass' do
   user.save
   haml :login, :locals => { :opc => "3"}
 end
-get '/showall' do
-  haml :showall, :locals => { :us => User.all }
-end
 get '/help' do
   haml :help
 end
