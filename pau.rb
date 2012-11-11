@@ -1,54 +1,11 @@
 #!/usr/bin/env ruby
-require 'rubygems'
 require 'sinatra'
-require 'haml'
-require 'data_mapper'
-require 'erb'
-require 'pony'
-require_relative 'bbdd'
+require_relative 'modules/config'
+require_relative 'modules/bbdd'
+
 #Configuración smtp
 smtp_options = {:host => 'smtp.gmail.com',:port => '587',:user => 'proyectopau100@gmail.com',
                 :password => 'pau123456', :auth => :plain, :tls => true }
-# Define ruta de la base de datos
-DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/bbdd.db" )
-
-#ESQUEMA BBDD
-# Usuario -(matriculado_de)(n)-> Asignaturas
-# Asignatura -(tiene)(n)-> Archivos
-##Modelo de Usuario
-class User
-  include DataMapper::Resource
-  property :id, Serial
-  property :name, String
-  property :surnames, String
-  property :username, String
-  property :email, String
-  property :password, String
-  property :comment, String
-  has n, :subjects, :through => Resource
-end
-##Modelo de Asignatura
-class Subject
-  include DataMapper::Resource
-  property :id, Serial
-  property :subjectname, String
-  property :course, Integer
-  has n, :files, :through => Resource
-end
-##Modelo de Archivo de una Asignatura
-class File
-  include DataMapper::Resource
-  property :id, Serial
-  property :filename, String
-end
-#Actualiza los cambios
-DataMapper.auto_migrate!
-DataMapper.auto_upgrade!
-
-#Activa las coockies
-configure do
-  enable :sessions
-end
 
 get '\/' do
   if session[:log]
@@ -177,4 +134,25 @@ get '/help' do
 end
 get '/contact' do
   haml :contact
+end
+get '/subjects' do
+  haml :subjects, :locals => { :sub => Subject.all, :us => session[:current_user]}
+end
+get '/register/:sub' do|sub|
+  aux = session[:current_user]
+  aux.subjects << Subject.get(sub)
+  session.clear
+  aux.save
+  session[:current_user] = User.first(:email => aux.email)
+  session[:log] = TRUE
+  redirect '/subjects'
+end
+get '/unregister/:sub' do|sub|
+  aux = session[:current_user]
+  aux.subjects.intermediaries.get(aux.id,Subject.all.get(sub).id).destroy!
+  session.clear
+  aux.save
+  session[:current_user] = User.first(:email => aux.email)
+  session[:log] = TRUE
+  redirect '/subjects'
 end

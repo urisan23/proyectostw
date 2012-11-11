@@ -7,6 +7,7 @@
       %td= u.email
       - u.subjects.each do |a|
         %td= a.subjectname
+        %td= a.id
 %h2 Subjects
 %table
   - sub.each do|s|

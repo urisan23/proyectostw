@@ -1,0 +1,12 @@
+%h1 Subjects
+%table
+  - sub.each do|s|
+    %tr
+      %td= s.subjectname
+      %td= s.course
+      - if us.subjects.member?(s)
+        %td
+          %a{:href => "/unregister/#{s.id}"} Desmatricular
+      - else
+        %td
+          %a{:href => "/register/#{s.id}"} Matricular
