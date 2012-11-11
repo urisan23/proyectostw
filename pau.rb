@@ -113,13 +113,12 @@ get '/upload' do
 end
 
 post '/upload' do
-   unless params[:file] && (tmpfile = params:[:file][:tempfile]) && (name = params[:file][:filename])
+   unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
      return haml(:upload)
    end
    while blk = tmpfile.read(65536)
       AWS::S3::Base.establish_connection!(:access_key_id => settings.s3_key, :secret_access_key => settings.s3.secret)
       AWS::S3::S3Object.store(name, open(tmpfile), settings.bucket, :access => :public_read)
-      #File.open(File.join(Dir.pwd,"public/uploads", name), "wb") {|f| f.write(tmpfile.read)}
    end
    'success'
 end
