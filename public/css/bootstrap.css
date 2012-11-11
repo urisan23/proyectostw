@@ -75,6 +75,15 @@ img {
   -ms-interpolation-mode: bicubic;
 }
 
+.profile {
+  width: auto;
+  height: auto;
+  max-width: 300px;
+  vertical-align: middle;
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+
 #map_canvas img {
   max-width: none;
 }
@@ -86,6 +95,7 @@ textarea {
   margin: 0;
   font-size: 100%;
   vertical-align: middle;
+  max-width: 100%;
 }
 
 button,
@@ -5731,7 +5741,7 @@ a.badge:hover {
 }
 
 .hero-unit {
-  padding: 60px;
+  padding: 30px;
   margin-bottom: 30px;
   background-color: #eeeeee;
   -webkit-border-radius: 6px;

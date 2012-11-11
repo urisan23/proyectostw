@@ -1,36 +1,56 @@
-%h1 Mi Perfil
+%body{:onload => "change_pass(#{o if defined? o});"}
+.row-fluid
+  #alert_placeholder2
+.row-fluid
+  .span3
+    .hero-unit
+      %center
+        %h3 #{us.name}   
+        %table{:border => "1"}
+          %tr
+            %td
+              %img.profile{:src => "#{us.image}", :alt => "imagen de perfil"}
+      %br
+      %p
+      %b Nombre:
+      #{us.name} #{us.surnames}
+      %p
+      %b Email: 
+      #{us.email}
+      %p
+      %b Archivos compartidos:
+      Poner aqui un contador
+      %p
+      %b Mensajes nuevos:
+      Poner aqui un contador
+      %p
+      %b Sobre mi:
+      = Haml::Engine.new(us.comment.gsub(10.chr, '<br/>')).render
+      %p
+      %br
+      %center
+        %span
+          %a.btn.btn-info{"data-toggle" => "modal", :href => "#myModal", :role => "button"} Editar perfil
+        %span
+          %a.btn.btn-warning{"data-toggle" => "modal", :href => "#myModal2", :role => "button"} Cambiar contraseña
+      #myModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          %h3#myModalLabel Editar perfil
+        .modal-body
+          = haml :edit_profile, :locals => { :us => session[:current_user]}  
+      #myModal2.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel2", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          %h3#myModalLabel2 Cambiar contraseña
+        .modal-body
+          = haml :change_pass, :locals => { :us => session[:current_user]} 
+  .span9
+    .hero-unit
+      %h3 Asignaturas matriculadas
+      
 
-%h2 Hola #{us.name}, bienvenido    
-
-%table{:border => "1"}
-  %tr
-    %td
-      %img{:src => "/img/f1.png", :alt => "image"}
-%br
-
-%b Nombre completo:
-#{us.name} #{us.surnames}
-%br
-
-%b Email: 
-#{us.email}
-%br
-
-%b Archivos compartidos:
-Poner aqui un contador
-%br
-
-%b Sobre mi:
-#{us.comment}
-%br
-
-%br
-%a{:href => "/edit_profile"} Editar perfil   
-%br
-
-%br
-%a{:href => "/change_pass"} Cambiar contraseña
-%br
-
-%br
-%a{:href => "/logout"} Cerrar sesión
+            
+            
+    .hero-unit
+      %h3 Grupos a los que perteneces

@@ -20,14 +20,15 @@ class User
   property :username, String
   property :email, String
   property :password, String
-  property :comment, String
+  property :comment, String, :length => 512
+  property :image, String, :length => 512, :default => "/img/f1.png"
 end
 
 #Actualiza los cambios
 DataMapper.auto_upgrade!
 
-#Activa las coockies y expiran en 30 minutos
-use Rack::Session::Cookie, :expire_after => 1800
+#Activa las coockies y expiran en 5 minutos
+use Rack::Session::Cookie, :expire_after => 600
 
 get '\/' do
   if session[:log]
@@ -102,12 +103,8 @@ get '/profile' do
   if session[:log] == nil
     redirect '/login'
   else
-    haml :profile, :locals => { :us => session[:current_user]}
+    haml :profile, :locals => { :us => session[:current_user] }
   end
-end
-
-get '/edit_profile' do
-   haml :edit_profile, :locals => { :us => session[:current_user]}
 end
 
 post '/edit_profile' do
@@ -115,6 +112,7 @@ post '/edit_profile' do
   aux.name = params[:name]
   aux.surnames = params[:surnames]
   aux.comment = params[:comment]
+  aux.image = params[:image] if params[:image] != ""
   session.clear
   aux.save
   session[:current_user] = User.first(:email => aux.email)
@@ -149,9 +147,6 @@ post '/forgotten_pass' do
   haml :login, :locals => { :opc => "3"}
 end
 
-get '/change_pass' do
-  haml :change_pass
-end
 
 post '/change_pass' do
   aux = session[:current_user]
@@ -169,14 +164,14 @@ post '/change_pass' do
   end
   
   if session[:change_password] == FALSE
-    redirect 'change_pass'
+    haml :profile, :locals => { :us => session[:current_user], :o => "1"}
+  else
+    session.clear
+    aux.save
+    session[:current_user] = User.first(:email => aux.email)
+    session[:log] = TRUE
+    haml :profile, :locals => { :us => session[:current_user], :o => "0"}
   end
-  
-  session.clear
-  aux.save
-  session[:current_user] = User.first(:email => aux.email)
-  session[:log] = TRUE
-  redirect '/profile'
 end
 
 get '/showall' do

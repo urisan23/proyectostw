@@ -1,35 +1,35 @@
 %body{:onload => "Valida_login(#{opc});"}
-.container-fluid
-  .row-fluid
-    #alert_placeholder
-  .row-fluid
-    .span8
-      %p
-      #myCarousel.carousel.slide
-        .carousel-inner
-          .item
-            %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-01.jpg"}
-              .carousel-caption
-                %h4 Comparte Archivos de todo tipo
-          .item.active
-            %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-02.jpg"}
-              .carousel-caption
-                %h4 Colabora con la comunidad en el foro
-          .item
-            %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-03.jpg"}
-              .carousel-caption
-                %h4 Gestiona y ordena tus archivos
-        %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
-        %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
-    .span1
-    .span3
-      %h3 Inicio de sesión
-      %form(action="login" method="POST" align="center")
-        %input.span12(placeholder= "Correo electrónico" type="text" name="email")
-        %input.span12(placeholder= "Contraseña" type="password" name="password")
+.container
+  .hero-unit
+    .row-fluid
+      #alert_placeholder
+    .row-fluid
+      .span8
+        #myCarousel.carousel.slide
+          .carousel-inner
+            .item
+              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-01.jpg"}
+                .carousel-caption
+                  %h4 Comparte Archivos de todo tipo
+            .item.active
+              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-02.jpg"}
+                .carousel-caption
+                  %h4 Colabora con la comunidad en el foro
+            .item
+              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-03.jpg"}
+                .carousel-caption
+                  %h4 Gestiona y ordena tus archivos
+          %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
+          %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
+      .span4
         %center
-          %a.span12{:href => "/forgotten_pass"} ¿Olvidó su contraseña?
-          %button.btn.btn-warning{:type => "submit"} Entrar
-      %h4{:align=> "center"} ¿Eres nuevo?
-      %form(action="signup")
-        %button.btn.btn-info.span12{:type => "submit"} ¡Registrate ahora!
+          %h3 Inicio de sesión
+        %form(action="login" method="POST" align="center")
+          %input.span12(placeholder= "Correo electrónico" type="text" name="email")
+          %input.span12(placeholder= "Contraseña" type="password" name="password")
+          %center
+            %a.span12{:href => "/forgotten_pass"} ¿Olvidó su contraseña?
+            %button.btn.btn-warning{:type => "submit"} Entrar
+        %h4{:align=> "center"} ¿Eres nuevo?
+        %form(action="signup")
+          %button.btn.btn-info.span12{:type => "submit"} ¡Registrate ahora!

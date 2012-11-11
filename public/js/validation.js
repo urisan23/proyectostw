@@ -25,6 +25,7 @@ function Valida_changepass( form ) {
     return true;
   }
 }
+
 function Valida_signup( form ) {
   var b=/^[^@\s]+@[^@\.\s]+(\.[^@\.\s]+)+$/
   var message = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>';
@@ -65,6 +66,40 @@ function Valida_signup( form ) {
     return true;
   }
 } 
+
+function Valida_pass( form ) {
+  var message = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>';
+  var ok = true;
+  if (form.new_password.value != form.repeat_new_password.value) {
+    message += '<span>Las contraseñas no coinciden.</span><br/>';
+    ok = false;
+  }
+  message += '</div>';
+  if (!ok) {
+    $('#alert_placeholder').html(message);
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function change_pass( o = "2") {
+  var message = '';
+  var ok = true;
+  if (o == "1") {
+    message += '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><span>No se ha podido cambiar la contraseña (datos incorrectos).</span>';
+    ok = false;
+  } else {
+    if (o == "0") {
+      message += '<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Se ha cambiado la contraseña correctamente.</span>';
+      ok = false;
+    }
+  }
+  message += '</div>';
+  if (!ok) {
+    $('#alert_placeholder2').html(message);
+  }
+}
 
 function Valida_login( opc ) {
   var message = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>';
@@ -126,4 +161,11 @@ function cambia_color( element ) {
     element.style.MozBoxShadow = "inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b";
     element.style.boxShadow = "inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b";
   }
+}
+
+function checkEnableSubmit() {
+  if ((document.getElementById("pwd").value != "") && (document.getElementById("npwd").value != "") && (document.getElementById("rnpwd").value != "")) // some logic to determine if it is ok to go
+    {document.getElementById("confirm").disabled = false;}
+  else // in case it was enabled and the user changed their mind
+    {document.getElementById("confirm").disabled = true;}
 }

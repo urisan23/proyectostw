@@ -13,9 +13,8 @@
     <![endif]—>
   %body{"data-spy" => "scroll", "data-target" => ".bs-docs-sidebar"}
     = haml :header
-    .container
-      .hero-unit
-        = yield  
+    .container-fluid
+      = yield  
     = haml :footer
     %script{:src => "js/bootstrap.js", :type => "text/javascript"}
     %script{:src => "js/jquery-1.8.2.js", :type => "text/javascript"}
