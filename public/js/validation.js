@@ -83,7 +83,8 @@ function Valida_pass( form ) {
   }
 }
 
-function change_pass( o = "2") {
+function change_pass(o) {
+  o = typeof o !== 'undefined' ? o : "2";
   var message = '';
   var ok = true;
   if (o == "1") {
