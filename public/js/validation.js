@@ -165,8 +165,8 @@ function cambia_color( element ) {
 }
 
 function checkEnableSubmit() {
-  if ((document.getElementById("pwd").value != "") && (document.getElementById("npwd").value != "") && (document.getElementById("rnpwd").value != "")) // some logic to determine if it is ok to go
-    {document.getElementById("confirm").disabled = false;}
+  if ((document.getElementById('pwd').value != "") && (document.getElementById('npwd').value != "") && (document.getElementById('rnpwd').value != "")) // some logic to determine if it is ok to go
+    {document.getElementById('confirm').disabled = false;}
   else // in case it was enabled and the user changed their mind
-    {document.getElementById("confirm").disabled = true;}
+    {document.getElementById('confirm').disabled = true;}
 }
