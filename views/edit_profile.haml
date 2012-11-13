@@ -1,9 +1,28 @@
-%form{:action => "/edit_profile", :method => "post"}
-  %input.span12{:placeholder=>"Nombre", :type=>"text", :name=>"name", :value => "#{us.name}"}
-  %input.span12{:placeholder=>"Apellidos", :type=>"text", :name=>"surnames", :value => "#{us.surnames}"}
-  %input#disabledInput.span12{:disabled=> "disabled", :placeholder=>"Correo electrónico", :type=>"text", :name=>"email", :value => "#{us.email}"}
-  %input#disabledInput.span12{:disabled=> "disabled", :placeholder=>"Nombre de usuario", :type=>"text", :name=>"username", :value => "#{us.username}"}
-  %textarea.span12{:rows=>"3", :placeholder=>"Sobre mi", :type=>"text-area", :name=>"comment"} #{us.comment}          
+%form.form-horizontal{:action => "/edit_profile", :method => "post"}
+  .control-group
+    %label.control-label{:for => "name"} Nombre
+    .controls
+      %input.span12{:placeholder=>"Nombre", :type=>"text", :name=>"name", :value => "#{us.name}"}
+  .control-group
+    %label.control-label{:for => "surnames"} Apellidos
+    .controls
+      %input.span12{:placeholder=>"Apellidos", :type=>"text", :name=>"surnames", :value => "#{us.surnames}"}
+  .control-group
+    %label.control-label{:for => "email"} Email
+    .controls
+      %input#disabledInput.span12{:disabled=> "disabled", :placeholder=>"Correo electrónico", :type=>"text", :name=>"email", :value => "#{us.email}"}
+  .control-group
+    %label.control-label{:for => "username"} Nombre de usuario
+    .controls
+      %input#disabledInput.span12{:disabled=> "disabled", :placeholder=>"Nombre de usuario", :type=>"text", :name=>"username", :value => "#{us.username}"}
+  .control-group
+    %label.control-label{:for => "image"} Imagen de perfil
+    .controls
+      %input.span12{:placeholder=>"URL de la imagen", :type=>"text", :name=>"image", :value => "#{us.image}"}
+  .control-group
+    %label.control-label{:for => "comment"} Sobre mi
+    .controls
+      %textarea.span12{:rows=>"3", :placeholder=>"Sobre mi", :type=>"text-area", :name=>"comment"} #{us.comment}          
   %span
     %button.btn.btn-primary{:type => "submit"}Aceptar
   %span

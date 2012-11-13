@@ -85,6 +85,7 @@ post '/signup' do
   aux.email = params[:email]
   aux.password = params[:password]
   aux.username = params[:username]
+  aux.image = gravatar_for(params[:email])
   aux.comment = ""
   Pony.mail(
     :to => "#{aux.email}",
@@ -99,18 +100,15 @@ post '/signup' do
   redirect '/login'
 end
 
-def gravatar_for(user)
-   gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
-   #default_img = CGI::escape("/img/f1.png")  # Es necesario codificar la url
-   #user.image = "http://gravatar.com/avatar/#{gravatar_id}?default=#{default_img}?s=100"
-   user.image = "http://gravatar.com/avatar/#{gravatar_id}?s=100"
+def gravatar_for(mail)
+   gravatar_id = Digest::MD5.hexdigest(mail.downcase)
+   "http://gravatar.com/avatar/#{gravatar_id}?s=300&d=mm"
 end
 
 get '/profile' do
   if session[:log] == nil
     redirect '/login'
   else
-    gravatar_for(session[:current_user])
     haml :profile, :locals => { :us => session[:current_user] }
   end
 end
@@ -120,6 +118,7 @@ post '/edit_profile' do
   aux.name = params[:name]
   aux.surnames = params[:surnames]
   aux.comment = params[:comment]
+  aux.image = params[:image] if params[:image] != ""
   session.clear
   aux.save
   session[:current_user] = User.first(:email => aux.email)

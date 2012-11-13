@@ -78,7 +78,7 @@ img {
 .profile {
   width: auto;
   height: auto;
-  max-width: 300px;
+  max-width: 125px;
   vertical-align: middle;
   border: 0;
   -ms-interpolation-mode: bicubic;
