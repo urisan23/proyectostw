@@ -170,3 +170,11 @@ function checkEnableSubmit() {
   else // in case it was enabled and the user changed their mind
     {document.getElementById('confirm').disabled = true;}
 }
+
+function gravatar() {
+  if (document.getElementById('image').disabled == true){
+    document.getElementById('image').disabled=false;  
+  }else{
+    document.getElementById('image').disabled=true;
+  }
+}

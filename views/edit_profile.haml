@@ -18,7 +18,9 @@
   .control-group
     %label.control-label{:for => "image"} Imagen de perfil
     .controls
-      %input.span12{:placeholder=>"URL de la imagen", :type=>"text", :name=>"image", :value => "#{us.image}"}
+      .input-append
+        %input.span9{:placeholder=>"URL de la imagen", :type=>"text", :name=>"image", :id=>"image", :value => "#{us.image}"}
+        %button.btn.btn-success{:type => "button", :name=>"G", "data-toggle"=>"button", :onClick=>"gravatar();"} Usar gravatar
   .control-group
     %label.control-label{:for => "comment"} Sobre mi
     .controls

@@ -118,7 +118,10 @@ post '/edit_profile' do
   aux.name = params[:name]
   aux.surnames = params[:surnames]
   aux.comment = params[:comment]
-  aux.image = params[:image] if params[:image] != ""
+  aux.image = params[:image]
+  if ((aux.image == "") || (aux.image==nil))
+    aux.image = gravatar_for(aux.email)
+  end
   session.clear
   aux.save
   session[:current_user] = User.first(:email => aux.email)

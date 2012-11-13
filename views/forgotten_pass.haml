@@ -1,33 +1,39 @@
-.container-fluid
-  .row-fluid
-    #alert_placeholder
-  .row-fluid
-    .span4
-      %h3{:align => "center"} Nueva Contraseña
-      %form(action="/forgotten_pass" method="POST" onSubmit="return Valida_changepass(this);")
-        %input.span12(placeholder= "Correo electrónico" type="text" name="email")
-        %center
-          %button.btn.btn-success{:type => "submit"} Enviar
-    .span1
-    .span7
-      %p 
-      #myCarousel.carousel.slide
-        .carousel-inner
-          .item
-            %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-01.jpg"}
-              .carousel-caption
-                %h4 Comparte Archivos de todo tipo
-          .item.active
-            %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-02.jpg"}
-              .carousel-caption
-                %h4 Colabora con la comunidad en el foro
-          .item
-            %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-03.jpg"}
-              .carousel-caption
-                %h4 Gestiona y ordena tus archivos
-        %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
-        %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
+.container
+  .hero-unit
+    .row-fluid
+      #alert_placeholder
+    .row-fluid
+      .span4
+        %center  
+          %h3 Nueva Contraseña
+          %span Por favor, introduzca a continuación el correo electrónico que usó para registrarse y se le enviará un mensaje con una nueva contraseña que puede usar para iniciar sesión.
+          %br
+          %br
+          %span ¡No olvide cambiar la contraseña de nuevo!
+        %br
+        %form(action="/forgotten_pass" method="POST" onSubmit="return Valida_changepass(this);")
+          %input.span12(placeholder= "Correo electrónico" type="text" name="email")
+          %center
+            %button.btn.btn-success{:type => "submit"} Enviar
+      .span8
+        %p 
+        #myCarousel.carousel.slide
+          .carousel-inner
+            .item
+              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-01.jpg"}
+                .carousel-caption
+                  %h4 Comparte Archivos de todo tipo
+            .item.active
+              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-02.jpg"}
+                .carousel-caption
+                  %h4 Colabora con la comunidad en el foro
+            .item
+              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-03.jpg"}
+                .carousel-caption
+                  %h4 Gestiona y ordena tus archivos
+          %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
+          %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
 
-%SCRIPT
-  var emails_ar = new Array()
-  emails_ar = #{"['#{used_emails.join('\',\'')}']"}
+  %SCRIPT
+    var emails_ar = new Array()
+    emails_ar = #{"['#{used_emails.join('\',\'')}']"}
