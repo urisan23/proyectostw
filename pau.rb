@@ -1,34 +1,11 @@
 #!/usr/bin/env ruby
-require 'rubygems'
 require 'sinatra'
-require 'haml'
-require 'data_mapper'
-require 'erb'
-require 'pony'
+require_relative 'modules/config'
+require_relative 'modules/bbdd'
+
 #Configuración smtp
 smtp_options = {:host => 'smtp.gmail.com',:port => '587',:user => 'proyectopau100@gmail.com',
                 :password => 'pau123456', :auth => :plain, :tls => true }
-# Define ruta de la base de datos
-DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/usuarios.db" )
-
-# Define modelo de la base de datos
-class User
-  include DataMapper::Resource
-  property :id, Serial
-  property :name, String
-  property :surnames, String
-  property :username, String
-  property :email, String
-  property :password, String
-  property :comment, String, :length => 512
-  property :image, String, :length => 512, :default => "/img/f1.png"
-end
-
-#Actualiza los cambios
-DataMapper.auto_upgrade!
-
-#Activa las coockies y expiran en 5 minutos
-use Rack::Session::Cookie, :expire_after => 600
 
 get '\/' do
   if session[:log]
@@ -128,7 +105,6 @@ post '/edit_profile' do
   session[:log] = TRUE
   redirect '/profile'
 end
-
 get '/forgotten_pass' do
   emails = []
   User.all.each{|us|
@@ -156,7 +132,6 @@ post '/forgotten_pass' do
   haml :login, :locals => { :opc => "3"}
 end
 
-
 post '/change_pass' do
   aux = session[:current_user]
   session[:change_password] = FALSE
@@ -183,14 +158,31 @@ post '/change_pass' do
   end
 end
 
-get '/showall' do
-  haml :showall, :locals => { :us => User.all }
-end
-
 get '/help' do
   haml :help
 end
 
 get '/contact' do
   haml :contact
+end
+get '/subjects' do
+  haml :subjects, :locals => { :sub => Subject.all, :us => session[:current_user]}
+end
+get '/register/:sub' do|sub|
+  aux = session[:current_user]
+  aux.subjects << Subject.get(sub)
+  session.clear
+  aux.save
+  session[:current_user] = User.first(:email => aux.email)
+  session[:log] = TRUE
+  redirect '/subjects'
+end
+get '/unregister/:sub' do|sub|
+  aux = session[:current_user]
+  aux.subjects.intermediaries.get(aux.id,Subject.all.get(sub).id).destroy!
+  session.clear
+  aux.save
+  session[:current_user] = User.first(:email => aux.email)
+  session[:log] = TRUE
+  redirect '/subjects'
 end
