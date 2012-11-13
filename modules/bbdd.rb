@@ -22,6 +22,7 @@ class User
   property :email, String
   property :password, String
   property :comment, String
+  property :image, String, :length => 512, :default => "/img/f1.png"
   has n, :subjects, :through => Resource
 end
 
@@ -84,6 +85,7 @@ User.all.each{|aux| aux.destroy!}
   aux.password = Digest::MD5.hexdigest("123456")
   aux.username = "urisan"
   aux.comment = ""
+  aux.image = gravatar_for("urisan91@gmail.com")
   aux.save
 end
 get '/bbdd/show_all' do

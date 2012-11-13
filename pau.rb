@@ -186,3 +186,7 @@ get '/unregister/:sub' do|sub|
   session[:log] = TRUE
   redirect '/subjects'
 end
+get '/signatures/:idsub' do|idsub|
+  haml :signatures, :locals => { :sub => Subject.first(:id => idsub)}
+end
+
