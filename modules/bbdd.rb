@@ -5,7 +5,7 @@ DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/bbdd.db" )
 # Usuario -(matriculado_de)(n)-> Asignaturas
 # Asignatura -(tiene)(n)-> Archivos
 
-#Metodos:
+#Metodos para desarrollo:
 #  -bbdd/populate
 #  -bbdd/show_all
 #  -bbdd/destroy_users
@@ -41,6 +41,15 @@ class File
   property :id, Serial
   property :filename, String
 end
+
+##Modelo de Mensaje Privado
+class Message
+  include DataMapper::Resource
+  property :id, Serial
+  #Campos
+  #Relaciones
+end
+
 #Actualiza los cambios
 DataMapper.auto_upgrade!
 

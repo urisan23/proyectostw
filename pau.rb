@@ -1,40 +1,22 @@
 #!/usr/bin/env ruby
 require 'sinatra'
-<<<<<<< HEAD
 require 'haml'
 require 'data_mapper'
 require 'erb'
 require 'aws/s3'
-
-# Define ruta de la base de datos
-DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/usuarios.db" )
-
-# Define modelo de la base de datos
-class User
-  include DataMapper::Resource
-  property :id, Serial
-  property :name, String
-  property :surnames, String
-  property :username, String
-  property :email, String
-  property :password, String
-end
-
-#Actualiza los cambios
-DataMapper.auto_upgrade!
-
-#Activa las coockies
-configure do
-	enable :sessions
-end
-=======
 require_relative 'modules/config'
 require_relative 'modules/bbdd'
->>>>>>> ed454384e75bd393fc398b903a808477cc98af67
+require_relative 'modules/files'
+require_relative 'modules/messages'
 
 #Configuración smtp
 smtp_options = {:host => 'smtp.gmail.com',:port => '587',:user => 'proyectopau100@gmail.com',
                 :password => 'pau123456', :auth => :plain, :tls => true }
+
+def gravatar_for(mail)
+   gravatar_id = Digest::MD5.hexdigest(mail.downcase)
+   "http://gravatar.com/avatar/#{gravatar_id}?s=300&d=mm"
+end
 
 get '\/' do
   if session[:log]
@@ -104,11 +86,6 @@ post '/signup' do
   aux.password = Digest::MD5.hexdigest(aux.password)
   aux.save
   redirect '/login'
-end
-
-def gravatar_for(mail)
-   gravatar_id = Digest::MD5.hexdigest(mail.downcase)
-   "http://gravatar.com/avatar/#{gravatar_id}?s=300&d=mm"
 end
 
 get '/profile' do
@@ -190,11 +167,7 @@ end
 get '/help' do
   haml :help
 end
-
 get '/contact' do
-<<<<<<< HEAD
-	haml :contact
-=======
   haml :contact
 end
 get '/subjects' do
@@ -220,46 +193,4 @@ get '/unregister/:sub' do|sub|
 end
 get '/signatures/:idsub' do|idsub|
   haml :signatures, :locals => { :sub => Subject.first(:id => idsub)}
->>>>>>> ed454384e75bd393fc398b903a808477cc98af67
 end
-
-#Subida de archivos a Amazon
-get '/upload' do
-<<<<<<< HEAD
-   haml :upload
-end
-
-post '/upload' do
-   unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
-     return haml(:upload)
-   end
-   while blk = tmpfile.read(65536)
-      AWS::S3::Base.establish_connection!(:access_key_id => settings.s3_key, :secret_access_key => settings.s3.secret)
-      AWS::S3::S3Object.store(name, open(tmpfile), settings.bucket, :access => :public_read)
-   end
-   'success'
-=======
-    haml :upload
-end
-
-post '/upload' do
-    unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
-        return haml(:upload)
-    end
-    while blk = tmpfile.read(65536)
-        AWS::S3::Base.establish_connection!(:access_key_id => settings.s3_key, :secret_access_key => settings.s3.secret)
-        AWS::S3::S3Object.store(name, open(tmpfile), settings.bucket, :access => :public_read)
-    end
-    'success'
->>>>>>> ed454384e75bd393fc398b903a808477cc98af67
-end
-
-set :bucket, 'Proyecto PAU'
-set :s3_key, 'AKIAJIJ3MM5NBA7KR3NQ'
-<<<<<<< HEAD
-set :s3_secret,'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'
-
-
-=======
-set :s3_secret,'S6kbe7OhIBHoCZc94ypHuz0OHMbotO4Pw/FGEhoi'
->>>>>>> ed454384e75bd393fc398b903a808477cc98af67
