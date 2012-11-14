@@ -1,3 +1,31 @@
+function Valida_changepass( form ) {
+  var b=/^[^@\s]+@[^@\.\s]+(\.[^@\.\s]+)+$/
+  var message = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>';
+  var ok = true;
+  if (!b.test(form.email.value)) {
+    message += '<span>El email introducido no es válido.</span><br/>';
+    ok = false;
+  } else {
+    exist = false;
+    for each (var email in emails_ar) {
+      if ( form.email.value == email ) {
+        exist = true;
+      }
+    }
+    if ( exist == false ) {
+      message += '<span>El email introducido no está registrado.</span><br/>';
+      ok = false;
+    }
+  }
+  message += '</div>';
+  if (!ok) {
+    $('#alert_placeholder').html(message);
+    return false;
+  } else {
+    return true;
+  }
+}
+
 function Valida_signup( form ) {
   var b=/^[^@\s]+@[^@\.\s]+(\.[^@\.\s]+)+$/
   var message = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>';
@@ -39,15 +67,54 @@ function Valida_signup( form ) {
   }
 } 
 
+function Valida_pass( form ) {
+  var message = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>';
+  var ok = true;
+  if (form.new_password.value != form.repeat_new_password.value) {
+    message += '<span>Las contraseñas no coinciden.</span><br/>';
+    ok = false;
+  }
+  message += '</div>';
+  if (!ok) {
+    $('#alert_placeholder').html(message);
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function change_pass(o) {
+  o = typeof o !== 'undefined' ? o : "2";
+  var message = '';
+  var ok = true;
+  if (o == "1") {
+    message += '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><span>No se ha podido cambiar la contraseña (datos incorrectos).</span>';
+    ok = false;
+  } else {
+    if (o == "0") {
+      message += '<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>Se ha cambiado la contraseña correctamente.</span>';
+      ok = false;
+    }
+  }
+  message += '</div>';
+  if (!ok) {
+    $('#alert_placeholder2').html(message);
+  }
+}
+
 function Valida_login( opc ) {
   var message = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>';
   var ok = true;
-  if (opc == 1) {
-    message += '<span>La contraseña es incorrecta</span><br/>';
+  if (opc == "1") {
+    message += '<span>La contraseña es incorrecta.</span><br/>';
     ok = false;
   }
-  if (opc == 2) {
-    message += '<span>El email introducido no está registrado</span><br/>';
+  if (opc == "2") {
+    message += '<span>El email introducido no está registrado.</span><br/>';
+    ok = false;
+  }
+  if (opc == "3") {
+    message += '<span>Se ha generado una nueva contraseña. La recibirá en su correo electrónico.</span><br/>';
     ok = false;
   }
   message += '</div>';
@@ -94,5 +161,20 @@ function cambia_color( element ) {
     element.style.WebkitBoxShadow = "inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b";
     element.style.MozBoxShadow = "inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b";
     element.style.boxShadow = "inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b";
+  }
+}
+
+function checkEnableSubmit() {
+  if ((document.getElementById('pwd').value != "") && (document.getElementById('npwd').value != "") && (document.getElementById('rnpwd').value != "")) // some logic to determine if it is ok to go
+    {document.getElementById('confirm').disabled = false;}
+  else // in case it was enabled and the user changed their mind
+    {document.getElementById('confirm').disabled = true;}
+}
+
+function gravatar() {
+  if (document.getElementById('image').disabled == true){
+    document.getElementById('image').disabled=false;  
+  }else{
+    document.getElementById('image').disabled=true;
   }
 }

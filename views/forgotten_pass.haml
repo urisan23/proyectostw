@@ -4,20 +4,19 @@
       #alert_placeholder
     .row-fluid
       .span4
-        %h3{:align => "center"} Nuevo usuario
-        %form(action="signup" method="POST" onSubmit="return Valida_signup(this);")
-          %input.span12(placeholder= "Nombre" type="text" name="name")
-          %input.span12(placeholder= "Apellidos" type="text" name="surnames")
+        %center  
+          %h3 Nueva Contraseña
+          %span Por favor, introduzca a continuación el correo electrónico que usó para registrarse y se le enviará un mensaje con una nueva contraseña que puede usar para iniciar sesión.
+          %br
+          %br
+          %span ¡No olvide cambiar la contraseña de nuevo!
+        %br
+        %form(action="/forgotten_pass" method="POST" onSubmit="return Valida_changepass(this);")
           %input.span12(placeholder= "Correo electrónico" type="text" name="email")
-          %input.span12(placeholder= "Contraseña" type="password" name="password" onkeyup="cambia_color(this);" onChange="cambia_color(this);" id="")
-          %input.span12(placeholder= "Confirmación de contraseña" type="password" name="passwordconfirm" onkeyup="cambia_color(this);" onChange="cambia_color(this);" id="")
-          %input.span12(placeholder= "Nombre de usuario" type="text" name="username")
           %center
-            %span
-              %button.btn.btn-success{:type => "submit"} Registrarse
-            %span
-              %button.btn.btn-success{:type => "reset"} Reestablecer
+            %button.btn.btn-success{:type => "submit"} Enviar
       .span8
+        %p 
         #myCarousel.carousel.slide
           .carousel-inner
             .item
@@ -37,6 +36,4 @@
 
   %SCRIPT
     var emails_ar = new Array()
-    var users_ar = new Array()
     emails_ar = #{"['#{used_emails.join('\',\'')}']"}
-    users_ar = #{"['#{used_usrs.join('\',\'')}']"}

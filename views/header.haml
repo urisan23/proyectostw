@@ -1,11 +1,27 @@
 .navbar.navbar-fixed-top
   .navbar-inner
-    .container
-      %a.brand{:href => "/"} PAU
+    .container-fluid
+      %a.brand{:href => "/"} "LOGO"
       %ul.nav
         %li
-          %a{:href => "/"} Home
+          %a{:href => "/subjects"} Apuntes
+        %li
+          %a{:href => "/groups"} Grupos
         %li
           %a{:href => "/help"} Ayuda
-        %li
-          %a{:href => "/contact"} Contacto
+      %ul.nav.pull-right
+        %li.divider-vertical
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            "username"
+            %b.caret
+          %ul.dropdown-menu  
+            %li
+              %a{:href => "/profile"} Ver perfil
+            %li
+              %a{:href => "/messages"} Mensajes
+            %li.divider
+            %li
+              %a{:href => "/logout"} Cerrar sesión
+      %form.navbar-search.pull-right
+        %input.search-query{:placeholder => "Buscar...", :type => "text"}

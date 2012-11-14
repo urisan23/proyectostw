@@ -1,0 +1,10 @@
+.row-fluid
+  #alert_placeholder
+%form{:action => "/change_pass", :method => "post", :onSubmit=>"return Valida_pass(this);"}
+  %input.span12{:placeholder=>"Contraseña actual", :type=>"password", :name=>"password", :id => "pwd", :onChange=>"checkEnableSubmit();", :onKeyUp=>"checkEnableSubmit();"}
+  %input.span12{:placeholder=>"Nueva contraseña", :type=>"password", :name=>"new_password", :id => "npwd", :onChange=>"checkEnableSubmit();", :onKeyUp=>"checkEnableSubmit();"}
+  %input.span12{:placeholder=>"Repita nueva contraseña", :type=>"password", :name=>"repeat_new_password", :id => "rnpwd", :onChange=>"checkEnableSubmit();", :onKeyUp=>"checkEnableSubmit();"}
+  %span
+    %button.btn.btn-primary{:type => "submit", :disabled => "disabled", :id => "confirm"}Aceptar
+  %span
+    %button.btn.btn-danger{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancelar 
