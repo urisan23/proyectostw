@@ -21,6 +21,10 @@ section {
   display: block;
 }
 
+* {
+  margin: 0;
+}
+
 audio,
 canvas,
 video {
@@ -37,6 +41,11 @@ html {
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
+}
+
+html, body {
+  height: 100% !important;
+  height: auto;
 }
 
 a:focus {
@@ -4970,9 +4979,17 @@ input[type="submit"].btn.btn-mini {
   margin-bottom: 0;
 }
 
-.modal-footer {
-  padding: 14px 15px 15px;
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -150px;
+}
+
+.modal-footer, .push {
+  padding: 20px 15px 10px;
   margin-bottom: 0;
+  height: 120px;
   text-align: left;
   background-color: #f5f5f5;
   border-top: 1px solid #ddd;

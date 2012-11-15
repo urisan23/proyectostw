@@ -13,6 +13,13 @@ require_relative 'modules/messages'
 smtp_options = {:host => 'smtp.gmail.com',:port => '587',:user => 'proyectopau100@gmail.com',
                 :password => 'pau123456', :auth => :plain, :tls => true }
 
+before do
+  @names = []
+  User.all.each{|us|
+    @names << us[:name]+" "+us[:surnames]
+  }
+end
+
 def gravatar_for(mail)
    gravatar_id = Digest::MD5.hexdigest(mail.downcase)
    "http://gravatar.com/avatar/#{gravatar_id}?s=300&d=mm"

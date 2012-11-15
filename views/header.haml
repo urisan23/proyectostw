@@ -24,4 +24,4 @@
             %li
               %a{:href => "/logout"} Cerrar sesión
       %form.navbar-search.pull-right
-        %input.search-query{:placeholder => "Buscar...", :type => "text"}
+        %input.search-query{:placeholder => "Buscar...", :type => "text", "data-provide" => "typeahead", "data-items" => "5", "data-source" => "#{"[\"#{@names.join('","')}\"]"}" }

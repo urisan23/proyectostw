@@ -48,6 +48,7 @@
       this.$element
         .val(this.updater(val))
         .change()
+      window.open('/help'/*+val*/, '_self');
       return this.hide()
     }
 
@@ -226,7 +227,7 @@
         case 9: // tab
         case 13: // enter
           if (!this.shown) return
-          this.select()
+          this.hide()
           break
 
         case 27: // escape
@@ -279,7 +280,7 @@
   , items: 8
   , menu: '<ul class="typeahead dropdown-menu"></ul>'
   , item: '<li><a href="#"></a></li>'
-  , minLength: 1
+  , minLength: 3
   }
 
   $.fn.typeahead.Constructor = Typeahead
