@@ -24,6 +24,7 @@ class User
   property :comment, String
   property :image, String, :length => 512, :default => "/img/f1.png"
   has n, :subjects, :through => Resource
+  has n, :messages, :through => Resource 
 end
 
 ##Modelo de Asignatura
@@ -37,6 +38,7 @@ end
 
 ##Modelo de Archivo de una Asignatura
 class File
+  #[SIN USAR AUN]
   include DataMapper::Resource
   property :id, Serial
   property :filename, String
@@ -46,8 +48,11 @@ end
 class Message
   include DataMapper::Resource
   property :id, Serial
-  #Campos
-  #Relaciones
+  property :body, Text
+  property :topic, String
+  property :time, DateTime
+  property :from_id, Integer
+  property :to_id, Integer
 end
 
 #Actualiza los cambios

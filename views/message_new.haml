@@ -1,0 +1,5 @@
+%h3 Nuevo usuario
+%form(action="/message_new" method="POST" onSubmit="return Valida_signup(this);")
+  %input.span12(placeholder= "Topic" type="text" name="topic")
+  %input.span12(placeholder= "Body" type="text" name="body")
+  %button.btn.btn-success{:type => "submit"} Enviar
