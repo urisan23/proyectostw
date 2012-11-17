@@ -1,26 +1,35 @@
 get '/inbox' do
-  haml :inbox, :locals => { :us => session[:current_user]}
+  haml :inbox, :locals => { :us => session[:current_user], :msgs => session[:current_user].messages}
 end
-get '/message_new' do
-  haml :message_new
+
+get '/message_to/:id' do|id|
+  haml :message_to, :locals => { :id => id}
 end
-post '/message_new' do
-
-  useraux = session[:current_user]
-
-  aux = Message.new
-  aux.topic = params[:topic]
-  aux.from_id = useraux.id
-  aux.body = params[:body]
-  aux.time = Time.now
-  aux.save
-
-  useraux.messages << aux
+post '/message_to/:id' do|id|
+  sender = session[:current_user]
+  receiver = User.get(id)
 
   session.clear
-  useraux.save
 
-  session[:current_user] = User.first(:email => useraux.email)
+  msg1 = Message.new
+  msg1.body = params[:body]
+  msg1.from = sender.id
+  msg1.to = receiver.id
+  msg1.time = Time.now
+  msg1.save
+  msg2 = Message.new
+  msg2.body = params[:body]
+  msg2.from = sender.id
+  msg2.to = receiver.id
+  msg2.time = Time.now
+  msg2.save
+
+  sender.messages << msg1
+  sender.save
+  receiver.messages << msg2
+  receiver.save
+
+  session[:current_user] = User.first(:email => sender.email)
   session[:log] = TRUE
   redirect '/inbox'
 end

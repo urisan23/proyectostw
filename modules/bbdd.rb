@@ -49,10 +49,10 @@ class Message
   include DataMapper::Resource
   property :id, Serial
   property :body, Text
-  property :topic, String
   property :time, DateTime
-  property :from_id, Integer
-  property :to_id, Integer
+  property :from, Integer
+  property :to, Integer
+  property :read, Boolean, :default => FALSE
 end
 
 #Actualiza los cambios
@@ -100,6 +100,24 @@ User.all.each{|aux| aux.destroy!}
   aux.username = "urisan"
   aux.comment = ""
   aux.image = gravatar_for("urisan91@gmail.com")
+  aux.save
+  aux = User.new
+  aux.name = "user1"
+  aux.surnames = ""
+  aux.email = "user1@gmail.com"
+  aux.password = Digest::MD5.hexdigest("123456")
+  aux.username = "user1"
+  aux.comment = ""
+  aux.image = gravatar_for("user1@gmail.com")
+  aux.save
+  aux = User.new
+  aux.name = "user2"
+  aux.surnames = ""
+  aux.email = "user2@gmail.com"
+  aux.password = Digest::MD5.hexdigest("123456")
+  aux.username = "user2"
+  aux.comment = ""
+  aux.image = gravatar_for("user2@gmail.com")
   aux.save
 end
 get '/bbdd/show_all' do

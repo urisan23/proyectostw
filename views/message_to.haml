@@ -1,0 +1,4 @@
+%h3 Nuevo Mensaje
+%form(action="/message_to/#{id}" method="POST")
+  %input.span12(placeholder= "Body" type="text" name="body")
+  %button.btn.btn-success{:type => "submit"} Enviar

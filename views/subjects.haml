@@ -2,7 +2,8 @@
 %table
   - sub.each do|s|
     %tr
-      %td= s.subjectname
+      %td
+        %a{:href => "/subjects/#{s.id}"} #{s.subjectname}
       %td= s.course
       - if us.subjects.member?(s)
         %td

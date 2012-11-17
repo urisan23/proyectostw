@@ -18,6 +18,9 @@
       %b Email: 
       #{us.email}
       %p
+      %b ID: 
+      #{us.id}
+      %p
       %b Archivos compartidos:
       Poner aqui un contador
       %p
@@ -52,4 +55,4 @@
       %table
         %tr
         - us.subjects.each do |a|
-          %a{:href => "/signatures/#{a.id}"} #{a.subjectname}
+          %a{:href => "/subjects/#{a.id}"} #{a.subjectname}

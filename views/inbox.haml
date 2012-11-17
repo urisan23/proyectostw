@@ -1,9 +1,17 @@
 %h1 Bandeja de entrada
 %table
+  %h2 Recibidos
   - us.messages.each do|m|
-    %tr
-      #{m.topic}
-      %br
-      #{m.body}
-      %br
-      %br
+    - if m.from != us.id 
+      %tr
+        #{m.body}
+        %br
+        %br
+  %h2 Enviados
+  - us.messages.each do|m|
+    - if m.from == us.id 
+      %tr
+        #{m.body}
+        %br
+        %br
+
