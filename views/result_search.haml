@@ -1,13 +1,12 @@
 %h3 Resultados de la búsqueda
 
 - encontrado = false
-- usu.each do |k| 
-  - if k.username =~ /^.*#{params[:key].to_s}.*$/ && params[:key].to_s.length > 1 && myid != k.id
-    %ol
-      %li
-        %h4
-          - encontrado = true
-          %a{:href => "/user/#{k.id}"} #{k.username}
+%ol
+  - usu.each do |k| 
+    %li
+      %h4
+        - encontrado = true
+        %a{:href => "/user/#{k.id}"} #{k.username}
 %br
 
 - if !encontrado

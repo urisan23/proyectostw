@@ -207,13 +207,14 @@ get '/subjects/:idsub' do|idsub|
   haml :subject, :locals => { :sub => Subject.get(idsub)}
 end
 
-get '/search' do
-  haml :search
-end
-
 post '/search' do
-  myid = session[:current_user].id
-  haml :result_search, :locals => { :usu => User.all, :myid => myid}
+  users = User.all
+  users.each do |k| 
+    if !(k.username.to_s =~ /.*#{params[:cadena].to_s}.*/) || session[:current_user] == k.id
+      users.delete(k)
+    end
+  end
+  haml :result_search, :locals => { :usu => users}
 end
 
 get '/user/:id' do |id|
