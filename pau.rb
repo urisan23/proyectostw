@@ -3,7 +3,6 @@ require 'sinatra'
 require 'haml'
 require 'data_mapper'
 require 'erb'
-require 'aws/s3'
 require_relative 'modules/config'
 require_relative 'modules/bbdd'
 require_relative 'modules/files'
@@ -118,6 +117,7 @@ post '/edit_profile' do
   session[:log] = TRUE
   redirect '/profile'
 end
+
 get '/forgotten_pass' do
   emails = []
   User.all.each{|us|
@@ -174,12 +174,15 @@ end
 get '/help' do
   haml :help
 end
+
 get '/contact' do
   haml :contact
 end
+
 get '/subjects' do
   haml :subjects, :locals => { :sub => Subject.all, :us => session[:current_user]}
 end
+
 get '/register/:sub' do|sub|
   aux = session[:current_user]
   aux.subjects << Subject.get(sub)
@@ -189,6 +192,7 @@ get '/register/:sub' do|sub|
   session[:log] = TRUE
   redirect '/subjects'
 end
+
 get '/unregister/:sub' do|sub|
   aux = session[:current_user]
   aux.subjects.intermediaries.get(aux.id,Subject.all.get(sub).id).destroy!
@@ -198,6 +202,21 @@ get '/unregister/:sub' do|sub|
   session[:log] = TRUE
   redirect '/subjects'
 end
+
 get '/subjects/:idsub' do|idsub|
   haml :subject, :locals => { :sub => Subject.get(idsub)}
+end
+
+get '/search' do
+  haml :search
+end
+
+post '/search' do
+  myid = session[:current_user].id
+  haml :result_search, :locals => { :usu => User.all, :myid => myid}
+end
+
+get '/user/:id' do |id|
+  user = User.get(id)
+  haml :user, :locals => { :us => user}
 end
