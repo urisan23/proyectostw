@@ -17,6 +17,7 @@ before do
   User.all.each{|us|
     @names << us[:name]+" "+us[:surnames]
   }
+  @user = session[:current_user]
 end
 
 def gravatar_for(mail)

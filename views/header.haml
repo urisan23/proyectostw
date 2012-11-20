@@ -13,7 +13,7 @@
         %li.divider-vertical
         %li.dropdown
           %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-            "username"
+            #{session[:current_user].username}
             %b.caret
           %ul.dropdown-menu  
             %li

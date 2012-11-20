@@ -2,13 +2,9 @@ get '/inbox' do
   haml :inbox, :locals => { :us => session[:current_user], :msgs => session[:current_user].messages}
 end
 
-get '/message_to/:id' do|id|
-  haml :message_to, :locals => { :id => id}
-end
-post '/message_to/:id' do|id|
+post '/send_message/:id' do|id|
   sender = session[:current_user]
   receiver = User.get(id)
-
   session.clear
 
   msg1 = Message.new
@@ -31,5 +27,5 @@ post '/message_to/:id' do|id|
 
   session[:current_user] = User.first(:email => sender.email)
   session[:log] = TRUE
-  redirect '/inbox'
+  redirect '/profile'
 end

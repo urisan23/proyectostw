@@ -11,7 +11,10 @@
     %script{:src => "http://html5shim.googlecode.com/svn/trunk/html5.js"}
     <![endif]—>
   %body{"data-spy" => "scroll", "data-target" => ".bs-docs-sidebar"}
-    = haml :header
+    - if session[:current_user] != nil
+      = haml :header
+    - else
+      = haml :header_logout
     .wrapper
       .gap
         .container-fluid
