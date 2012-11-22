@@ -15,7 +15,7 @@
       = haml :header
     - else
       = haml :header_logout
-    .wrapper{:style => "margin: #{@user ? "0px;" : "0px auto -150px;"}"}
+    .wrapper{:style => "#{@user ? "margin: 0px;" : "margin: 0px auto -150px; min-height: auto;"}"}
       .gap
         .container-fluid
           = yield  
