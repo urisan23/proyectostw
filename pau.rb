@@ -61,6 +61,7 @@ end
 
 get '/logout' do
   session.clear
+  @user = nil
   redirect '/'
 end
 
