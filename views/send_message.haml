@@ -1,7 +1,7 @@
 .row-fluid
   #alert_placeholder
 %form{:action => "/send_message/#{id}", :method => "post"}
-  %input.span12{:placeholder=>"Mensaje", :type=>"text", :name=>"body", :id => "body", :onChange=>"checkEnableSubmit();", :onKeyUp=>"checkEnableSubmit();"}
+  %input.span12{:placeholder=>"Mensaje", :type=>"text", :name=>"body", :id => "sms", :onChange=>"checkEnableSend();", :onKeyUp=>"checkEnableSend();"}
 
   %span
     %button.btn.btn-primary{:type => "submit", :disabled => "disabled", :id => "confirm"}Enviar

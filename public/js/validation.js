@@ -1,7 +1,3 @@
-!function ($) {
-
-  "use strict"; // jshint ;_;
-  
   function Valida_changepass( form ) {
     var b=/^[^@\s]+@[^@\.\s]+(\.[^@\.\s]+)+$/
     var message = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>';
@@ -175,6 +171,13 @@
       {document.getElementById('confirm').disabled = true;}
   }
 
+    function checkEnableSend() {
+    if ((document.getElementById('sms').value != "")) // some logic to determine if it is ok to go
+      {document.getElementById('confirm').disabled = false;}
+    else // in case it was enabled and the user changed their mind
+      {document.getElementById('confirm').disabled = true;}
+  }
+  
   function gravatar() {
     if (document.getElementById('image').disabled == true){
       document.getElementById('image').disabled=false;  
@@ -182,5 +185,3 @@
       document.getElementById('image').disabled=true;
     }
   }
-
-}(window.jQuery);
