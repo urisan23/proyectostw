@@ -117,6 +117,7 @@ post '/edit_profile' do
   aux.save
   session[:current_user] = User.first(:email => aux.email)
   session[:log] = TRUE
+  @user = session[:current_user]
   redirect '/profile'
 end
 
