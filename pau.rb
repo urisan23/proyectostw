@@ -13,7 +13,7 @@ require_relative 'modules/messages'
 smtp_options = {:host => 'smtp.gmail.com',:port => '587',:user => 'proyectopau100@gmail.com',
                 :password => 'pau123456', :auth => :plain, :tls => true }
 
-@log = FALSE
+$log = FALSE
 
 before do
   @names = []
@@ -38,6 +38,7 @@ end
 get '/login' do
   session[:failed_log] = 0
   if session[:log]
+    $log = TRUE
     redirect '/profile' 
   else
     haml :login, :locals => { :opc => session[:failed_log]}
@@ -52,7 +53,7 @@ post '/login' do
     if Digest::MD5.hexdigest(pass) == User.first(:email => email).password
       session[:current_user] = User.first(:email => email)
       session[:log] = TRUE
-		@log = TRUE
+		  $log = TRUE
       redirect '/profile'
     else
       haml :login, :locals => { :opc => "1"}    #[usuario existe, contraseña incorrecta]   
@@ -63,6 +64,7 @@ post '/login' do
 end
 
 get '/logout' do
+  $log=FALSE
   session.clear
   redirect '/'
 end
@@ -101,7 +103,9 @@ end
 get '/profile' do
   if session[:log] == nil
     redirect '/login'
+    $log=FALSE
   else
+    $log=TRUE
     haml :profile, :locals => { :us => session[:current_user] }
   end
 end
