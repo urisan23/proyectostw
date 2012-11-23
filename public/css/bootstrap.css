@@ -43,6 +43,10 @@ html {
       -ms-text-size-adjust: 100%;
 }
 
+body {
+	background-image: url(http://andres-101.webcindario.com/jeyren%20y%20shadow/FondoWeb.jpg);
+}
+
 html, body {
   height: 100% !important;
   height: auto;
