@@ -20,16 +20,17 @@
                 .carousel-caption
                   %h4 Gestiona y ordena tus archivos
           %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
-          %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
+          %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;    
       .span4
-        %center
-          %h3 Inicio de sesión
-        %form(action="login" method="POST" align="center")
-          %input.span12(placeholder= "Correo electrónico" type="text" name="email")
-          %input.span12(placeholder= "Contraseña" type="password" name="password")
+        .hero-unit2
           %center
-            %a.span12{:href => "/forgotten_pass"} ¿Olvidó su contraseña?
-            %button.btn.btn-warning{:type => "submit"} Entrar
-        %h4{:align=> "center"} ¿Eres nuevo?
-        %form(action="signup")
-          %button.btn.btn-info.span12{:type => "submit"} ¡Registrate ahora!
+            %h3 Inicio de sesión
+          %form(action="login" method="POST" align="center")
+            %input.span12(placeholder= "Correo electrónico" type="text" name="email")
+            %input.span12(placeholder= "Contraseña" type="password" name="password")
+            %center
+              %a.span12{:href => "/forgotten_pass"} ¿Olvidó su contraseña?
+              %button.btn.btn-warning{:type => "submit"} Entrar
+          %h4{:align=> "center"} ¿Eres nuevo?
+          %form(action="signup")
+            %button.btn.btn-info.span12{:type => "submit"} ¡Registrate ahora!
