@@ -1,20 +1,17 @@
 %h3 Resultados de la búsqueda
 
-- encontrado = false
 %ol
   - usu.each do |k| 
     %li
       %h4
-        - encontrado = true
-        %a{:href => "/user/#{k.id}"} #{k.username}
+        %a{:href => "/user/#{k.id}"} #{k.name} #{k.surnames} [#{k.username}]
+        %img.profile{:src => "#{k.image}", :alt => "imagen de perfil"}
 %br
 
-- if !encontrado
+- if usu.empty?
   %h4 No se han encontrado resultados
 
 %br
 %font{:size => "4"}
-  %a{:href => "/search"} Nueva búsqueda
-  %br
   %br
   %a{:href => "/"} Regresar

@@ -211,13 +211,19 @@ get '/subjects/:idsub' do|idsub|
 end
 
 post '/search' do
-  users = User.all
-  users.each do |k| 
-    if !(k.username.to_s =~ /.*#{params[:cadena].to_s}.*/) || session[:current_user] == k.id
-      users.delete(k)
+  users_valids = []
+  if params[:cadena].to_s.length > 1
+    users = User.all
+    users.each do |k| 
+      if session[:current_user].id != k.id
+        if (k.username.downcase =~ /^.*#{params[:cadena].to_s.downcase}.*$/) || 
+            ((k.name + " " + k.surnames).downcase =~ /^.*#{params[:cadena].to_s.downcase}.*$/)
+          users_valids << k
+        end
+      end
     end
   end
-  haml :result_search, :locals => { :usu => users}
+  haml :result_search, :locals => { :usu => users_valids}
 end
 
 get '/user/:id' do |id|
