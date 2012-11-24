@@ -1,6 +1,6 @@
 %body{:onload => "Valida_login(#{opc});"}
 .container
-  .hero-unit
+  .hero-unit2
     .row-fluid
       #alert_placeholder
     .row-fluid
@@ -8,29 +8,32 @@
         #myCarousel.carousel.slide
           .carousel-inner
             .item
-              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-01.jpg"}
+              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-01.png"}
                 .carousel-caption
-                  %h4 Comparte Archivos de todo tipo
+                  %h4 Estudia las asignaturas que te interesen
+                  %h6 Busca las asignaturas que te interesen y contempla el material subido por compañeros de clase de tu universidad de otros cursos.
             .item.active
-              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-02.jpg"}
+              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-02.png"}
                 .carousel-caption
-                  %h4 Colabora con la comunidad en el foro
+                  %h4 Comunícate con tus compañeros de clase
+                  %h6 Habla con tus compañeros de clase de una forma rápida y sencilla utilizando los mensajes privados o el foro de las asignaturas.
             .item
-              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-03.jpg"}
+              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-03.png"}
                 .carousel-caption
-                  %h4 Gestiona y ordena tus archivos
+                  %h4 Publica tus apuntes
+                  %h6 Sube tus documentos, exámenes y apuntes de clase en la asignatura y universidad en la que te encuentres.
           %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
           %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;    
       .span4
-        .hero-unit2
+        / .hero-unit2
+        %center
+          %h2 Inicio de sesión
+        %form(action="login" method="POST" align="center")
+          %input.span12(placeholder= "Correo electrónico" type="text" name="email")
+          %input.span12(placeholder= "Contraseña" type="password" name="password")
           %center
-            %h3 Inicio de sesión
-          %form(action="login" method="POST" align="center")
-            %input.span12(placeholder= "Correo electrónico" type="text" name="email")
-            %input.span12(placeholder= "Contraseña" type="password" name="password")
-            %center
-              %a.span12{:href => "/forgotten_pass"} ¿Olvidó su contraseña?
-              %button.btn.btn-warning{:type => "submit"} Entrar
-          %h4{:align=> "center"} ¿Eres nuevo?
-          %form(action="signup")
-            %button.btn.btn-info.span12{:type => "submit"} ¡Registrate ahora!
+            %a.span12{:href => "/forgotten_pass"} ¿Olvidó su contraseña?
+            %button.btn.btn-warning{:type => "submit"} Entrar
+        %h4{:align=> "center"} ¿Eres nuevo?
+        %form(action="signup")
+          %button.btn.btn-info.span12{:type => "submit"} ¡Registrate ahora!
