@@ -13,11 +13,14 @@
         %li.divider-vertical
         %li.dropdown
           %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            %i.icon-user
             #{session[:current_user].username}
             %b.caret
           %ul.dropdown-menu  
             %li
               %a{:href => "/profile"} Ver perfil
+            %li
+              %a{:href => "/inbox"} Mensajes
             %li.divider
             %li
               %a{:href => "/logout"} Cerrar sesión

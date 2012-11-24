@@ -1,17 +1,40 @@
-%h1 Bandeja de entrada
-%table
-  %h2 Recibidos
-  - us.messages.each do|m|
-    - if m.from != us.id 
-      %tr
-        #{m.body}
-        %br
-        %br
-  %h2 Enviados
-  - us.messages.each do|m|
-    - if m.from == us.id 
-      %tr
-        #{m.body}
-        %br
-        %br
-
+.row-fluid
+  .span6
+    .hero-unit
+      %h4 Recibidos
+      .hero-unit2
+        .scrollspy
+          - us.messages.each do|m|
+            - if m.from != us.id 
+              .nil  
+                %span
+                  %b De: 
+                  #{us.name + " " + us.surnames}
+                %br
+                .box
+                  #{m.body}
+                %br
+                %a.btn.btn-small.btn-warning{:href => "#"} Responder
+                %a.btn.btn-small.btn-danger{:href => "#"} Borrar
+                %br
+                %br
+  .span6
+    .hero-unit
+      %h4 Enviados
+      .hero-unit2
+        .scrollspy
+          - us.messages.each do|m|
+            - if m.from == us.id 
+              .nil  
+                %span
+                  %b Para: 
+                  #{us.name + " " + us.surnames}
+                %br
+                .box
+                  #{m.body}
+                %br
+                %a.btn.btn-small.btn-warning{:href => "#"} Responder
+                %a.btn.btn-small.btn-danger{:href => "#"} Borrar
+                %br
+                %br
+                .line{:style => "border: 1px solid #dddddd; margin-bottom: 10px;"}

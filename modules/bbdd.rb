@@ -98,27 +98,46 @@ User.all.each{|aux| aux.destroy!}
   aux.email = "urisan91@gmail.com"
   aux.password = Digest::MD5.hexdigest("123456")
   aux.username = "urisan"
-  aux.comment = ""
+  aux.comment = "Administrador del sitio"
   aux.image = gravatar_for("urisan91@gmail.com")
   aux.save
   aux = User.new
-  aux.name = "user1"
-  aux.surnames = ""
-  aux.email = "user1@gmail.com"
-  aux.password = Digest::MD5.hexdigest("123456")
-  aux.username = "user1"
-  aux.comment = ""
-  aux.image = gravatar_for("user1@gmail.com")
+  aux.name = "Sergio"
+  aux.surnames = "Garcia"
+  aux.email = "sergiojgl@gmail.com"
+  aux.password = Digest::MD5.hexdigest("sergio 1234")
+  aux.username = "sergiojgl"
+  aux.comment = "Administrador del sitio"
+  aux.image = gravatar_for("sergiojgl@gmail.com")
   aux.save
   aux = User.new
-  aux.name = "user2"
-  aux.surnames = ""
-  aux.email = "user2@gmail.com"
+  aux.name = "Juan Jose"
+  aux.surnames = "Labrador"
+  aux.email = "jjlabradorglez@gmail.com"
   aux.password = Digest::MD5.hexdigest("123456")
-  aux.username = "user2"
-  aux.comment = ""
-  aux.image = gravatar_for("user2@gmail.com")
+  aux.username = "jjlabradorglez"
+  aux.comment = "Administrador del sitio"
+  aux.image = gravatar_for("jjlabradorglez@gmail.com")
   aux.save
+  aux = User.new
+  aux.name = "Yeray"
+  aux.surnames = "Rodriguez"
+  aux.email = "yerayrm90@gmail.com"
+  aux.password = Digest::MD5.hexdigest("123456")
+  aux.username = "yerayrm90"
+  aux.comment = "Administrador del sitio"
+  aux.image = gravatar_for("yerayrm90@gmail.com")
+  aux.save
+  aux = User.new
+  aux.name = "Rodrigo"
+  aux.surnames = "Carpintero"
+  aux.email = "thelonelywolf88@gmail.com"
+  aux.password = Digest::MD5.hexdigest("123456")
+  aux.username = "thelonelywolf88"
+  aux.comment = "Administrador del sitio"
+  aux.image = gravatar_for("thelonelywolf88@gmail.com")
+  aux.save
+  redirect '/'
 end
 get '/bbdd/show_all' do
   haml :show_all, :locals => { :us => User.all, :sub => Subject.all, :sub_f => File.all }

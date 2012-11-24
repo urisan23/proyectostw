@@ -923,6 +923,14 @@ pre code {
   overflow-y: scroll;
 }
 
+.scrollspy {
+    height: auto;
+    max-height: 400;
+    overflow-y: auto;
+    position: relative;
+    padding: 20px;
+}
+
 form {
   margin: 0 0 20px;
 }
@@ -1860,11 +1868,11 @@ table {
 
 .table th,
 .table td {
-  padding: 8px;
+  padding: 5px;
   line-height: 20px;
   text-align: left;
   vertical-align: top;
-  border-top: 1px solid #dddddd;
+  /*border-top: 1px solid #dddddd;*/
 }
 
 .table th {
@@ -1885,7 +1893,7 @@ table {
 }
 
 .table tbody + tbody {
-  border-top: 2px solid #dddddd;
+  /*border-top: 2px solid #dddddd;*/
 }
 
 .table-condensed th,
@@ -5608,7 +5616,7 @@ a.badge:hover {
 }
 
 .accordion {
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 
 .accordion-group {
@@ -5765,6 +5773,25 @@ a.badge:hover {
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
+}
+
+.hero-unit2 {
+  padding: 0px;
+  background-color: #ffffff;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+
+.box {
+  padding: 5px;
+  margin-top: 10px;
+  border: 1px solid #dddddd;
+  border-collapse: separate;
+  *border-collapse: collapse;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
 }
 
 .hero-unit h1 {
