@@ -12,6 +12,8 @@ require_relative 'modules/messages'
 smtp_options = {:host => 'smtp.gmail.com',:port => '587',:user => 'proyectopau100@gmail.com',
                 :password => 'pau123456', :auth => :plain, :tls => true }
 
+$log = FALSE
+
 before do
   @names = []
   User.all.each{|us|
@@ -36,6 +38,7 @@ end
 get '/login' do
   session[:failed_log] = 0
   if session[:log]
+    $log = TRUE
     redirect '/profile' 
   else
     haml :login, :locals => { :opc => session[:failed_log]}
@@ -50,6 +53,7 @@ post '/login' do
     if Digest::MD5.hexdigest(pass) == User.first(:email => email).password
       session[:current_user] = User.first(:email => email)
       session[:log] = TRUE
+		  $log = TRUE
       redirect '/profile'
     else
       haml :login, :locals => { :opc => "1"}    #[usuario existe, contraseña incorrecta]   
@@ -60,6 +64,7 @@ post '/login' do
 end
 
 get '/logout' do
+  $log=FALSE
   session.clear
   @user = nil
   redirect '/'
@@ -83,14 +88,14 @@ post '/signup' do
   aux.username = params[:username]
   aux.image = gravatar_for(params[:email])
   aux.comment = ""
-  Pony.mail(
-    :to => "#{aux.email}",
-    :from => "proyectopau100@gmail.com",
-    :subject => "Bienvenido a proyecto PAU, #{aux.name}!",
-    :body=>(haml :mail_welcome, :layout=>false, :locals => { :us => aux}),
-    :content_type=>'text/html',
-    :via => :smtp,
-    :smtp => smtp_options)
+#   Pony.mail(
+#     :to => "#{aux.email}",
+#     :from => "proyectopau100@gmail.com",
+#     :subject => "Bienvenido a proyecto PAU, #{aux.name}!",
+#     :body=>(haml :mail_welcome, :layout=>false, :locals => { :us => aux}),
+#     :content_type=>'text/html',
+#     :via => :smtp,
+#     :smtp => smtp_options)
   aux.password = Digest::MD5.hexdigest(aux.password)
   aux.save
   redirect '/login'
@@ -99,7 +104,9 @@ end
 get '/profile' do
   if session[:log] == nil
     redirect '/login'
+    $log=FALSE
   else
+    $log=TRUE
     haml :profile, :locals => { :us => session[:current_user] }
   end
 end

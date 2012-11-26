@@ -43,6 +43,12 @@ html {
       -ms-text-size-adjust: 100%;
 }
 
+body {
+	background-image: url(http://i614.photobucket.com/albums/tt226/yerayrm90/graduation-university-backgrounds-wallpapers-2.jpg);
+  background-attachment: fixed;
+  background-size: 100%;
+}
+
 html, body {
   height: 100% !important;
   height: auto;
@@ -4226,8 +4232,8 @@ input[type="submit"].btn.btn-mini {
 .navbar .brand {
   display: block;
   float: left;
-  padding: 10px 20px 10px;
-  margin-left: -20px;
+  padding: 3px 20px 3px;
+  margin-left: 120px;
   font-size: 20px;
   font-weight: 200;
   color: #777777;
@@ -4421,7 +4427,7 @@ input[type="submit"].btn.btn-mini {
 
 .navbar .nav > li > a {
   float: none;
-  padding: 10px 15px 10px;
+  padding: 5px 20px 5px;
   color: #777777;
   text-decoration: none;
   text-shadow: 0 1px 0 #ffffff;
@@ -5769,7 +5775,16 @@ a.badge:hover {
 .hero-unit {
   padding: 30px;
   margin-bottom: 30px;
-  background-color: #eeeeee;
+  background-color: #ffffff;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+
+.hero-unit2 {
+  padding: 30px;
+  margin-bottom: 30px;
+  background-color: rgba(0,0,0,.5);
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;

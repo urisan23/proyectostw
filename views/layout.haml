@@ -1,20 +1,19 @@
 %html
   %head
     %title Plataforma Académica Universitaria (PAU)
+    %link{:href => "/img/favicon.ico", :rel => "shortcut icon"}
     %link{:href => "/css/bootstrap.css", :rel => "stylesheet", :type => "text/css"}
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     :css
       .gap {
         padding-top: 60px;
       }
+      
     <!—[if lt IE 9]>
     %script{:src => "http://html5shim.googlecode.com/svn/trunk/html5.js"}
     <![endif]—>
   %body{"data-spy" => "scroll", "data-target" => ".bs-docs-sidebar"}
-    - if session[:current_user] != nil
-      = haml :header
-    - else
-      = haml :header_logout
+    = haml :header
     .wrapper{:style => "#{@user != nil ? "margin: 0px; min-height: 85%;" : "margin: 0px auto -150px; min-height: 100%;"}"}
       .gap
         .container-fluid
@@ -26,7 +25,7 @@
     %script{:src => "/js/bootstrap-buttons.js", :type => "text/javascript"}
     %script{:src => "/js/bootstrap-dropdown.js", :type => "text/javascript"}
     %script{:src => "/js/bootstrap-modal.js", :type => "text/javascript"}
-    %script{:src => "/js/bootstrap-popoved.js", :type => "text/javascript"}
+    %script{:src => "/js/bootstrap-popover.js", :type => "text/javascript"}
     %script{:src => "/js/bootstrap-scrollspy.js", :type => "text/javascript"}
     %script{:src => "/js/bootstrap-tabs.js", :type => "text/javascript"}
     %script{:src => "/js/bootstrap-twipsy.js", :type => "text/javascript"}
