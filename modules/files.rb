@@ -1,19 +1,63 @@
-#Subida de archivos a Amazon
-set :bucket, 'Proyecto PAU'
-set :s3_key, 'AKIAJIJ3MM5NBA7KR3NQ'
-set :s3_secret,'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'
+require 'sinatra'
+require 'dropbox_sdk'
+require 'dropbox'
+
+#session = nil
+appkey = 'mzcs7bxj6rj08nc'
+appsecret = '7ji6lgx5scg4l7n'
+accesstype = :app_folder
+
+get '/oauth' do
+    dbsession = DropboxSession.new(appkey, appsecret)
+    dbsession.get_request_token
+    session[:request_db_session] = dbsession.serialize
+    authorize_url = dbsession.get_authorize_url('http://localhost:4567/done')
+    redirect authorize_url
+end
+
+get '/done' do
+    dbsession = DropboxSession.deserialize(session[:request_db_session])
+    
+    dbsession.get_access_token
+    session[:authorized_db_session] = dbsession.serialize
+
+    redirect '/profile'
+end
 
 get '/upload' do
-  haml :upload
+    if session[:authorized_db_session]
+        haml :upload
+    else
+        redirect '/oauth'
+    end
 end
 
 post '/upload' do
-  unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
-    return haml(:upload)
-  end
-  while blk = tmpfile.read(65536)
-    AWS::S3::Base.establish_connection!(:access_key_id => settings.s3_key, :secret_access_key => settings.s3.secret)
-    AWS::S3::S3Object.store(name, open(tmpfile), settings.bucket, :access => :public_read)
-  end
-  'success'
+    dbsession = DropboxSession.deserialize(session[:authorized_db_session])
+    client = DropboxClient.new(dbsession, accesstype)
+    file = params[:file]
+    filename = file[:filename]
+    tempfile = file[:tempfile]
+    
+    puts session.inspect
+    response = client.put_file("/#{filename}", tempfile.read)
+    redirect '/profile'
+end
+
+
+get '/download' do
+    if session[:authorized_db_session]
+        haml :download
+    else
+        redirect '/oauth'
+    end
+end
+
+post '/download' do
+    dbsession = DropboxSession.deserialize(session[:authorized_db_session])
+    client = DropboxClient.new(dbsession, accesstype)
+    file = params[:file]
+    
+    link = client.media("/#{file}")
+    redirect link["url"]+"?dl=1"
 end
