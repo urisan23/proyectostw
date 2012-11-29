@@ -11,7 +11,7 @@ get '/oauth' do
     dbsession = DropboxSession.new(appkey, appsecret)
     dbsession.get_request_token
     session[:request_db_session] = dbsession.serialize
-    authorize_url = dbsession.get_authorize_url('http://localhost:4567/done')
+    authorize_url = dbsession.get_authorize_url(ENV['CALLBACK_URL'] || 'http://localhost:4567/done')
     redirect authorize_url
 end
 
@@ -21,7 +21,7 @@ get '/done' do
     dbsession.get_access_token
     session[:authorized_db_session] = dbsession.serialize
 
-    redirect '/profile'
+    redirect '/upload'
 end
 
 get '/upload' do

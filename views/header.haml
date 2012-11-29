@@ -1,36 +1,37 @@
 -if $log == TRUE
-  .navbar.navbar-inverse
+  .navbar.navbar-fixed-top.navbar-inverse
     .navbar-inner
       .container-fluid
-      %a{:href => "/"}
-        %img.brand{:alt => "PAU", :href => "/", :src => "/img/logo.png"}
-          %ul.nav
-            %li
-              %a{:href => "/inbox"} Mensajes
-            %li
-              %a{:href => "/subjects"} Asignaturas
-            %li
-              %a{:href => "/help"} Ayuda
-          %ul.nav.pull-right
-            %li.divider-vertical
-            %li.dropdown
-              %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                "username"
-                %b.caret
-              %ul.dropdown-menu  
-                %li
-                  %a{:href => "/profile"} Ver perfil
-                %li.divider
-                %li
-                  %a{:href => "/logout"} Cerrar sesión
-          %form.navbar-search.pull-right
-            %input.search-query{:placeholder => "Buscar...", :type => "text", "data-provide" => "typeahead", "data-items" => "5", "data-source" => "#{"[\"#{@names.join('","')}\"]"}" }
+        %a.brand{:href => "/"}
+          %img.brand{:alt => "PAU", :href => "/", :src => "/img/logo.png", :style => "height: 30px; width: auto;"}
+        %ul.nav
+          %li
+            %a{:href => "/inbox"} Mensajes
+          %li
+            %a{:href => "/subjects"} Asignaturas
+          %li
+            %a{:href => "/help"} Ayuda
+        %ul.nav.pull-right
+          %li.divider-vertical
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              %i.icon-user.icon-white
+              #{@user? @user.username : "username"}
+              %b.caret
+            %ul.dropdown-menu  
+              %li
+                %a{:href => "/profile"} Ver perfil
+              %li.divider
+              %li
+                %a{:href => "/logout"} Cerrar sesión
+        %form.navbar-search.pull-right{:method => "POST", :action => "/search"}
+          %input.search-query{:placeholder => "Buscar...", :name=>"cadena", :type => "text", "data-provide" => "typeahead", "data-items" => "5", "data-source" => "#{"[\"#{@names.join('","')}\"]"}" }
 -else
-  .navbar.navbar-inverse
+  .navbar.navbar-fixed-top.navbar-inverse
     .navbar-inner
       .container-fluid
-      %a{:href => "/"}
-        %img.brand{:alt => "PAU", :href => "/", :src => "/img/logo.png"}
+        %a.brand{:href => "/"}
+          %img.brand{:alt => "PAU", :href => "/", :src => "/img/logo.png", :style => "height: 30px; width: auto;"}
         %ul.nav
           %li
             %a.pull-left{:href => "/help"} Ayuda

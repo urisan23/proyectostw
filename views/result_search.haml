@@ -1,17 +1,14 @@
-%h3 Resultados de la búsqueda
-
-%ol
-  - usu.each do |k| 
-    %li
-      %h4
-        %a{:href => "/user/#{k.id}"} #{k.name} #{k.surnames} [#{k.username}]
-        %img.profile{:src => "#{k.image}", :alt => "imagen de perfil"}
-%br
-
-- if usu.empty?
-  %h4 No se han encontrado resultados
-
-%br
-%font{:size => "4"}
-  %br
-  %a{:href => "/"} Regresar
+.hero-unit
+  .hero-unit2
+    %h3 Resultados de la búsqueda
+  
+    - usu.each do |k| 
+      %ul
+        %h4
+          %img.profile{:src => "#{k.image}", :alt => "imagen de perfil de #{k.username}", :style => "width:30px; height: auto;"}
+          %a{:href => "/user/#{k.id}"} #{k.name} #{k.surnames} [#{k.username}]        
+      %br
+    - if usu.empty?
+      %h4 No se han encontrado resultados
+    %br
+    %a.btn.btn-warning{:href => "/"} Regresar

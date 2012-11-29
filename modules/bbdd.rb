@@ -1,5 +1,5 @@
 # Define ruta de la base de datos
-DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/bbdd.db" )
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/bbdd.db")
 
 #ESQUEMA BBDD
 # Usuario -(matriculado_de)(n)-> Asignaturas

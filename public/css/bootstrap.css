@@ -44,9 +44,10 @@ html {
 }
 
 body {
-	background-image: url(http://i614.photobucket.com/albums/tt226/yerayrm90/graduation-university-backgrounds-wallpapers-2.jpg);
+  background-image: url(http://i614.photobucket.com/albums/tt226/yerayrm90/graduation-university-backgrounds-wallpapers-2.jpg);
   background-attachment: fixed;
   background-size: 100%;
+  background-repeat:repeat-x;
 }
 
 html, body {
@@ -4232,10 +4233,7 @@ input[type="submit"].btn.btn-mini {
 .navbar .brand {
   display: block;
   float: left;
-  padding: 3px 20px 3px;
-  margin-left: 120px;
-  font-size: 20px;
-  font-weight: 200;
+  padding: 3px 5px 0px;
   color: #777777;
   text-shadow: 0 1px 0 #ffffff;
 }
@@ -5775,7 +5773,8 @@ a.badge:hover {
 .hero-unit {
   padding: 30px;
   margin-bottom: 30px;
-  background-color: #ffffff;
+  margin-top: 10px;
+  background-color: rgba(240,240,240,.5);
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
@@ -5783,15 +5782,6 @@ a.badge:hover {
 
 .hero-unit2 {
   padding: 30px;
-  margin-bottom: 30px;
-  background-color: rgba(0,0,0,.5);
-  -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
-          border-radius: 6px;
-}
-
-.hero-unit2 {
-  padding: 0px;
   background-color: #ffffff;
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;

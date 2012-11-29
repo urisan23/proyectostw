@@ -15,6 +15,7 @@ smtp_options = {:host => 'smtp.gmail.com',:port => '587',:user => 'proyectopau10
                 :password => 'pau123456', :auth => :plain, :tls => true }
 
 $log = FALSE
+@user = nil
 
 before do
   @names = []
@@ -221,7 +222,7 @@ end
 
 post '/search' do
   users_valids = []
-  if params[:cadena].to_s.length > 1
+  if params[:cadena].to_s.length > 0
     users = User.all
     users.each do |k| 
       if session[:current_user].id != k.id

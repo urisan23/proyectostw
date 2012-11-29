@@ -1,5 +1,7 @@
-%h2
-  %form{:action=>"/download",:method=>"post",:enctype=>"multipart/form-data"}
-    Archivo:
-    %input{:type=>"text",:name=>"file"}
-    %input{:type=>"submit",:value=>"Buscar"}
+.hero-unit
+  .hero-unit2
+    %h2 Descargar un archivo
+    %form{:action=>"/download",:method=>"post",:enctype=>"multipart/form-data"}
+      Nombre del archivo:
+      %input.span4{:type=>"text",:name=>"file", :style =>"height:30px;"}
+      %input.btn.btn-info{:type=>"submit",:value=>"Descargar"}

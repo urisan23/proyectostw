@@ -3,40 +3,40 @@
     .row-fluid
       #alert_placeholder
     .row-fluid
-      .span4
-        %h3{:align => "center"} Nuevo usuario
-        %form(action="signup" method="POST" onSubmit="return Valida_signup(this);")
-          %input.span12(placeholder= "Nombre" type="text" name="name")
-          %input.span12(placeholder= "Apellidos" type="text" name="surnames")
-          %input.span12(placeholder= "Correo electrónico" type="text" name="email")
-          %input.span12(placeholder= "Contraseña" type="password" name="password" onkeyup="cambia_color(this);" onChange="cambia_color(this);" id="")
-          %input.span12(placeholder= "Confirmación de contraseña" type="password" name="passwordconfirm" onkeyup="cambia_color(this);" onChange="cambia_color(this);" id="")
-          %input.span12(placeholder= "Nombre de usuario" type="text" name="username")
-          %center
-            %span
-              %button.btn.btn-success{:type => "submit"} Registrarse
-            %span
-              %button.btn.btn-success{:type => "reset"} Reestablecer
-      .span8
+      .span5
+        .hero-unit2
+          %h3{:align => "center"} Nuevo usuario
+          %form(action="signup" method="POST" onSubmit="return Valida_signup(this);")
+            %input.span12(placeholder= "Nombre" type="text" name="name")
+            %input.span12(placeholder= "Apellidos" type="text" name="surnames")
+            %input.span12(placeholder= "Correo electrónico" type="text" name="email")
+            %input.span12(placeholder= "Contraseña" type="password" name="password" onkeyup="cambia_color(this);" onChange="cambia_color(this);" id="")
+            %input.span12(placeholder= "Confirmación de contraseña" type="password" name="passwordconfirm" onkeyup="cambia_color(this);" onChange="cambia_color(this);" id="")
+            %input.span12(placeholder= "Nombre de usuario" type="text" name="username")
+            %center
+              %span
+                %button.btn.btn-success{:type => "submit"} Registrarse
+              %span
+                %button.btn.btn-success{:type => "reset"} Reestablecer
+      .span7
+        %br
+        %br
         #myCarousel.carousel.slide
           .carousel-inner
             .item
-              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-01.jpg"}
+              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-01.png"}
                 .carousel-caption
-                  %h4 Comparte Archivos de todo tipo
+                  %h4 Estudia las asignaturas que te interesen
+                  %h6 Busca las asignaturas que te interesen y contempla el material subido por compañeros de clase de tu universidad de otros cursos.
             .item.active
-              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-02.jpg"}
+              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-02.png"}
                 .carousel-caption
-                  %h4 Colabora con la comunidad en el foro
+                  %h4 Comunícate con tus compañeros de clase
+                  %h6 Habla con tus compañeros de clase de una forma rápida y sencilla utilizando los mensajes privados o el foro de las asignaturas.
             .item
-              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-03.jpg"}
+              %img{:alt => "", :src => "img/bootstrap-mdo-sfmoma-03.png"}
                 .carousel-caption
-                  %h4 Gestiona y ordena tus archivos
+                  %h4 Publica tus apuntes
+                  %h6 Sube tus documentos, exámenes y apuntes de clase en la asignatura y universidad en la que te encuentres.
           %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
-          %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} &rsaquo;
-
-  %SCRIPT
-    var emails_ar = new Array()
-    var users_ar = new Array()
-    emails_ar = #{"['#{used_emails.join('\',\'')}']"}
-    users_ar = #{"['#{used_usrs.join('\',\'')}']"}
+          %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} &rsaquo; 
