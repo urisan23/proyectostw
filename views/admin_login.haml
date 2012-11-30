@@ -1,0 +1,14 @@
+.container
+  .span6.offset3  
+    .hero-unit
+      .hero-unit2
+        %center
+          %h2 Iniciar sesión como administrador
+        %form{:action=>"admin", :method=>"POST"}
+          %input.span12{:placeholder=> "Nombre de usuario", :type=>"text", :value=>"#{us.username}", :style=>"height:30px;"}
+          %input.span12{:placeholder=> "Contraseña", :type=>"password", :name=>"password_admin", :style=>"height:30px;"}
+          %center
+            %button.btn.btn-success{:type => "submit"} Entrar
+            %br
+            %br
+            %a.btn.btn-warning{:href => "/"} Regresar

@@ -9,6 +9,7 @@ require_relative 'modules/config'
 require_relative 'modules/bbdd'
 require_relative 'modules/files'
 require_relative 'modules/messages'
+require_relative 'modules/admin'
 
 #Configuración smtp
 smtp_options = {:host => 'smtp.gmail.com',:port => '587',:user => 'proyectopau100@gmail.com',

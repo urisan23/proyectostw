@@ -1,0 +1,25 @@
+.hero-unit
+  .row-fluid
+    #alert_placeholder2
+  .row-fluid
+    .span3
+      .hero-unit2
+        %center
+          %h3 #{us.name}   
+          %table{:border => "1"}
+            %tr
+              %td
+                %img.profile{:src => "#{us.image}", :alt => "imagen de perfil"}
+    .span9
+      .hero-unit2  
+        %h3 Administración
+        %br
+        %ul
+          %li 
+            %h4 Gestión de usuarios
+          %li
+            %h4 Gestión de asignaturas
+          %li
+            %h4 Gestión de archivos
+        %br
+        %a.btn.btn-warning{:href => "/"} Regresar
