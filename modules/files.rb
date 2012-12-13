@@ -1,46 +1,29 @@
 require 'sinatra'
-require 'dropbox_sdk'
-require 'dropbox'
-
-#session = nil
-appkey = 'mzcs7bxj6rj08nc'
-appsecret = '7ji6lgx5scg4l7n'
-accesstype = :app_folder
-
-get '/oauth' do
-    dbsession = DropboxSession.new(appkey, appsecret)
-    dbsession.get_request_token
-    session[:request_db_session] = dbsession.serialize
-    authorize_url = dbsession.get_authorize_url(ENV['CALLBACK_URL'] || 'http://localhost:4567/done')
-    redirect authorize_url
-end
-
-get '/done' do
-    dbsession = DropboxSession.deserialize(session[:request_db_session])
-    
-    dbsession.get_access_token
-    session[:authorized_db_session] = dbsession.serialize
-
-    redirect '/upload'
-end
+require 'net/sftp'
 
 get '/upload' do
-    if session[:authorized_db_session]
-        haml :upload
-    else
-        redirect '/oauth'
-    end
+    haml :upload
 end
 
 post '/upload' do
-    dbsession = DropboxSession.deserialize(session[:authorized_db_session])
-    client = DropboxClient.new(dbsession, accesstype)
     file = params[:file]
+    puts file.class
     filename = file[:filename]
     tempfile = file[:tempfile]
-    
-    puts session.inspect
-    response = client.put_file("/#{filename}", tempfile.read)
+    f = Files.new
+    f.filename = filename
+    f.date = Time.now.to_s[0..18]
+    f.size = tempfile.size
+    f.calification = 0
+    puts "#{filename}"
+    puts "#{tempfile.path}"
+    Net::SFTP.start('193.145.101.220', 'root', :password => 'sanandreS12') do |sftp|
+      sftp.dir.foreach("/proyectostw/") do |entry|
+        puts entry.longname
+      end
+      sftp.upload!(tempfile.path, "/proyectostw/#{filename}")
+    end
+    f.save
     redirect '/profile'
 end
 
