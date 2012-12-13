@@ -29,18 +29,14 @@ end
 
 
 get '/download' do
-    if session[:authorized_db_session]
-        haml :download
-    else
-        redirect '/oauth'
-    end
+    haml :download
 end
 
-post '/download' do
-    dbsession = DropboxSession.deserialize(session[:authorized_db_session])
-    client = DropboxClient.new(dbsession, accesstype)
-    file = params[:file]
-    
-    link = client.media("/#{file}")
-    redirect link["url"]+"?dl=1"
-end
+# post '/download' do
+#     dbsession = DropboxSession.deserialize(session[:authorized_db_session])
+#     client = DropboxClient.new(dbsession, accesstype)
+#     file = params[:file]
+#     
+#     link = client.media("/#{file}")
+#     redirect link["url"]+"?dl=1"
+# end
