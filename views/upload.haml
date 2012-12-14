@@ -1,6 +1,10 @@
+%body{:onload => "valida_upload(#{opc});"}
 .hero-unit
-  .hero-unit2
-    %h2 Subir un archivo
-    %form{:action => "/upload", :method => "post", :enctype => "multipart/form-data"}
-      %input.btn{:type => "file", :name => "file"}
-      %input.btn.btn-info{:type => "submit", :value => "Upload"}
+  .row-fluid
+    #alert_placeholder
+  .row-fluid 
+    .hero-unit2 
+      %h2 Subir un archivo
+      %form{:action => "/upload", :method => "post", :enctype => "multipart/form-data"}
+        %input.btn{:type => "file", :name => "file"}
+        %input.btn.btn-info{:type => "submit", :value => "Upload"}
