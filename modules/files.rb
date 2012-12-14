@@ -32,11 +32,15 @@ get '/download' do
     haml :download
 end
 
-# post '/download' do
-#     dbsession = DropboxSession.deserialize(session[:authorized_db_session])
-#     client = DropboxClient.new(dbsession, accesstype)
-#     file = params[:file]
-#     
-#     link = client.media("/#{file}")
-#     redirect link["url"]+"?dl=1"
-# end
+get '/download/:id' do |id|
+    file = Files.get(id)
+    tempfile = Tempfile.new("./#{file.filename}")
+    Net::SFTP.start('193.145.101.220', 'root', :password => 'sanandreS12') do |sftp|
+      sftp.dir.foreach("/proyectostw/") do |entry|
+        puts entry.longname
+      end
+      sftp.download!("/proyectostw/#{file.filename}", tempfile.path)
+    end
+    puts tempfile.path
+    send_file tempfile.path, :filename => file.filename
+end
