@@ -33,6 +33,7 @@ class Subject
   property :id, Serial
   property :subjectname, String
   property :course, Integer
+  property :description, String, :default => ""
   has n, :filess, :through => Resource
 end
 
@@ -62,8 +63,11 @@ DataMapper.auto_upgrade!
 
 get '/bbdd/populate' do
 #BORRAR BBDD
-Subject.all.each{|aux| aux.destroy!}
-User.all.each{|aux| aux.destroy!}
+Subject.all.each{|aux| aux.destroy!}  # Falta borrar los ficheros de cada asignatura
+User.all.each{|aux| 
+              aux.subjects.destroy!
+              aux.messages.destroy!
+              aux.destroy!}
 #SUBJECTS
   primero = ["Informatica Basica","Algebra","Calculo","Fundamentos Fisicos para la Ingenieria","Organizaciones Empresariales","Algoritmos y Estructura de Datos","Principios de Computadores","Optimizacion","Sistemas Electronicos Digitales","Expresion Grafica en Ingenieria"]
   segundo = ["Estadistica","Computabilidad y Algoritmia","Estructura de Computadores","Sistemas Operativos","Ingles Tecnico","Algoritmos y Estructura de Datos Avanzados","Redes y Sistemas Distribuidos","Administracion de Sistemas","Fundamentos de Ingenieria del Software","Codigo Deontologico y Aspectos Legales"]
@@ -145,8 +149,13 @@ get '/bbdd/show_all' do
   haml :show_all, :locals => { :us => User.all, :sub => Subject.all, :sub_f => Files.all }
 end
 get '/bbdd/destroy_users' do
-  User.all.each{|us| us.destroy!}
+  User.all.each{|us|
+                us.subjects.destroy!
+                us.messages.destroy!
+                us.destroy!}
+  redirect '/admin/panel'
 end
 get '/bbdd/destroy_subjects' do
-  Subject.all.each{|sub| sub.destroy!}
+  Subject.all.each{|sub| sub.destroy!} # Falta borrar los ficheros de cada asignatura
+  redirect '/admin/subjects'
 end

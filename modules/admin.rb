@@ -85,3 +85,17 @@ get '/admin/subjects/delete_subject/:id' do
   #subject_delete.filess.destroy!    -- Cuando esté implementado completamente
   redirect '/admin/subjects'
 end
+
+get '/admin/subjects/edit_subject/:id' do
+  subject = Subject.first(:id => params[:id])
+  haml :admin_edit_subject, :locals => { :sub => subject }
+end
+
+post '/admin/subjects/edit_subject/:id' do
+  aux = Subject.first(:id => params[:id])
+  aux.subjectname = params[:name]
+  aux.course = params[:course]
+  aux.description = params[:description]
+  aux.save
+  redirect '/admin/subjects'
+end

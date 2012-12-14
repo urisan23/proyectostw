@@ -13,7 +13,7 @@
         - if a.course == 1
           %li 
             #{a.subjectname} - [
-            %a{:href => "/admin/subjects"}Editar
+            %a{:href => "/admin/subjects/edit_subject/#{a.id}"}Editar
             ,
             %a{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
             ]
@@ -23,7 +23,7 @@
         - if a.course == 2
           %li 
             #{a.subjectname} - [
-            %a{:href => "/admin/subjects"}Editar
+            %a{:href => "/admin/subjects/edit_subject/#{a.id}"}Editar
             ,
             %a{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
             ]
@@ -33,7 +33,7 @@
         - if a.course == 3
           %li 
             #{a.subjectname} - [
-            %a{:href => "/admin/subjects"}Editar
+            %a{:href => "/admin/subjects/edit_subject/#{a.id}"}Editar
             ,
             %a{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
             ]
@@ -43,7 +43,7 @@
         - if a.course == 4
           %li 
             #{a.subjectname} - [
-            %a{:href => "/admin/subjects"}Editar
+            %a{:href => "/admin/subjects/edit_subject/#{a.id}"}Editar
             ,
             %a{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
             ]

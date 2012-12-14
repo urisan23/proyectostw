@@ -1,6 +1,7 @@
 .hero-unit
   .hero-unit2
-    %h3 #{sub.subjectname}
+    %h3 #{sub.subjectname} (#{sub.course}º Curso)
+    %h4 Descripción: #{Haml::Engine.new(sub.description.gsub(10.chr, '<br/>')).render}
     %h4 Archivos
     %a.btn.btn-success{:href => "/upload"} Compartir un archivo
     %a.btn.btn-success{:href => "/download"} Descargar un archivo
