@@ -1,0 +1,17 @@
+.hero-unit
+  .row-fluid
+    #alert_placeholder2
+  .row-fluid
+    .span9
+      .hero-unit2  
+        %h3 Añadir asignatura
+        %br
+        %form{:action=>"/admin/subjects/add_subject", :method=>"POST"}
+          %input.span12{:placeholder=> "Nombre de la asignatura", :type=>"text", :name => "new_subject", :style=>"height:30px;"}
+          %input.span12{:placeholder=> "Curso", :type=>"text", :name => "course", :style=>"height:30px;"}
+          %center
+            %button.btn.btn-success{:type => "submit"} Aceptar
+            %br
+            %br
+            %a.btn.btn-warning{:href => "/admin/panel"} Regresar
+            %a.btn.btn-warning{:href => "/"} Salir

@@ -33,15 +33,17 @@ class Subject
   property :id, Serial
   property :subjectname, String
   property :course, Integer
-  has n, :files, :through => Resource
+  has n, :filess, :through => Resource
 end
 
 ##Modelo de Archivo de una Asignatura
-class File
-  #[SIN USAR AUN]
+class Files
   include DataMapper::Resource
   property :id, Serial
   property :filename, String
+  property :size, String
+  property :date, String
+  property :calification, Integer, :default => 0
 end
 
 ##Modelo de Mensaje Privado
@@ -140,7 +142,7 @@ User.all.each{|aux| aux.destroy!}
   redirect '/'
 end
 get '/bbdd/show_all' do
-  haml :show_all, :locals => { :us => User.all, :sub => Subject.all, :sub_f => File.all }
+  haml :show_all, :locals => { :us => User.all, :sub => Subject.all, :sub_f => Files.all }
 end
 get '/bbdd/destroy_users' do
   User.all.each{|us| us.destroy!}

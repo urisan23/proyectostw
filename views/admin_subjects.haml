@@ -4,7 +4,7 @@
       %center
         %h2 Gestión de asignaturas
         %br
-      %a{:href => "/admin/subjects"}Añadir asignatura
+      %a{:href => "/admin/subjects/add_subject"}Añadir asignatura
       %br
       %br
       %h3 Listado:
@@ -15,7 +15,7 @@
             #{a.subjectname} - [
             %a{:href => "/admin/subjects"}Editar
             ,
-            %a{:href => "/admin/subjects"} Borrar
+            %a{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
             ]
       %br
       %h3 Segundo
@@ -25,7 +25,7 @@
             #{a.subjectname} - [
             %a{:href => "/admin/subjects"}Editar
             ,
-            %a{:href => "/admin/subjects"} Borrar
+            %a{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
             ]
       %br
       %h3 Tercero
@@ -35,7 +35,7 @@
             #{a.subjectname} - [
             %a{:href => "/admin/subjects"}Editar
             ,
-            %a{:href => "/admin/subjects"} Borrar
+            %a{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
             ]
       %br
       %h3 Cuarto
@@ -45,7 +45,7 @@
             #{a.subjectname} - [
             %a{:href => "/admin/subjects"}Editar
             ,
-            %a{:href => "/admin/subjects"} Borrar
+            %a{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
             ]
       %br
       %a{:href => "/bbdd/destroy_subjects"}Borrar todas

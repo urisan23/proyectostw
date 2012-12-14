@@ -60,3 +60,28 @@ end
 get '/admin/subjects' do
   haml :admin_subjects
 end
+
+get '/admin/subjects/add_subject' do
+  haml :admin_add_subject
+end
+
+post '/admin/subjects/add_subject' do
+  if ((params[:course].to_i == 1) || (params[:course].to_i == 2) || (params[:course].to_i == 3) || (params[:course].to_i == 4))
+    subject = Subject.new()
+    subject.subjectname = params[:new_subject].to_s
+    subject.course = params[:course].to_i
+    subject.save
+  else
+    # Mensaje en javascript de error
+    redirect '/admin/subjects'
+  end
+  # Mensaje en javascript de confirmación
+  redirect '/admin/subjects'
+end
+
+get '/admin/subjects/delete_subject/:id' do
+  subject_delete = Subject.first(:id  => params[:id])
+  subject_delete.destroy!
+  #subject_delete.filess.destroy!    -- Cuando esté implementado completamente
+  redirect '/admin/subjects'
+end
