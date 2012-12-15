@@ -1,41 +1,20 @@
 .row-fluid
-  .span6
-    .hero-unit
-      %h4 Recibidos
-      .hero-unit2
-        .scrollspy
+  - ids.each do|id|
+    .span6
+      .hero-unit
+        .hero-unit2
+          %h4 #{users.get(id).username}
+          .scrollspy
           - us.messages.each do|m|
-            - if m.from != us.id 
+            - if ((m.from == id) || (m.to == id))
               .nil  
                 %span
-                  %b De: 
-                  #{us.name + " " + us.surnames}
+                  %b #{users.get(m.from).username}
+                  #{m.time.strftime("%m/%d/%Y %I:%M")}
                 %br
                 .box
-                  #{m.body}
+                  #{m.body} 
+                  %a.btn.btn-small.btn-danger{:href => "/delete_message/#{m.id}"} Borrar
                 %br
-                %a.btn.btn-small.btn-warning{:href => "#"} Responder
-                %a.btn.btn-small.btn-danger{:href => "#"} Borrar
-                %br
-                %br
-                .line{:style => "border: 1px solid #dddddd; margin-bottom: 10px;"}
-  .span6
-    .hero-unit
-      %h4 Enviados
-      .hero-unit2
-        .scrollspy
-          - us.messages.each do|m|
-            - if m.from == us.id 
-              .nil  
-                %span
-                  %b Para: 
-                  #{us.name + " " + us.surnames}
-                %br
-                .box
-                  #{m.body}
-                %br
-                %a.btn.btn-small.btn-warning{:href => "#"} Responder
-                %a.btn.btn-small.btn-danger{:href => "#"} Borrar
-                %br
-                %br
-                .line{:style => "border: 1px solid #dddddd; margin-bottom: 10px;"}
+          %a.btn.btn-info{:href => "#", :role => "button"} Responder
+          = haml :send_message, :locals => { :id => id}

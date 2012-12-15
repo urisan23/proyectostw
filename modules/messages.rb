@@ -1,5 +1,12 @@
 get '/inbox' do
-  haml :inbox, :locals => { :us => session[:current_user], :msgs => session[:current_user].messages}
+  ids = []
+  session[:current_user].messages.each{|m|
+    ids << m[:to]
+    ids << m[:from]
+  }
+  ids.uniq!
+  ids.delete_if {|x| x == session[:current_user].id}
+  haml :inbox, :locals => { :us => session[:current_user], :msgs => session[:current_user].messages, :users => User.all, :ids => ids}
 end
 
 post '/send_message/:id' do|id|
@@ -28,4 +35,8 @@ post '/send_message/:id' do|id|
   session[:current_user] = User.first(:email => sender.email)
   session[:log] = TRUE
   redirect '/profile'
+end
+get '/delete_message/:id' do|id|
+  Message.get(id).destroy!
+  redirect 'inbox'  
 end
