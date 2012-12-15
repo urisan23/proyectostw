@@ -10,8 +10,8 @@
       %li  Email: #{us.email}
       %li  Contraseña: #{us.password}
     %br
-    Para iniciar sesión ahora haz click en este enlace: 
-    %a{:href => "localhost:4567/login", :target => "_blank"} localhost:4567/login
+    Haga click en el siguiente enlace para activar su cuenta: 
+    %a{:href => "localhost:4567/activeaccount?user_id=#{us.id}&actvation_n=#{us.activation_n}/", :target => "_blank"} "localhost:4567/activeaccount?user_id=#{us.id}&actvation_n=#{us.activation_n}/"
   %br
   %div
     Copyright &copy; 2012 

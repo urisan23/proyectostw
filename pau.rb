@@ -53,9 +53,12 @@ post '/login' do
   email = params[:email]
   pass = params[:password]
   user = User.first(:email => email)
-  if user != nil
-    if Digest::MD5.hexdigest(pass) == User.first(:email => email).password
-      session[:current_user] = User.first(:email => email)
+  if user == nil
+    user = User.first(:username => email)
+  end
+  if user != nil && user.enabled
+    if Digest::MD5.hexdigest(pass) == user.password
+      session[:current_user] = user
       session[:log] = TRUE
 		  $log = TRUE
       redirect '/profile'
@@ -91,15 +94,20 @@ post '/signup' do
   aux.password = params[:password]
   aux.username = params[:username]
   aux.image = gravatar_for(params[:email])
+  aux.enabled = false
+  aux.activation_n = ""
+  10.times do 
+    aux.activation_n+=rand(10).to_s()
+  end
   aux.comment = ""
-#   Pony.mail(
-#     :to => "#{aux.email}",
-#     :from => "proyectopau100@gmail.com",
-#     :subject => "Bienvenido a proyecto PAU, #{aux.name}!",
-#     :body=>(haml :mail_welcome, :layout=>false, :locals => { :us => aux}),
-#     :content_type=>'text/html',
-#     :via => :smtp,
-#     :smtp => smtp_options)
+   Pony.mail(
+     :to => "#{aux.email}",
+     :from => "proyectopau100@gmail.com",
+     :subject => "Bienvenido a proyecto PAU, #{aux.name}!",
+     :body=>(haml :mail_welcome, :layout=>false, :locals => { :us => aux}),
+     :content_type=>'text/html',
+     :via => :smtp,
+     :smtp => smtp_options)
   aux.password = Digest::MD5.hexdigest(aux.password)
   aux.save
   redirect '/login'
@@ -240,4 +248,14 @@ end
 get '/user/:id' do |id|
   user = User.get(id)
   haml :user, :locals => { :us => user}
+end
+
+post '/activeaccount/' do
+  if params[:activation_n]=User.get(params[:user_id])
+    User.get(params[:user_id]).enable = true
+    session[:current_user] = User.get(params[:user_id])
+    session[:log] = TRUE
+    $log = TRUE
+    redirect '/profile'
+  end
 end

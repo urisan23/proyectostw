@@ -23,6 +23,8 @@ class User
   property :password, String
   property :comment, String
   property :image, String, :length => 512, :default => "/img/f1.png"
+  property :enabled, Boolean
+  property :activation_n, String
   has n, :subjects, :through => Resource
   has n, :messages, :through => Resource 
 end
@@ -106,6 +108,7 @@ User.all.each{|aux|
   aux.username = "urisan"
   aux.comment = "Administrador del sitio"
   aux.image = gravatar_for("urisan91@gmail.com")
+  aux.enabled = true
   aux.save
   aux = User.new
   aux.name = "Sergio"
@@ -115,6 +118,7 @@ User.all.each{|aux|
   aux.username = "sergiojgl"
   aux.comment = "Administrador del sitio"
   aux.image = gravatar_for("sergiojgl@gmail.com")
+  aux.enabled = true
   aux.save
   aux = User.new
   aux.name = "Juan Jose"
@@ -124,6 +128,7 @@ User.all.each{|aux|
   aux.username = "jjlabradorglez"
   aux.comment = "Administrador del sitio"
   aux.image = gravatar_for("jjlabradorglez@gmail.com")
+  aux.enabled = true
   aux.save
   aux = User.new
   aux.name = "Yeray"
@@ -133,6 +138,7 @@ User.all.each{|aux|
   aux.username = "yerayrm90"
   aux.comment = "Administrador del sitio"
   aux.image = gravatar_for("yerayrm90@gmail.com")
+  aux.enabled = true
   aux.save
   aux = User.new
   aux.name = "Rodrigo"
@@ -142,6 +148,7 @@ User.all.each{|aux|
   aux.username = "thelonelywolf88"
   aux.comment = "Administrador del sitio"
   aux.image = gravatar_for("thelonelywolf88@gmail.com")
+  aux.enabled = true
   aux.save
   redirect '/'
 end
