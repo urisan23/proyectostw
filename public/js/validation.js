@@ -186,10 +186,14 @@
   }
 
     function checkEnableSend() {
-    if ((document.getElementById('sms').value != "")) // some logic to determine if it is ok to go
-      {document.getElementById('confirm').disabled = false;}
-    else // in case it was enabled and the user changed their mind
-      {document.getElementById('confirm').disabled = true;}
+    var elements = document.getElementsByClassName("sms");
+    var confirms = document.getElementsByClassName("confirm");
+    for (var i=0; i<elements.length; i++){
+      if ((elements[i].value != "")) // some logic to determine if it is ok to go
+        {confirms[i].disabled = false;}
+      else // in case it was enabled and the user changed their mind
+        {confirms[i].disabled = true;}
+    }
   }
   
   function gravatar() {
