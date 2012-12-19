@@ -65,11 +65,13 @@ DataMapper.auto_upgrade!
 
 get '/bbdd/populate' do
 #BORRAR BBDD
-Subject.all.each{|aux| aux.destroy!}  # Falta borrar los ficheros de cada asignatura
 User.all.each{|aux| 
               aux.subjects.destroy!
               aux.messages.destroy!
               aux.destroy!}
+Subject.all.each{|aux| aux.destroy!}
+User.all.each{|aux| aux.destroy!}
+Files.all.each{|aux| aux.destroy!}
 #SUBJECTS
   primero = ["Informatica Basica","Algebra","Calculo","Fundamentos Fisicos para la Ingenieria","Organizaciones Empresariales","Algoritmos y Estructura de Datos","Principios de Computadores","Optimizacion","Sistemas Electronicos Digitales","Expresion Grafica en Ingenieria"]
   segundo = ["Estadistica","Computabilidad y Algoritmia","Estructura de Computadores","Sistemas Operativos","Ingles Tecnico","Algoritmos y Estructura de Datos Avanzados","Redes y Sistemas Distribuidos","Administracion de Sistemas","Fundamentos de Ingenieria del Software","Codigo Deontologico y Aspectos Legales"]

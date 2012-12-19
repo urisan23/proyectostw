@@ -4,5 +4,12 @@
     %h4 Descripción: #{Haml::Engine.new(sub.description.gsub(10.chr, '<br/>')).render}
     %h4 Archivos
     %a.btn.btn-success{:href => "/upload"} Compartir un archivo
-    %a.btn.btn-success{:href => "/download"} Descargar un archivo
-
+    %table.table
+    - Files.all.each do |aux|
+      %tr
+        %td= aux.filename
+        %td= aux.date
+        %td= aux.size
+        %td= aux.calification
+        %td 
+          %a.btn.btn-info{:href => "/download/#{aux.id}"} Descargar

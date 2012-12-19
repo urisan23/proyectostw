@@ -1,63 +1,41 @@
 require 'sinatra'
-require 'dropbox_sdk'
-require 'dropbox'
-
-#session = nil
-appkey = 'mzcs7bxj6rj08nc'
-appsecret = '7ji6lgx5scg4l7n'
-accesstype = :app_folder
-
-get '/oauth' do
-    dbsession = DropboxSession.new(appkey, appsecret)
-    dbsession.get_request_token
-    session[:request_db_session] = dbsession.serialize
-    authorize_url = dbsession.get_authorize_url(ENV['CALLBACK_URL'] || 'http://localhost:4567/done')
-    redirect authorize_url
-end
-
-get '/done' do
-    dbsession = DropboxSession.deserialize(session[:request_db_session])
-    
-    dbsession.get_access_token
-    session[:authorized_db_session] = dbsession.serialize
-
-    redirect '/upload'
-end
+require 'net/sftp'
 
 get '/upload' do
-    if session[:authorized_db_session]
-        haml :upload
-    else
-        redirect '/oauth'
-    end
+    haml :upload, :locals => { :opc => "0"} 
 end
 
 post '/upload' do
-    dbsession = DropboxSession.deserialize(session[:authorized_db_session])
-    client = DropboxClient.new(dbsession, accesstype)
     file = params[:file]
     filename = file[:filename]
     tempfile = file[:tempfile]
-    
-    puts session.inspect
-    response = client.put_file("/#{filename}", tempfile.read)
-    redirect '/profile'
+    if tempfile.size > 5242880
+      haml :upload, :locals => { :opc => "1"} 
+    else
+      f = Files.new
+      f.filename = filename
+      f.date = Time.now.to_s[0..18]
+      f.size = tempfile.size
+      f.calification = 0
+      Net::SFTP.start('193.145.101.220', 'root', :password => 'sanandreS12') do |sftp|
+        sftp.upload!(tempfile.path, "/proyectostw/#{filename}")
+      end
+      f.save
+      redirect '/profile'
+    end
 end
 
 
 get '/download' do
-    if session[:authorized_db_session]
-        haml :download
-    else
-        redirect '/oauth'
-    end
+    haml :download
 end
 
-post '/download' do
-    dbsession = DropboxSession.deserialize(session[:authorized_db_session])
-    client = DropboxClient.new(dbsession, accesstype)
-    file = params[:file]
-    
-    link = client.media("/#{file}")
-    redirect link["url"]+"?dl=1"
+get '/download/:id' do |id|
+    file = Files.get(id)
+    tempfile = Tempfile.new("./#{file.filename}")
+    Net::SFTP.start('193.145.101.220', 'root', :password => 'sanandreS12') do |sftp|
+      sftp.download!("/proyectostw/#{file.filename}", tempfile.path)
+    end
+    puts tempfile.path
+    send_file tempfile.path, :filename => file.filename
 end

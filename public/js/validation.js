@@ -101,6 +101,20 @@
       $('#alert_placeholder2').html(message);
     }
   }
+  
+  function valida_upload(o) {
+    o = typeof o !== 'undefined' ? o : "2";
+    var message = '';
+    var ok = true;
+    if (o == "1") {
+      message += '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><span>El tamaño límite del archivo es de 5 Mb.</span>';
+      ok = false;
+    }
+    message += '</div>';
+    if (!ok) {
+      $('#alert_placeholder').html(message);
+    }
+  }
 
   function Valida_login( opc ) {
     var message = '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>';
