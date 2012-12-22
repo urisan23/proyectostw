@@ -1,20 +1,36 @@
+- i=0
 .row-fluid
-  - ids.each do|id|
-    .span6
-      .hero-unit
-        .hero-unit2
-          %h4 #{users.get(id).username}
-          .scrollspy
-          - us.messages.each do|m|
-            - if ((m.from == id) || (m.to == id))
-              .nil  
-                %span
-                  %b #{users.get(m.from).username}
-                  #{m.time.strftime("%m/%d/%Y %I:%M")}
-                %br
-                .box
-                  #{m.body} 
-                  %a.btn.btn-small.btn-danger{:href => "/delete_message/#{m.id}"} Borrar
-                %br
-          %a.btn.btn-info{:href => "#", :role => "button"} Responder
-          = haml :send_message, :locals => { :id => id}
+  .span12
+    .hero-unit
+      %h3 Mensajes
+      .hero-unit2
+        #accordion2.accordion
+          - ids.each do|id|
+            - i=i+1
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "#{"#collapse_"+i.to_s}"}
+                  %img.img-rounded.profile{:src => "#{users.get(id).image}", :alt => "imagen de perfil de #{users.get(id).username}", :style => "width:30px; height: auto;"}
+                    &nbsp;&nbsp;&nbsp;
+                    #{users.get(id).username}
+                  &nbsp;&nbsp;&nbsp;
+                  #{us.messages[0].time.strftime("%m/%d/%Y")}
+              #collapse.accordion-body.collapse{:id => "#{""+i.to_s}", :class => "#{i == 1 ? "in" : ""}"}
+                .accordion-inner
+                  .scrollspy
+                  - us.messages.each do|m|
+                    - if ((m.from == id) || (m.to == id))
+                      .box  
+                        %span
+                          %b #{users.get(m.from).username}
+                          #{m.time.strftime("%m/%d/%Y %I:%M")}
+                        %br
+                        .row-fluid
+                          .span11
+                            #{Haml::Engine.new(m.body.gsub(10.chr, '<br/>')).render}
+                          .span1
+                            %a.btn.btn-danger.btn-mini{:style => "float: right; margin-right: 10px;", :href => "/delete_message/#{m.id}"} ×
+                        %br
+                  %br      
+                  %span
+                    = haml :message_res, :locals => { :id => id}

@@ -46,6 +46,7 @@ class Files
   property :filename, String
   property :size, String
   property :date, String
+  property :uploader, String
   property :calification, Integer, :default => 0
 end
 

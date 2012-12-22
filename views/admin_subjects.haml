@@ -3,52 +3,85 @@
     .hero-unit2
       %center
         %h2 Gestión de asignaturas
-        %br
-      %a{:href => "/admin/subjects/add_subject"}Añadir asignatura
+      %br
+      %h4 Listado:
+      #accordion2.accordion
+        .accordion-group
+          .accordion-heading
+            %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "#collapseOne"}
+              Primero
+          #collapseOne.accordion-body.collapse
+            .accordion-inner
+              %table.table.table-hover
+                %tbody
+                  - Subject.all.each do|a|
+                    - if a.course == 1
+                      %tr
+                        %td
+                          #{a.subjectname}
+                        %td
+                          %a.btn.btn-danger{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
+                        %td  
+                          %a.btn.btn-warning{:href => "/admin/subjects/edit_subject/#{a.id}"} Editar
+        .accordion-group
+          .accordion-heading
+            %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "#collapseTwo"}
+              Segundo
+          #collapseTwo.accordion-body.collapse
+            .accordion-inner
+              %table.table.table-hover
+                %tbody
+                  - Subject.all.each do|a|
+                    - if a.course == 2
+                      %tr
+                        %tr
+                        %td
+                          #{a.subjectname}
+                        %td
+                          %a.btn.btn-danger{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
+                        %td  
+                          %a.btn.btn-warning{:href => "/admin/subjects/edit_subject/#{a.id}"} Editar
+        .accordion-group
+          .accordion-heading
+            %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "#collapseThree"}
+              Tercero
+          #collapseThree.accordion-body.collapse
+            .accordion-inner
+              %table.table.table-hover
+                %tbody
+                  - Subject.all.each do|a|
+                    - if a.course == 3
+                      %tr
+                        %td
+                          #{a.subjectname}
+                        %td
+                          %a.btn.btn-danger{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
+                        %td  
+                          %a.btn.btn-warning{:href => "/admin/subjects/edit_subject/#{a.id}"} Editar
+        .accordion-group
+          .accordion-heading
+            %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "#collapseFour"}
+              Cuarto
+          #collapseFour.accordion-body.collapse
+            .accordion-inner
+              %table.table.table-hover
+                %tbody
+                  - Subject.all.each do|a|
+                    - if a.course == 4
+                      %tr
+                        %td
+                          #{a.subjectname}
+                        %td
+                          %a.btn.btn-danger{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
+                        %td  
+                          %a.btn.btn-warning{:href => "/admin/subjects/edit_subject/#{a.id}"} Editar
       %br
       %br
-      %h3 Listado:
-      %h3 Primero
-      - Subject.all.each do |a|
-        - if a.course == 1
-          %li 
-            #{a.subjectname} - [
-            %a{:href => "/admin/subjects/edit_subject/#{a.id}"}Editar
-            ,
-            %a{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
-            ]
-      %br
-      %h3 Segundo
-      - Subject.all.each do |a|
-        - if a.course == 2
-          %li 
-            #{a.subjectname} - [
-            %a{:href => "/admin/subjects/edit_subject/#{a.id}"}Editar
-            ,
-            %a{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
-            ]
-      %br
-      %h3 Tercero
-      - Subject.all.each do |a|
-        - if a.course == 3
-          %li 
-            #{a.subjectname} - [
-            %a{:href => "/admin/subjects/edit_subject/#{a.id}"}Editar
-            ,
-            %a{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
-            ]
-      %br
-      %h3 Cuarto
-      - Subject.all.each do |a|
-        - if a.course == 4
-          %li 
-            #{a.subjectname} - [
-            %a{:href => "/admin/subjects/edit_subject/#{a.id}"}Editar
-            ,
-            %a{:href => "/admin/subjects/delete_subject/#{a.id}"} Borrar
-            ]
-      %br
-      %a{:href => "/bbdd/destroy_subjects"}Borrar todas
       %center
-        %a{:href => "/admin/panel"} Regresar
-        %a{:href => "/"} Salir
+        %a.btn.btn-success{:href => "/admin/subjects/add_subject"}Añadir asignatura
+        %a.btn.btn-danger{:href => "/bbdd/destroy_subjects"} Borrar todas
+      %p
+      %center
+        %a.btn.btn-warning{:href => "/admin/panel"} Regresar
+        %a.btn.btn-info{:href => "/"} Salir
+        

@@ -1,18 +1,51 @@
-.container 
+.container-fluid 
   .hero-unit
     .hero-unit2
       %center
         %h2 Gestión de usuarios
         %br
-      - User.all.each do |k|
-        %li 
-          #{k.name} #{k.surnames} (#{k.username}) - [
-          %a{:href => "/admin/users/edit/#{k.id}"}Editar
-          ,
-          %a{:href => "/admin/users/delete_user/#{k.id}"} Borrar
-          ]
-      %br
-      %a{:href => "/bbdd/destroy_users"} Borrar todos
-      %center
-        %a{:href => "/admin/panel"} Regresar
-        %a{:href => "/"} Salir
+      .row-fluid
+        - User.all.each do |k|
+          .span3{:style => "margin-left: 0px; margin-right: 1.0176%;"}
+            .box  
+              %center
+                %h3 #{k.name}   
+                %table
+                  %tr
+                    %td
+                      %img.img-rounded.profile{:src => "#{k.image}", :alt => "imagen de perfil"}
+              %br
+              %p
+              %b Nombre:
+              #{k.name} #{k.surnames}
+              %p
+              %b Email: 
+              #{k.email}
+              %p
+              %b ID: 
+              #{k.id}
+              %p
+              %b Sobre mi:
+              = Haml::Engine.new(k.comment.gsub(10.chr, '<br/>')).render
+              %br
+              %br
+              %center
+                %span
+                  %a.btn.btn-info{:href => "/admin/users/edit/#{k.id}"}Editar
+                %span
+                  %a.btn.btn-danger{:href => "/admin/users/delete_user/#{k.id}"} Borrar
+              %br
+          
+        %br
+        %br
+        .span12
+          %center
+            .span12
+              %a.btn.btn-danger{:href => "/bbdd/destroy_users"} Borrar todos
+          %br
+          %br
+          %center
+            %a.btn.btn-warning{:href => "/admin/panel"} Regresar
+            %a.btn.btn-info{:href => "/"} Salir
+      
+     

@@ -1,13 +1,25 @@
+%body{:onload => "valida_upload(#{opc});"}
 .hero-unit
   .hero-unit2
-    %h3 #{sub.subjectname} (#{sub.course}º Curso)
-    %h4 Descripción: #{Haml::Engine.new(sub.description.gsub(10.chr, '<br/>')).render}
+    .row-fluid
+      %h3 #{sub.subjectname} (#{sub.course}º Curso)
+      %h4 Descripción: #{Haml::Engine.new(sub.description.gsub(10.chr, '<br/>')).render}
+      %span
+        %a.btn.btn-success{"data-toggle" => "modal", :href => "#myModal", :role => "button"} Compartir archivo
+      #myModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          %h3#myModalLabel Subir archivo
+        .modal-body
+          = haml :upload, :locals => { :id => "#{sub.id}"} 
     %h4 Archivos
-    %a.btn.btn-success{:href => "/upload"} Compartir un archivo
+      
+            
     %table.table
-    - Files.all.each do |aux|
+    - sub.filess.each do |aux|
       %tr
-        %td= aux.filename
+        %td
+          %a{:href => "/file/#{sub.id}/#{aux.id}"}aux.filename
         %td= aux.date
         %td= aux.size
         %td= aux.calification

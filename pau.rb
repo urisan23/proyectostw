@@ -212,7 +212,7 @@ get '/register/:sub' do|sub|
   aux.save
   session[:current_user] = User.first(:email => aux.email)
   session[:log] = TRUE
-  redirect '/subjects'
+  redirect back
 end
 
 get '/unregister/:sub' do|sub|
@@ -222,11 +222,11 @@ get '/unregister/:sub' do|sub|
   aux.save
   session[:current_user] = User.first(:email => aux.email)
   session[:log] = TRUE
-  redirect '/subjects'
+  redirect back
 end
 
 get '/subjects/:idsub' do|idsub|
-  haml :subject, :locals => { :sub => Subject.get(idsub)}
+  haml :subject, :locals => { :sub => Subject.get(idsub), :opc => "0"}
 end
 
 post '/search' do

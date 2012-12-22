@@ -34,7 +34,11 @@ post '/send_message/:id' do|id|
 
   session[:current_user] = User.first(:email => sender.email)
   session[:log] = TRUE
-  redirect '/profile'
+  if params[:res] != nil
+    redirect '/inbox'
+  else
+    redirect '/profile'
+  end
 end
 get '/delete_message/:id' do|id|
   Message.get(id).destroy!

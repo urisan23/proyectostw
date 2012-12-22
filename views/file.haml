@@ -1,0 +1,19 @@
+.hero-unit
+  .row-fluid
+    .span9
+      .hero-unit2
+        %center
+          %h4 #{file.filename}
+          %iframe{:height => "780", :src => "http://docs.google.com/viewer?url=http://obscure-savannah-8776.herokuapp.com/download/#{file.id}&embedded=true", :style => "border: none;", :width => "100%"}
+    .span3
+      .hero-unit2
+        %b Nombre:
+        #{file.filename}
+        %p
+        %b Usuario que lo compartió: 
+        #{file.uploader}
+        %p
+        %b Puntuación: 
+        #{file.calification}
+        %p
+        %a.btn.btn-success{:href => "/download/#{file.id}"}Descargar

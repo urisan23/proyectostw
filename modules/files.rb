@@ -1,33 +1,28 @@
 require 'sinatra'
 require 'net/sftp'
 
-get '/upload' do
-    haml :upload, :locals => { :opc => "0"} 
-end
-
 post '/upload' do
     file = params[:file]
     filename = file[:filename]
     tempfile = file[:tempfile]
     if tempfile.size > 5242880
-      haml :upload, :locals => { :opc => "1"} 
+      redirect back 
     else
+      subject = Subject.get(params[:sub])
       f = Files.new
       f.filename = filename
+      f.uploader = session[:current_user].username
       f.date = Time.now.to_s[0..18]
       f.size = tempfile.size
       f.calification = 0
       Net::SFTP.start('193.145.101.220', 'root', :password => 'sanandreS12') do |sftp|
         sftp.upload!(tempfile.path, "/proyectostw/#{filename}")
       end
+      subject.filess << f
+      subject.save
       f.save
-      redirect '/profile'
+      redirect back
     end
-end
-
-
-get '/download' do
-    haml :download
 end
 
 get '/download/:id' do |id|
@@ -38,4 +33,8 @@ get '/download/:id' do |id|
     end
     puts tempfile.path
     send_file tempfile.path, :filename => file.filename
+end
+
+get '/file/:s/:id' do |s, id|
+  haml :file, :locals => { :sub => Subject.get(s), :file => Files.get(id)}
 end

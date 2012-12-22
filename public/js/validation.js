@@ -102,17 +102,20 @@
     }
   }
   
-  function valida_upload(o) {
-    o = typeof o !== 'undefined' ? o : "2";
+  function valida_upload() {
     var message = '';
+    var filesize = document.forms[0].file.files[0].fileSize;
     var ok = true;
-    if (o == "1") {
+    if (filesize > 5242880) {
       message += '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><span>El tamaño límite del archivo es de 5 Mb.</span>';
       ok = false;
     }
     message += '</div>';
     if (!ok) {
       $('#alert_placeholder').html(message);
+      return false;
+    } else {
+      return true;
     }
   }
 

@@ -5,7 +5,7 @@
     - usu.each do |k| 
       %ul
         %h4
-          %img.profile{:src => "#{k.image}", :alt => "imagen de perfil de #{k.username}", :style => "width:30px; height: auto;"}
+          %img.img-rounded.profile{:src => "#{k.image}", :alt => "imagen de perfil de #{k.username}", :style => "width:30px; height: auto;"}
           %a{:href => "/user/#{k.id}"} #{k.name} #{k.surnames} [#{k.username}]        
       %br
     - if usu.empty?

@@ -2,7 +2,6 @@
   #alert_placeholder
 %form{:action => "/send_message/#{id}", :method => "post"}
   %textarea.span12{:placeholder=>"Mensaje", :type=>"text-area", :name=>"body", :class => "sms" ,:id => "sms", :onChange=>"checkEnableSend();", :onKeyUp=>"checkEnableSend();"}
+  %input{:type => "hidden", :name => "res", :value => "1"}
   %span
-    %button.btn.btn-primary{:class => "confirm", :type => "submit", :disabled => "disabled", :id => "confirm"}Enviar
-  %span
-    %button.btn.btn-danger{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancelar 
+    %button.btn.btn-primary{:class => "confirm", :type => "submit", :disabled => "disabled", :id => "confirm"}Responder

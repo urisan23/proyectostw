@@ -1,41 +1,48 @@
-%form.form-horizontal{:action => "/admin/users/admin_edit_user/#{us.id}", :method => "post"}
-  .control-group
-    %label.control-label{:for => "name"} Nombre
-    .controls
-      %input.span12{:placeholder=>"Nombre", :type=>"text", :name=>"name", :value => "#{us.name}"}
-  .control-group
-    %label.control-label{:for => "surnames"} Apellidos
-    .controls
-      %input.span12{:placeholder=>"Apellidos", :type=>"text", :name=>"surnames", :value => "#{us.surnames}"}
-  .control-group
-    %label.control-label{:for => "email"} Email
-    .controls
-      %input#disabledInput.span12{:disabled=> "disabled", :placeholder=>"Correo electrónico", :type=>"text", :name=>"email", :value => "#{us.email}"}
-  .control-group
-    %label.control-label{:for => "username"} Nombre de usuario
-    .controls
-      %input#disabledInput.span12{:disabled=> "disabled", :placeholder=>"Nombre de usuario", :type=>"text", :name=>"username", :value => "#{us.username}"}
-  .control-group
-    %label.control-label{:for => "image"} Imagen de perfil
-    .controls
-      .input-append
-        %input.span9{:placeholder=>"URL de la imagen", :type=>"text", :name=>"image", :id=>"image", :value => "#{us.image}"}
-        %button.btn.btn-success{:type => "button", :name=>"G", "data-toggle"=>"button", :onClick=>"gravatar();"} Usar gravatar
-  .control-group
-    %label.control-label{:for => "comment"} Sobre mi
-    .controls
-      %textarea.span12{:rows=>"3", :placeholder=>"Sobre mi", :type=>"text-area", :name=>"comment"} #{us.comment}          
-  %h3 Asignaturas matriculadas
-  %table
-    %tr
-    - us.subjects.each do |a|
-      %a{:href => "/subjects/#{a.id}"} #{a.subjectname}
-      [
-      %a{:href => "/admin/users/delete_user_subject/#{us.id}/#{a.id}"}Desmatricular
-      ]
-      %br
-  %br
-  %span
-    %button.btn.btn-primary{:type => "submit"}Aceptar
-  %span
-    %a.btn.btn-danger{:href => "/admin/users", "aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancelar 
+.container-fluid
+  .hero-unit
+    .hero-unit2
+      .row-fluid    
+        .span8.offset2  
+          %form.form-horizontal{:action => "/admin/users/admin_edit_user/#{us.id}", :method => "post"}
+            .control-group
+              %label.control-label{:for => "name"} Nombre
+              .controls
+                %input.span12{:placeholder=>"Nombre", :type=>"text", :name=>"name", :value => "#{us.name}"}
+            .control-group
+              %label.control-label{:for => "surnames"} Apellidos
+              .controls
+                %input.span12{:placeholder=>"Apellidos", :type=>"text", :name=>"surnames", :value => "#{us.surnames}"}
+            .control-group
+              %label.control-label{:for => "email"} Email
+              .controls
+                %input#disabledInput.span12{:disabled=> "disabled", :placeholder=>"Correo electrónico", :type=>"text", :name=>"email", :value => "#{us.email}"}
+            .control-group
+              %label.control-label{:for => "username"} Nombre de usuario
+              .controls
+                %input#disabledInput.span12{:disabled=> "disabled", :placeholder=>"Nombre de usuario", :type=>"text", :name=>"username", :value => "#{us.username}"}
+            .control-group
+              %label.control-label{:for => "image"} Imagen de perfil
+              .controls
+                .input-append.span12
+                  %input{:style => "width: 70%;", :placeholder=>"URL de la imagen", :type=>"text", :name=>"image", :id=>"image", :value => "#{us.image}"}
+                  %button.btn.btn-success{:style => "width: 30%;", :type => "button", :name=>"G", "data-toggle"=>"button", :onClick=>"gravatar();"} Usar gravatar
+            .control-group
+              %label.control-label{:for => "comment"} Sobre mi
+              .controls
+                %textarea.span12{:rows=>"3", :placeholder=>"Sobre mi", :type=>"text-area", :name=>"comment"} #{us.comment}          
+            - if us.subjects.count > 0
+              %h3 Asignaturas matriculadas
+            %table
+              %tr
+              - us.subjects.each do |a|
+                %a{:href => "/subjects/#{a.id}"} #{a.subjectname}
+                [
+                %a{:href => "/admin/users/delete_user_subject/#{us.id}/#{a.id}"}Desmatricular
+                ]
+                %br
+            %br
+            %center
+              %span
+                %button.btn.btn-primary{:type => "submit"}Aceptar
+              %span
+                %a.btn.btn-danger{:href => "/admin/users", :type => "button"} Cancelar 
