@@ -19,7 +19,7 @@
     - sub.filess.each do |aux|
       %tr
         %td
-          %a{:href => "/file/#{sub.id}/#{aux.id}"}aux.filename
+          %a{:href => "/file/#{sub.id}/#{aux.id}"}#{aux.filename}
         %td= aux.date
         %td= aux.size
         %td= aux.calification
