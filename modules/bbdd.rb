@@ -48,6 +48,7 @@ class Files
   property :date, String
   property :uploader, String
   property :calification, Integer, :default => 0
+  property :subject, String
 end
 
 ##Modelo de Mensaje Privado

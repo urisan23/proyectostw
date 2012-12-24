@@ -5,7 +5,8 @@
         %h2 Gestión de usuarios
         %br
       .row-fluid
-        - users = User.all(:order => [:name.asc])
+        - users = User.all(:order => [:name.downcase.asc])
+        - letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","Ñ","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
         - users.each do |k|
           .span3{:style => "margin-left: 0px; margin-right: 1.0176%;"}
             .box  
