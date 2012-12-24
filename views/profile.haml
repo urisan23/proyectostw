@@ -49,6 +49,10 @@
             %h3#myModalLabel2 Cambiar contraseña
           .modal-body
             = haml :change_pass, :locals => { :us => session[:current_user]} 
+        - if ((us.username == "urisan") || (us.username == "sergiojgl") || (us.username == "jjlabradorglez") || 
+        - (us.username == "yerayrm90") || (us.username == "thelonelywolf88"))
+          %a{":href" => "/"} Administración
+          
     .span9
       .hero-unit2
         %h3 Asignaturas matriculadas

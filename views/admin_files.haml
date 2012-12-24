@@ -1,0 +1,18 @@
+.container 
+  .hero-unit
+    .hero-unit2
+      %center
+        %h2 Gestión de archivos
+        %br
+      %h3 Listado:
+      - Files.all.each do |f|
+        %li 
+          #{f.filename} - [
+          %a{:href => "/admin/files/"} Borrar
+          ]
+      %br
+      %br
+      %a{:href => "enlace"}Borrar todas
+      %center
+        %a{:href => "/admin/panel"} Regresar
+        %a{:href => "/"} Salir

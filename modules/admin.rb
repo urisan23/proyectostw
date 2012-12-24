@@ -99,3 +99,7 @@ post '/admin/subjects/edit_subject/:id' do
   aux.save
   redirect '/admin/subjects'
 end
+
+get '/admin/files' do
+  haml :admin_files
+end

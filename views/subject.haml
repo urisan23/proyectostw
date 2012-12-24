@@ -18,10 +18,25 @@
     %table.table
     - sub.filess.each do |aux|
       %tr
+        Nombre: 
         %td
-          %a{:href => "/file/#{sub.id}/#{aux.id}"}#{aux.filename}
+          =aux.filename
+          [
+          %a{:href => "/file/#{sub.id}/#{aux.id}"}Vista previa
+          ]
+        %br
+        Fecha de subida: 
         %td= aux.date
-        %td= aux.size
-        %td= aux.calification
+        %br
+        Tamaño: 
+        %td= "#{aux.size} bytes"
+        %br
+        Valoración: 
+        %td= "#{aux.calification} estrellas"
+        %br
+        %br
         %td 
           %a.btn.btn-info{:href => "/download/#{aux.id}"} Descargar
+    %br
+    %br
+    %a{:href => "/profile"} Regresar

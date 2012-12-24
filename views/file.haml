@@ -16,4 +16,9 @@
         %b Puntuación: 
         #{file.calification}
         %p
+        %b Votar: 
+        [1] [2] [3] [4] [5] estrellas
+        %p
         %a.btn.btn-success{:href => "/download/#{file.id}"}Descargar
+        %br
+        %a{:href => "/subjects/#{sub.id}"} Regresar

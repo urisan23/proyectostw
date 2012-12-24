@@ -5,7 +5,8 @@
         %h2 Gestión de usuarios
         %br
       .row-fluid
-        - User.all.each do |k|
+        - users = User.all(:order => [:name.asc])
+        - users.each do |k|
           .span3{:style => "margin-left: 0px; margin-right: 1.0176%;"}
             .box  
               %center
