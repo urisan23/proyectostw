@@ -25,6 +25,7 @@ class User
   property :image, String, :length => 512, :default => "/img/f1.png"
   property :enabled, Boolean
   property :activation_n, String
+  property :numberFiles, Integer, :default => 0
   has n, :subjects, :through => Resource
   has n, :messages, :through => Resource 
 end
@@ -48,6 +49,7 @@ class Files
   property :date, String
   property :uploader, String
   property :calification, Integer, :default => 0
+  property :numberVotes, Integer, :default => 0
   property :subject, String
 end
 
@@ -156,9 +158,11 @@ Files.all.each{|aux| aux.destroy!}
   aux.save
   redirect '/'
 end
+
 get '/bbdd/show_all' do
   haml :show_all, :locals => { :us => User.all, :sub => Subject.all, :sub_f => Files.all }
 end
+
 get '/bbdd/destroy_users' do
   User.all.each{|us|
                 us.subjects.destroy!
@@ -166,7 +170,10 @@ get '/bbdd/destroy_users' do
                 us.destroy!}
   redirect '/admin/panel'
 end
+
 get '/bbdd/destroy_subjects' do
-  Subject.all.each{|sub| sub.destroy!} # Falta borrar los ficheros de cada asignatura
+  Subject.all.each{|sub| 
+                   sub.filess.destroy!
+                   sub.destroy!}
   redirect '/admin/subjects'
 end

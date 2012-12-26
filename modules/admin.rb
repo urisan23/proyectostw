@@ -81,8 +81,8 @@ end
 
 get '/admin/subjects/delete_subject/:id' do
   subject_delete = Subject.first(:id  => params[:id])
+  subject_delete.filess.destroy!
   subject_delete.destroy!
-  #subject_delete.filess.destroy!    -- Cuando esté implementado completamente
   redirect '/admin/subjects'
 end
 
@@ -102,4 +102,15 @@ end
 
 get '/admin/files' do
   haml :admin_files
+end
+
+get '/admin/files/delete/:id' do |id|
+  file = Files.get(id)
+  file.destroy!
+  redirect '/admin/files'
+end
+
+get '/admin/files/delete_all' do
+  Files.all.each{|f| f.destroy!}
+  redirect '/admin/files'
 end

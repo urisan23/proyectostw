@@ -7,12 +7,14 @@
       %h3 Listado:
       - Files.all.each do |f|
         %li 
-          #{f.filename} - [
-          %a{:href => "/admin/files/"} Borrar
+          #{f.filename} (
+          #{f.subject}
+          ) - [
+          %a{:href => "/admin/files/delete/#{f.id}"} Borrar
           ]
       %br
       %br
-      %a{:href => "enlace"}Borrar todas
+      %a{:href => "/admin/files/delete_all"}Borrar todos
       %center
         %a{:href => "/admin/panel"} Regresar
         %a{:href => "/"} Salir

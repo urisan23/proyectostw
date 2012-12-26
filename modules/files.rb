@@ -22,6 +22,8 @@ post '/upload' do
       subject.filess << f
       subject.save
       f.save
+      user = session[:current_user]
+      user.numberFiles += 1
       redirect back
     end
 end
@@ -38,4 +40,13 @@ end
 
 get '/file/:s/:id' do |s, id|
   haml :file, :locals => { :sub => Subject.get(s), :file => Files.get(id)}
+end
+
+get '/file/vote/:s/:id/:stars' do |s, id, stars|
+  file = Files.get(id)
+  file.numberVotes += 1
+  old_calification = file.calification
+  file.calification = (old_calification + stars.to_i) / file.numberVotes
+  file.save
+  redirect "/file/#{s}/#{id}"
 end

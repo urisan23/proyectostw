@@ -14,11 +14,26 @@
         #{file.uploader}
         %p
         %b Puntuación: 
-        #{file.calification}
+        #{file.calification} estrella(s)
+        %p
+        %b Nº de votos:
+        #{file.numberVotes} voto(s)
         %p
         %b Votar: 
-        [1] [2] [3] [4] [5] estrellas
+        [
+        %a{:href => "/file/vote/#{sub.id}/#{file.id}/1"}1
+        ,
+        %a{:href => "/file/vote/#{sub.id}/#{file.id}/2"}2
+        ,
+        %a{:href => "/file/vote/#{sub.id}/#{file.id}/3"}3
+        ,
+        %a{:href => "/file/vote/#{sub.id}/#{file.id}/4"}4
+        ,
+        %a{:href => "/file/vote/#{sub.id}/#{file.id}/5"}5
+        ]
+        estrella(s)
         %p
         %a.btn.btn-success{:href => "/download/#{file.id}"}Descargar
+        %br
         %br
         %a{:href => "/subjects/#{sub.id}"} Regresar
