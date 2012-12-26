@@ -73,7 +73,9 @@ User.all.each{|aux|
               aux.subjects.destroy!
               aux.messages.destroy!
               aux.destroy!}
-Subject.all.each{|aux| aux.destroy!}
+Subject.all.each{|aux| 
+                 aux.filess.destroy!
+                 aux.destroy!}
 User.all.each{|aux| aux.destroy!}
 Files.all.each{|aux| aux.destroy!}
 #SUBJECTS
@@ -156,7 +158,7 @@ Files.all.each{|aux| aux.destroy!}
   aux.image = gravatar_for("thelonelywolf88@gmail.com")
   aux.enabled = true
   aux.save
-  redirect '/'
+  redirect '/admin/panel'
 end
 
 get '/bbdd/show_all' do
@@ -168,7 +170,7 @@ get '/bbdd/destroy_users' do
                 us.subjects.destroy!
                 us.messages.destroy!
                 us.destroy!}
-  redirect '/admin/panel'
+  redirect '/admin/users'
 end
 
 get '/bbdd/destroy_subjects' do
@@ -176,4 +178,9 @@ get '/bbdd/destroy_subjects' do
                    sub.filess.destroy!
                    sub.destroy!}
   redirect '/admin/subjects'
+end
+
+get '/bbdd/destroy_files' do
+  Files.all.each{|file| file.destroy!}
+  redirect '/admin/files'
 end

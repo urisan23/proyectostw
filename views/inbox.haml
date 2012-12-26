@@ -9,7 +9,7 @@
             - i=i+1
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "#{"#collapse_"+i.to_s}"}
+                %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "#{"#collapse_"+i.to_s}", :style => "text-decoration: none;"}
                   %img.img-rounded.profile{:src => "#{users.get(id).image}", :alt => "imagen de perfil de #{users.get(id).username}", :style => "width:30px; height: auto;"}
                     &nbsp;&nbsp;&nbsp;
                     #{users.get(id).username}

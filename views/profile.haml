@@ -51,8 +51,10 @@
             = haml :change_pass, :locals => { :us => session[:current_user]} 
         - if ((us.username == "urisan") || (us.username == "sergiojgl") || (us.username == "jjlabradorglez") || 
         - (us.username == "yerayrm90") || (us.username == "thelonelywolf88"))
-          %span
-            %a.btn.btn-primary{"data-toggle" => "modal", :href => "/admin/panel", :role => "button"} Administración
+          %br
+          %center
+            %span
+              %a.btn.btn-primary{"data-toggle" => "modal", :href => "/admin/panel", :role => "button"} Administración
           
     .span9
       .hero-unit2
