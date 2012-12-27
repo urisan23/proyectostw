@@ -1,8 +1,12 @@
 get '/admin' do
-  user = session[:current_user]
-  if ((user.username == "urisan") || (user.username == "sergiojgl") || (user.username == "jjlabradorglez") || 
-      (user.username == "yerayrm90") || (user.username == "thelonelywolf88"))
-    haml :admin_login, :locals => { :us => session[:current_user] }
+  if session[:current_user] != nil
+    user = session[:current_user]
+    if ((user.username == "urisan") || (user.username == "sergiojgl") || (user.username == "jjlabradorglez") || 
+        (user.username == "yerayrm90") || (user.username == "thelonelywolf88"))
+      haml :admin_login, :locals => { :us => session[:current_user] }
+    else
+      halt 403
+    end
   else
     halt 403
   end
@@ -17,11 +21,31 @@ post '/admin' do
 end
 
 get '/admin/panel' do
-  haml :admin, :locals => { :us => session[:current_user] }
+  if session[:current_user] != nil
+    user = session[:current_user]
+    if ((user.username == "urisan") || (user.username == "sergiojgl") || (user.username == "jjlabradorglez") || 
+        (user.username == "yerayrm90") || (user.username == "thelonelywolf88"))
+      haml :admin, :locals => { :us => session[:current_user] }
+    else
+      halt 403
+    end
+  else
+    halt 403
+  end
 end
 
 get '/admin/users' do
-  haml :admin_users
+  if session[:current_user] != nil
+    user = session[:current_user]
+    if ((user.username == "urisan") || (user.username == "sergiojgl") || (user.username == "jjlabradorglez") || 
+        (user.username == "yerayrm90") || (user.username == "thelonelywolf88"))
+      haml :admin_users
+    else
+      halt 403
+    end
+  else
+    halt 403
+  end
 end
 
 get '/admin/users/edit/:id' do
@@ -58,7 +82,17 @@ get '/admin/users/delete_user_subject/:id/:sub' do
 end
 
 get '/admin/subjects' do
-  haml :admin_subjects
+  if session[:current_user] != nil
+    user = session[:current_user]
+    if ((user.username == "urisan") || (user.username == "sergiojgl") || (user.username == "jjlabradorglez") || 
+        (user.username == "yerayrm90") || (user.username == "thelonelywolf88"))
+      haml :admin_subjects
+    else
+      halt 403
+    end
+  else
+    halt 403
+  end
 end
 
 get '/admin/subjects/add_subject' do
@@ -101,7 +135,17 @@ post '/admin/subjects/edit_subject/:id' do
 end
 
 get '/admin/files' do
-  haml :admin_files
+  if session[:current_user] != nil
+    user = session[:current_user]
+    if ((user.username == "urisan") || (user.username == "sergiojgl") || (user.username == "jjlabradorglez") || 
+        (user.username == "yerayrm90") || (user.username == "thelonelywolf88"))
+      haml :admin_files
+    else
+      halt 403
+    end
+  else
+    halt 403
+  end
 end
 
 get '/admin/files/delete/:id' do |id|

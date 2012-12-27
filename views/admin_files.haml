@@ -5,14 +5,15 @@
         %h2 Gestión de archivos
         %br
       %h3 Listado:
-      - Files.all.each do |f|
-        %li 
-          #{f.filename} (
-          #{f.subject}
-          ) - [
-          %a{:href => "/admin/files/delete/#{f.id}"} Borrar
-          ]
-      %br
+      - Subject.each do |sub|
+        %h4
+          = sub.subjectname
+        - sub.filess.each do |file|
+          %li 
+            #{file.filename} - [
+            %a{:href => "/admin/files/delete/#{file.id}"} Borrar
+            ]
+        %br
       %br
       %a{:href => "/admin/files/delete_all"}Borrar todos
       %center

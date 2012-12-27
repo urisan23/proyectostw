@@ -50,7 +50,6 @@ class Files
   property :uploader, String
   property :calification, Integer, :default => 0
   property :numberVotes, Integer, :default => 0
-  property :subject, String
 end
 
 ##Modelo de Mensaje Privado
@@ -162,7 +161,17 @@ Files.all.each{|aux| aux.destroy!}
 end
 
 get '/bbdd/show_all' do
-  haml :show_all, :locals => { :us => User.all, :sub => Subject.all, :sub_f => Files.all }
+  if session[:current_user] != nil
+    user = session[:current_user]
+    if ((user.username == "urisan") || (user.username == "sergiojgl") || (user.username == "jjlabradorglez") || 
+        (user.username == "yerayrm90") || (user.username == "thelonelywolf88"))
+      haml :show_all, :locals => { :us => User.all, :sub => Subject.all, :sub_f => Files.all }
+    else
+      halt 403
+    end
+  else
+    halt 403
+  end
 end
 
 get '/bbdd/destroy_users' do
