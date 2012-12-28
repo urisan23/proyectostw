@@ -5,6 +5,9 @@ end
     
 require File.join(File.dirname(__FILE__), '..', 'pau.rb')
 require 'sinatra'
+Sinatra::Application.environment = :test
+Bundler.require :default, Sinatra
+require 'rspec'
 require 'rack/test'
 
 #entorno de pruebas
@@ -16,6 +19,13 @@ set :logging, false
 def pau
     Sinatra::Application
 end
+
+Sinatra::Application.default_options.merge!(
+    :env => :test,
+    :run => false,
+    :raise_errors => true,
+    :logging => false
+)
 
 Rspec.configure do |config|
     config.include Rack::Test::Methods
