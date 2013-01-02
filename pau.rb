@@ -226,9 +226,19 @@ get '/unregister/:sub' do|sub|
 end
 
 get '/subjects/:idsub' do|idsub|
-  haml :subject, :locals => { :sub => Subject.get(idsub), :opc => "0"}
+  haml :subject, :locals => { :sub => Subject.get(idsub), :users => User.all, :opc => "0"}
 end
-
+post '/subjects/:idsub' do|idsub|
+  comment = Comment.new
+  subject = Subject.get(idsub)
+  comment.text = params[:text]
+  comment.userid = session[:current_user].id
+  comment.time = Time.now
+  subject.comments << comment
+  subject.save
+  comment.save
+  haml :subject, :locals => { :sub => Subject.get(idsub), :users => User.all, :opc => "0"}
+end
 post '/search' do
   users_valids = []
   if params[:cadena].to_s.length > 0

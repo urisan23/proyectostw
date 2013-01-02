@@ -40,4 +40,19 @@
         %br
         %br
     %br
+    %h3 Comentarios
+    %br
+    - sub.comments.each do |aux|
+      %img.img-rounded.profile{:src => "#{users.get(aux.userid).image}", :alt => "imagen de perfil de #{users.get(aux.userid).username}", :style => "width:30px; height: auto;"}
+      &nbsp;&nbsp;&nbsp;
+      #{users.get(aux.userid).username}
+      &nbsp;&nbsp;&nbsp;
+      #{aux.time.strftime("%m/%d/%Y")}
+      %br
+      #{aux.text}
+      %br
+    %form(action="/subjects/#{sub.id}" method="POST")
+      %textarea.span12{:placeholder=>"Escribir comentario...", :type=>"text-area", :name=>"body", :class => "sms" ,:id => "sms", :onChange=>"checkEnableSend();", :onKeyUp=>"checkEnableSend();"}
+      %span
+        %button.btn.btn-primary{:class => "confirm", :type => "submit", :disabled => "disabled", :id => "confirm"} Comentar
     %a{:href => "/profile"} Regresar

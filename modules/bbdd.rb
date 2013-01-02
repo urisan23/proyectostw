@@ -38,6 +38,7 @@ class Subject
   property :course, Integer
   property :description, String, :default => ""
   has n, :filess, :through => Resource
+  has n, :comments, :through => Resource
 end
 
 ##Modelo de Archivo de una Asignatura
@@ -50,6 +51,15 @@ class Files
   property :uploader, String
   property :calification, Integer, :default => 0
   property :numberVotes, Integer, :default => 0
+end
+
+##Modelo de Comentario
+class Comment
+  include DataMapper::Resource
+  property :id, Serial
+  property :userid, Integer
+  property :text, String
+  property :time, DateTime
 end
 
 ##Modelo de Mensaje Privado
