@@ -88,10 +88,13 @@ post '/signup' do
   redirect '/login'
 end
 
-post '/activeaccount' do
-  if params[:activation_n]=User.get(params[:user_id])
-    User.get(params[:user_id]).enable = true
-    session[:current_user] = User.get(params[:user_id])
+get '/activeaccount' do
+  id_aux=User.first(:email => params[:email]).id
+  if params[:activation_n] == User.get(id_aux).activation_n
+    aux = User.get(id_aux)
+    aux.enabled = true
+    aux.save
+    session[:current_user] = User.get(id_aux)
     session[:log] = TRUE
     $log = TRUE
     redirect '/profile'
