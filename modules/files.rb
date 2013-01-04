@@ -1,6 +1,3 @@
-require 'sinatra'
-require 'net/sftp'
-
 post '/upload' do
     file = params[:file]
     filename = file[:filename]
