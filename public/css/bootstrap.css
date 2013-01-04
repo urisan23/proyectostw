@@ -671,7 +671,7 @@ h6 {
   text-rendering: optimizelegibility;
 }
 
-.hero-unit2 h1, h2, h3, h4, h5, h6, p {
+.hero-unit2 h1, h2, h3, h4, h5, h6, p, b {
   color: #ffffff;
 }
 
@@ -2152,7 +2152,8 @@ table [class*=span],
 }
 
 .table tbody tr.success td {
-  background-color: #dff0d8;
+  /*background-color: #dff0d8;*/
+  background-color: #ffffff;
 }
 
 .table tbody tr.error td {
