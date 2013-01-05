@@ -35,7 +35,11 @@ get '/download/:id' do |id|
 end
 
 get '/file/:s/:id' do |s, id|
-  haml :file, :locals => { :sub => Subject.get(s), :file => Files.get(id)}
+  ids = []
+  Files.get(id).users.each{|m|
+    ids << m.id
+  }
+  haml :file, :locals => { :sub => Subject.get(s), :file => Files.get(id), :ids => ids , :us => session[:current_user]}
 end
 
 get '/file/vote/:s/:id/:stars' do |s, id, stars|
@@ -43,6 +47,8 @@ get '/file/vote/:s/:id/:stars' do |s, id, stars|
   file.numberVotes += 1
   old_calification = file.calification
   file.calification = (old_calification + stars.to_i) / file.numberVotes
+  user = User.get(session[:current_user].id)
+  file.users << user
   file.save
   redirect "/file/#{s}/#{id}"
 end

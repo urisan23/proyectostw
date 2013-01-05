@@ -51,6 +51,7 @@ class Files
   property :uploader, String
   property :calification, Integer, :default => 0
   property :numberVotes, Integer, :default => 0
+  has n, :users, :through => Resource
 end
 
 ##Modelo de Comentario

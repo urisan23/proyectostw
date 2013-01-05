@@ -32,6 +32,8 @@
         %a{:href => "/file/vote/#{sub.id}/#{file.id}/5"}5
         ]
         estrella(s)
+      - if ids.include?(us.id)
+        Ya votó
         %p
         %a.btn.btn-success{:href => "/download/#{file.id}"}Descargar
         %br
