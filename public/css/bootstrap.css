@@ -671,9 +671,9 @@ h6 {
   text-rendering: optimizelegibility;
 }
 
-.hero-unit2 h1, h2, h3, h4, h5, h6, p, b {
+/*.hero-unit2 h1, h2, h3, h4, h5, h6, p, b {
   color: #ffffff;
-}
+}*/
 
 h1 small,
 h2 small,
@@ -5798,15 +5798,15 @@ a.badge:hover {
 /*HERO UNIT DEL LOGIN*/
 .hero-unit2 {
   padding: 5px 20px 20px;
-/*  background-color: #ffffff;*/
+  background-color: #ffffff;
   /*background-color: #0e0e0e;*/
-  background-color: rgba(0e0e0e,0e0e0e,0e0e0e,.5);
-  *background-color: rgba(0e0e0e,0e0e0e,0e0e0e,.5);
+/*   background-color: rgba(0e0e0e,0e0e0e,0e0e0e,.5); */
+/*  *background-color: rgba(0e0e0e,0e0e0e,0e0e0e,.5);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#151515), to(#040404));
   background-image: -webkit-linear-gradient(top, #151515, #040404);
   background-image: -o-linear-gradient(top, #151515, #040404);
   background-image: linear-gradient(to bottom, #151515, #040404);
-  background-image: -moz-linear-gradient(top, #151515, #040404);
+  background-image: -moz-linear-gradient(top, #151515, #040404);*/
 
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
