@@ -5864,3 +5864,43 @@ a.badge:hover {
 .affix {
   position: fixed;
 }
+
+
+/* Estilo de la puntuacion */
+.big-stars li {
+    text-indent: -9999px;
+    font-color: transparent;
+    display: inline;
+    padding-right: 40px;
+    padding-bottom: 30px;
+    width: 40px;
+    height: 40px;
+    background: url('../img/star_empty.png');
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    margin-bottom: 40px;
+    }
+
+.big-stars a {
+    text-indent: -9999px;
+    font-color: transparent;
+    display: inline;
+    padding-right: 40px;
+    padding-bottom: 30px;
+    width: 40px;
+    height: 40px;
+    background: url('../img/star_empty.png');
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    margin-bottom: 40px;
+    }
+.big-stars .full {
+    background: url('../img/star_full.png');
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    }
+.big-stars .half {
+    background: url('../img/star_full_half.png'); 
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    }
