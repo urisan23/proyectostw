@@ -123,15 +123,13 @@ end
 
 post '/admin/subjects/edit_comment' do
   comment_delete = Comment.first(:id => params[:numero])
-  puts params[:numero]
-  puts "texto: #{params[:text]}"
   if params[:text] == nil || params[:text] == ""
     comment_delete.destroy!
   else
     comment_delete.text = params[:text].to_s
     comment_delete.save
   end
-  redirect "/admin/subjects/"
+  redirect back
 end
 
 get '/admin/subjects/edit_subject/:id' do
