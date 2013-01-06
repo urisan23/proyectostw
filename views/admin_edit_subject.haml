@@ -16,7 +16,33 @@
               %label.control-label{:for => "description"} Descripción
               .controls
                 %textarea.span12{:placeholder=>"Descripción", :type=>"text-area", :name=>"description"}#{sub.description}        
-            
+            .control-group
+              %label.control-label{:for => "comentarios"} Comentarios
+            .control-group
+              - sub.comments.each do |aux|
+                .div  
+                  %br
+                  %img.img-rounded.profile{:src => "#{User.all.get(aux.userid).image}", :alt => "imagen de perfil de #{User.all.get(aux.userid).username}", :style => "width:30px; height: auto;"}
+                  &nbsp;&nbsp;&nbsp;
+                  #{User.all.get(aux.userid).username}
+                  &nbsp;&nbsp;&nbsp;
+                  #{aux.time.strftime("%m/%d/%Y")}
+                  %a.btn.btn-danger{:id => "#{aux.id}", "data-toggle" => "modal", :href => "#myModal", :role => "button", :onclick => "document.getElementById(nuevo-comentario).value = #{aux.id}"} Borrar
+                  %br
+                  - if aux.text != nil
+                    #{Haml::Engine.new(aux.text.gsub(10.chr, '<br/>')).render}
+                  -else
+                    #{aux.text}
+                  %br
+              #myModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
+                .modal-header
+                  %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                  %h3#myModalLabel Borrar comentario
+                .modal-body
+                %form.form{:method => "post", :action => "/admin/subjects/edit_comment"}
+                  %textarea{:name => "text", :type => "text-area", :placeholder => "Motivo del borrado"}
+                  %input{:type => "hidden", :name => "numero", :value => "0", :id => "nuevo-comentario"}
+                  %button.btn.btn-info{:type => "submit"}Guardar cambios
             %br
             %center
               %span

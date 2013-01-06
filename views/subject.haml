@@ -33,7 +33,10 @@
                 %td= "#{aux.size} bytes"
                 %br
                 Valoración: 
-                %td= "#{aux.calification/100} estrella(s)"
+                - if aux.numberVotes != 0
+                  %td= "#{aux.calification / aux.numberVotes} estrella(s)"
+                - else
+                  %td= "#{aux.calification} estrella(s)"
                 %br
                 %br
                 %td 

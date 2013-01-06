@@ -44,11 +44,8 @@ end
 
 get '/file/vote/:s/:id/:stars' do |s, id, stars|
   file = Files.get(id)
-  old_calification = (file.calification / 100) * file.numberVotes
   file.numberVotes += 1
-  new_calification = ((old_calification + stars.to_i) / file.numberVotes) * 100
-  file.calification = new_calification
-  puts file.calification
+  file.calification += stars.to_i
   user = User.get(session[:current_user].id)
   file.users << user
   file.save

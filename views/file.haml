@@ -14,7 +14,10 @@
         #{file.uploader}
         %p
         %b Puntuación: 
-        #{file.calification/100} estrella(s)
+        - if file.numberVotes != 0
+          ="#{file.calification / file.numberVotes} estrella(s)"
+        - else
+          ="#{file.calification} estrella(s)"
         %p
         %b Nº de votos:
         #{file.numberVotes} voto(s)

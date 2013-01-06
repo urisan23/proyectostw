@@ -104,7 +104,11 @@
   
   function valida_upload() {
     var message = '';
-    var filesize = document.forms[0].file.files[0].fileSize;
+    var filesize;
+    if (typeof document.forms[0].file === "undefined" ){
+      filesize = 5242880;
+    }else{
+      filesize = document.forms[0].file.files[0].fileSize;}
     var ok = true;
     if (filesize > 5242880) {
       message += '<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><span>El tamaño límite del archivo es de 5 Mb.</span>';
