@@ -36,18 +36,26 @@ end
 
 get '/file/:s/:id' do |s, id|
   ids = []
-  Files.get(id).users.each{|m|
-    ids << m.id
+  Files.get(id).votes.each{|v|
+    ids << v.userid
   }
-  haml :file, :locals => { :sub => Subject.get(s), :file => Files.get(id), :ids => ids , :us => session[:current_user]}
+  haml :file, :locals => { :sub => Subject.get(s), :file => Files.get(id),:us => session[:current_user]}
 end
 
 get '/file/vote/:s/:id/:stars' do |s, id, stars|
+  votonuevo = false
   file = Files.get(id)
-  file.numberVotes += 1
-  file.calification += stars.to_i
-  user = User.get(session[:current_user].id)
-  file.users << user
+  vote = file.votes.first(:userid => session[:current_user].id)
+  if vote == nil
+    vote = Vote.new
+    votonuevo = true
+  end
+  vote.userid = session[:current_user].id
+  vote.value = stars
+  if votonuevo
+    file.votes << vote
+  end
+  vote.save
   file.save
   redirect "/file/#{s}/#{id}"
 end

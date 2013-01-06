@@ -14,30 +14,37 @@
         #{file.uploader}
         %p
         %b Puntuación: 
-        - if file.numberVotes != 0
-          ="#{file.calification / file.numberVotes} estrella(s)"
-        - else
-          ="#{file.calification} estrella(s)"
+        - calification = 0
+        - file.votes.each do |v|
+          - calification += v.value
+        - if file.votes.size > 0
+          - calification = calification / file.votes.size
+        ="#{calification} estrella(s)"
         %p
         %b Nº de votos:
-        #{file.numberVotes} voto(s)
+        #{file.votes.size} voto(s)
         %p
         %b Votar: 
+        - ids = []
+        - file.votes.each do |v|
+          - ids << v.userid
         - if ids.include?(us.id)
           %ul.big-stars{:style => "list-style-type: none;"} 
-            %li.star-1
-            %li.star-2
-            %li.star-3
-            %li.star-4
-            %li.star-5
-            %p{:style => "font-size: 14px; color: #000000; margin-top: 20px;"} Usted ya ha votado este archivo
+          %ul.big-stars{:style => "list-style-type: none;"} 
+            %a.star-1{:href => "/file/vote/#{sub.id}/#{file.id}/1", :onmouseover => "puntuacion(1);", :onmouseout => "puntuacion(#{file.votes.first(:userid => us.id).value});"}
+            %a.star-2{:href => "/file/vote/#{sub.id}/#{file.id}/2", :onmouseover => "puntuacion(2);", :onmouseout => "puntuacion(#{file.votes.first(:userid => us.id).value});"}
+            %a.star-3{:href => "/file/vote/#{sub.id}/#{file.id}/3", :onmouseover => "puntuacion(3);", :onmouseout => "puntuacion(#{file.votes.first(:userid => us.id).value});"}
+            %a.star-4{:href => "/file/vote/#{sub.id}/#{file.id}/4", :onmouseover => "puntuacion(4);", :onmouseout => "puntuacion(#{file.votes.first(:userid => us.id).value});"}
+            %a.star-5{:href => "/file/vote/#{sub.id}/#{file.id}/5", :onmouseover => "puntuacion(5);", :onmouseout => "puntuacion(#{file.votes.first(:userid => us.id).value});"}
+            %p{:style => "font-size: 14px; color: #000000; margin-top: 20px;"} Usted ya ha votado este archivo. Puede cambiar su voto.
         - else
           %ul.big-stars{:style => "list-style-type: none;"} 
-            %a.star-1{:href => "/file/vote/#{sub.id}/#{file.id}/1", :onmouseover => "puntuacion(1);", :onmouseout => "puntuacion(#{file.calification/100});"}
-            %a.star-2{:href => "/file/vote/#{sub.id}/#{file.id}/2", :onmouseover => "puntuacion(2);", :onmouseout => "puntuacion(#{file.calification/100});"}
-            %a.star-3{:href => "/file/vote/#{sub.id}/#{file.id}/3", :onmouseover => "puntuacion(3);", :onmouseout => "puntuacion(#{file.calification/100});"}
-            %a.star-4{:href => "/file/vote/#{sub.id}/#{file.id}/4", :onmouseover => "puntuacion(4);", :onmouseout => "puntuacion(#{file.calification/100});"}
-            %a.star-5{:href => "/file/vote/#{sub.id}/#{file.id}/5", :onmouseover => "puntuacion(5);", :onmouseout => "puntuacion(#{file.calification/100});"}
+          %ul.big-stars{:style => "list-style-type: none;"} 
+            %a.star-1{:href => "/file/vote/#{sub.id}/#{file.id}/1", :onmouseover => "puntuacion(1);", :onmouseout => "puntuacion(#{calification});"}
+            %a.star-2{:href => "/file/vote/#{sub.id}/#{file.id}/2", :onmouseover => "puntuacion(2);", :onmouseout => "puntuacion(#{calification});"}
+            %a.star-3{:href => "/file/vote/#{sub.id}/#{file.id}/3", :onmouseover => "puntuacion(3);", :onmouseout => "puntuacion(#{calification});"}
+            %a.star-4{:href => "/file/vote/#{sub.id}/#{file.id}/4", :onmouseover => "puntuacion(4);", :onmouseout => "puntuacion(#{calification});"}
+            %a.star-5{:href => "/file/vote/#{sub.id}/#{file.id}/5", :onmouseover => "puntuacion(5);", :onmouseout => "puntuacion(#{calification});"}
         %p
         %a.btn.btn-success{:href => "/download/#{file.id}", :style => "margin-top: 30px;"}Descargar
         %br
