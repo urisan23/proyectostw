@@ -15,7 +15,7 @@ require_relative 'modules/messages'
 require_relative 'modules/files'
 require_relative 'modules/error'
 
-#Activa las coockies y expiran en 5 minutos
+#Activa las coockies y expiran en 30 minutos
 use Rack::Session::Cookie, :expire_after => 1800
 
 #Activa las coockies
