@@ -1,22 +1,40 @@
 #!/usr/bin/env ruby
+#Gemas
 require 'sinatra'
 require 'haml'
 require 'data_mapper'
 require 'erb'
-require 'dropbox'
-require 'dropbox_sdk'
-require_relative 'modules/config'
-require_relative 'modules/bbdd'
-require_relative 'modules/files'
-require_relative 'modules/messages'
+require 'rubygems'
+require 'pony'
+require 'net/sftp'
+#Modulos de la web
 require_relative 'modules/admin'
+require_relative 'modules/bbdd'
+require_relative 'modules/subjects'
+require_relative 'modules/messages'
+require_relative 'modules/files'
+require_relative 'modules/error'
+
+#Activa las coockies y expiran en 30 minutos
+use Rack::Session::Cookie, :expire_after => 1800
+
+#Activa las coockies
+configure do
+  enable :sessions
+  # set :show_exceptions, false   #Comentar la linea para no mostrar la pagina de error y ver el fallo que da sinatra
+end
 
 #Configuración smtp
 smtp_options = {:host => 'smtp.gmail.com',:port => '587',:user => 'proyectopau100@gmail.com',
                 :password => 'pau123456', :auth => :plain, :tls => true }
-
+#Variables de login
 $log = FALSE
 @user = nil
+
+def gravatar_for(mail)
+   gravatar_id = Digest::MD5.hexdigest(mail.downcase)
+   "http://gravatar.com/avatar/#{gravatar_id}?s=300&d=mm"
+end
 
 before do
   @names = []
@@ -26,15 +44,59 @@ before do
   @user = session[:current_user]
 end
 
-def gravatar_for(mail)
-   gravatar_id = Digest::MD5.hexdigest(mail.downcase)
-   "http://gravatar.com/avatar/#{gravatar_id}?s=300&d=mm"
-end
-
 get '\/' do
   if session[:log]
     redirect '/login'
   else
+    redirect '/profile'
+  end
+end
+
+get '/signup' do
+  emails,usernames = [],[]
+  User.all.each{|us|
+    emails << us[:email]
+    usernames << us[:username]
+  }
+  haml :signup, :locals => { :used_usrs => usernames, :used_emails => emails}
+end
+
+post '/signup' do
+  aux = User.new
+  aux.name = params[:name]
+  aux.surnames = params[:surnames]
+  aux.email = params[:email]
+  aux.password = params[:password]
+  aux.username = params[:username]
+  aux.image = gravatar_for(params[:email])
+  aux.enabled = false
+  aux.activation_n = ""
+  10.times do 
+    aux.activation_n+=rand(10).to_s()
+  end
+  aux.comment = ""
+   Pony.mail(
+     :to => "#{aux.email}",
+     :from => "proyectopau100@gmail.com",
+     :subject => "Bienvenido a proyecto PAU, #{aux.name}!",
+     :body=>(haml :mail_welcome, :layout=>false, :locals => { :us => aux}),
+     :content_type=>'text/html',
+     :via => :smtp,
+     :smtp => smtp_options)
+  aux.password = Digest::MD5.hexdigest(aux.password)
+  aux.save
+  redirect '/login'
+end
+
+get '/activeaccount' do
+  id_aux=User.first(:email => params[:email]).id
+  if params[:activation_n] == User.get(id_aux).activation_n
+    aux = User.get(id_aux)
+    aux.enabled = true
+    aux.save
+    session[:current_user] = User.get(id_aux)
+    session[:log] = TRUE
+    $log = TRUE
     redirect '/profile'
   end
 end
@@ -77,40 +139,31 @@ get '/logout' do
   redirect '/'
 end
 
-get '/signup' do
-  emails,usernames = [],[]
+get '/forgotten_pass' do
+  emails = []
   User.all.each{|us|
     emails << us[:email]
-    usernames << us[:username]
   }
-  haml :signup, :locals => { :used_usrs => usernames, :used_emails => emails}
+  haml :forgotten_pass, :locals => { :used_emails => emails}
 end
 
-post '/signup' do
-  aux = User.new
-  aux.name = params[:name]
-  aux.surnames = params[:surnames]
-  aux.email = params[:email]
-  aux.password = params[:password]
-  aux.username = params[:username]
-  aux.image = gravatar_for(params[:email])
-  aux.enabled = false
-  aux.activation_n = ""
-  10.times do 
-    aux.activation_n+=rand(10).to_s()
+post '/forgotten_pass' do
+  user = User.first(:email => params[:email])
+  user.password=""
+  6.times do 
+    user.password+=rand(10).to_s()
   end
-  aux.comment = ""
-   Pony.mail(
-     :to => "#{aux.email}",
-     :from => "proyectopau100@gmail.com",
-     :subject => "Bienvenido a proyecto PAU, #{aux.name}!",
-     :body=>(haml :mail_welcome, :layout=>false, :locals => { :us => aux}),
-     :content_type=>'text/html',
-     :via => :smtp,
-     :smtp => smtp_options)
-  aux.password = Digest::MD5.hexdigest(aux.password)
-  aux.save
-  redirect '/login'
+  Pony.mail(
+    :to => "#{user.email}",
+    :from => "proyectopau100@gmail.com",
+    :subject => "Se ha generado un nuevo password",
+    :body=>(haml :mail_newpass, :layout=>false, :locals => { :us => user}),
+    :content_type=>'text/html',
+    :via => :smtp,
+    :smtp => smtp_options)
+  user.password = Digest::MD5.hexdigest(user.password)
+  user.save
+  haml :login, :locals => { :opc => "3"}
 end
 
 get '/profile' do
@@ -140,37 +193,9 @@ post '/edit_profile' do
   redirect '/profile'
 end
 
-get '/forgotten_pass' do
-  emails = []
-  User.all.each{|us|
-    emails << us[:email]
-  }
-  haml :forgotten_pass, :locals => { :used_emails => emails}
-end
-
-post '/forgotten_pass' do
-  user = User.first(:email => params[:email])
-  user.password=""
-  6.times do 
-    user.password+=rand(10).to_s()
-  end
-  Pony.mail(
-    :to => "#{user.email}",
-    :from => "proyectopau100@gmail.com",
-    :subject => "Se ha generado un nuevo password",
-    :body=>(haml :mail_newpass, :layout=>false, :locals => { :us => user}),
-    :content_type=>'text/html',
-    :via => :smtp,
-    :smtp => smtp_options)
-  user.password = Digest::MD5.hexdigest(user.password)
-  user.save
-  haml :login, :locals => { :opc => "3"}
-end
-
 post '/change_pass' do
   aux = session[:current_user]
   session[:change_password] = FALSE
-  
   if aux.password == Digest::MD5.hexdigest(params[:password])
     if params[:new_password] != ""
       if params[:repeat_new_password] != ""
@@ -181,7 +206,6 @@ post '/change_pass' do
       end
     end
   end
-  
   if session[:change_password] == FALSE
     haml :profile, :locals => { :us => session[:current_user], :o => "1"}
   else
@@ -193,52 +217,6 @@ post '/change_pass' do
   end
 end
 
-get '/help' do
-  haml :help
-end
-
-get '/contact' do
-  haml :contact
-end
-
-get '/subjects' do
-  haml :subjects, :locals => { :sub => Subject.all, :us => session[:current_user]}
-end
-
-get '/register/:sub' do|sub|
-  aux = session[:current_user]
-  aux.subjects << Subject.get(sub)
-  session.clear
-  aux.save
-  session[:current_user] = User.first(:email => aux.email)
-  session[:log] = TRUE
-  redirect back
-end
-
-get '/unregister/:sub' do|sub|
-  aux = session[:current_user]
-  aux.subjects.intermediaries.get(aux.id,Subject.all.get(sub).id).destroy!
-  session.clear
-  aux.save
-  session[:current_user] = User.first(:email => aux.email)
-  session[:log] = TRUE
-  redirect back
-end
-
-get '/subjects/:idsub' do|idsub|
-  haml :subject, :locals => { :sub => Subject.get(idsub), :users => User.all, :opc => "0"}
-end
-post '/subjects/:idsub' do|idsub|
-  comment = Comment.new
-  subject = Subject.get(idsub)
-  comment.text = params[:text]
-  comment.userid = session[:current_user].id
-  comment.time = Time.now
-  subject.comments << comment
-  subject.save
-  comment.save
-  haml :subject, :locals => { :sub => Subject.get(idsub), :users => User.all, :opc => "0"}
-end
 post '/search' do
   users_valids = []
   if params[:cadena].to_s.length > 0
@@ -260,28 +238,10 @@ get '/user/:id' do |id|
   haml :user, :locals => { :us => user}
 end
 
-post '/activeaccount/' do
-  if params[:activation_n]=User.get(params[:user_id])
-    User.get(params[:user_id]).enable = true
-    session[:current_user] = User.get(params[:user_id])
-    session[:log] = TRUE
-    $log = TRUE
-    redirect '/profile'
-  end
+get '/help' do
+  haml :help
 end
 
-not_found do
-  redirect '/errors/404/404.html'
-end
-
-error 404 do
-  redirect '/errors/404/404.html'
-end
-
-error 400..403 do
-  redirect '/errors/403/403.html'
-end
-
-error 500..510 do
-  'Internal Server Error'
+get '/contact' do
+  haml :contact
 end

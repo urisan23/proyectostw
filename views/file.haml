@@ -4,6 +4,14 @@
       .hero-unit2
         %center
           %h4 #{file.filename}
+        %p
+        -if filetype(file.filename)=~ /image/
+          %img{:src => "/download/#{file.id}", :alt => "#{file.filename}", :style => "border: none;", :maxwidth => "100%"}
+        -elsif filetype(file.filename)=~ /text/
+          .box{:style => "max-height: 600px; overflow: auto;"}
+            %pre.prettyprint.prettyprinted{:style => "border: none;"}
+              = "\n\n\n" + read(file.id)
+        -else
           %iframe{:height => "780", :src => "http://docs.google.com/viewer?url=http://obscure-savannah-8776.herokuapp.com/download/#{file.id}&embedded=true", :style => "border: none;", :width => "100%"}
     .span3
       .hero-unit2
@@ -14,26 +22,45 @@
         #{file.uploader}
         %p
         %b Puntuación: 
-        #{file.calification} estrella(s)
+        - calification = 0
+        - file.votes.each do |v|
+          - calification += v.value
+        - if file.votes.size > 0
+          - calification = calification / file.votes.size
+        ="#{calification} estrella(s)"
         %p
         %b Nº de votos:
-        #{file.numberVotes} voto(s)
+        #{file.votes.size} voto(s)
         %p
         %b Votar: 
-        [
-        %a{:href => "/file/vote/#{sub.id}/#{file.id}/1"}1
-        ,
-        %a{:href => "/file/vote/#{sub.id}/#{file.id}/2"}2
-        ,
-        %a{:href => "/file/vote/#{sub.id}/#{file.id}/3"}3
-        ,
-        %a{:href => "/file/vote/#{sub.id}/#{file.id}/4"}4
-        ,
-        %a{:href => "/file/vote/#{sub.id}/#{file.id}/5"}5
-        ]
-        estrella(s)
+        - ids = []
+        - file.votes.each do |v|
+          - ids << v.userid
+        - if ids.include?(us.id)
+          %ul.big-stars{:style => "list-style-type: none;"} 
+          %ul.big-stars{:style => "list-style-type: none;"} 
+            %a.star-1{:href => "/file/vote/#{sub.id}/#{file.id}/1", :onmouseover => "puntuacion(1);", :onmouseout => "puntuacion(#{file.votes.first(:userid => us.id).value});"}
+            %a.star-2{:href => "/file/vote/#{sub.id}/#{file.id}/2", :onmouseover => "puntuacion(2);", :onmouseout => "puntuacion(#{file.votes.first(:userid => us.id).value});"}
+            %a.star-3{:href => "/file/vote/#{sub.id}/#{file.id}/3", :onmouseover => "puntuacion(3);", :onmouseout => "puntuacion(#{file.votes.first(:userid => us.id).value});"}
+            %a.star-4{:href => "/file/vote/#{sub.id}/#{file.id}/4", :onmouseover => "puntuacion(4);", :onmouseout => "puntuacion(#{file.votes.first(:userid => us.id).value});"}
+            %a.star-5{:href => "/file/vote/#{sub.id}/#{file.id}/5", :onmouseover => "puntuacion(5);", :onmouseout => "puntuacion(#{file.votes.first(:userid => us.id).value});"}
+            %p{:style => "font-size: 14px; color: #000000; margin-top: 20px;"} Usted ya ha votado este archivo. Puede cambiar su voto.
+        - else
+          %ul.big-stars{:style => "list-style-type: none;"} 
+          %ul.big-stars{:style => "list-style-type: none;"} 
+            %a.star-1{:href => "/file/vote/#{sub.id}/#{file.id}/1", :onmouseover => "puntuacion(1);", :onmouseout => "puntuacion(#{calification});"}
+            %a.star-2{:href => "/file/vote/#{sub.id}/#{file.id}/2", :onmouseover => "puntuacion(2);", :onmouseout => "puntuacion(#{calification});"}
+            %a.star-3{:href => "/file/vote/#{sub.id}/#{file.id}/3", :onmouseover => "puntuacion(3);", :onmouseout => "puntuacion(#{calification});"}
+            %a.star-4{:href => "/file/vote/#{sub.id}/#{file.id}/4", :onmouseover => "puntuacion(4);", :onmouseout => "puntuacion(#{calification});"}
+            %a.star-5{:href => "/file/vote/#{sub.id}/#{file.id}/5", :onmouseover => "puntuacion(5);", :onmouseout => "puntuacion(#{calification});"}
         %p
-        %a.btn.btn-success{:href => "/download/#{file.id}"}Descargar
+        %a.btn.btn-success{:href => "/download/#{file.id}", :style => "margin-top: 30px;"}Descargar
         %br
         %br
         %a{:href => "/subjects/#{sub.id}"} Regresar
+-if ids.include?(us.id)
+  :javascript
+    puntuacion(#{file.votes.first(:userid => us.id).value});
+-else  
+  :javascript
+    puntuacion(#{calification});

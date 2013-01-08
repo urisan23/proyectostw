@@ -3,18 +3,18 @@
     .navbar-inner
       .container-fluid
         %a.brand{:href => "/"}
-          %img.brand{:alt => "PAU", :href => "/", :src => "/img/logo.png", :style => "height: 30px; width: auto;"}
+          %img.brand{:alt => "PAU", :href => "/", :src => "/img/logo.png", :style => "height: 30px; width: auto; padding: 5px 5px 5px 30px;"}
         %ul.nav
           %li
-            %a{:href => "/inbox"} Mensajes
+            %a{:href => "/inbox", :style => "padding: 12px;"} Mensajes
           %li
-            %a{:href => "/subjects"} Asignaturas
+            %a{:href => "/subjects", :style => "padding: 12px;"} Asignaturas
           %li
-            %a{:href => "/help"} Ayuda
+            %a{:href => "/help", :style => "padding: 12px;"} Ayuda
         %ul.nav.pull-right
           %li.divider-vertical
           %li.dropdown
-            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :style => "padding: 12px;"}
               %i.icon-user.icon-white
               #{@user? @user.username : "username"}
               %b.caret
@@ -24,14 +24,15 @@
               %li.divider
               %li
                 %a{:href => "/logout"} Cerrar sesión
-        %form.navbar-search.pull-right{:method => "POST", :action => "/search"}
+        %form.navbar-search.pull-right{:method => "POST", :action => "/search", :style => "padding: 2px;"}
           %input.search-query{:placeholder => "Buscar...", :name=>"cadena", :type => "text"}
 -else
   .navbar.navbar-fixed-top.navbar-inverse
     .navbar-inner
       .container-fluid
         %a.brand{:href => "/"}
-          %img.brand{:alt => "PAU", :href => "/", :src => "/img/logo.png", :style => "height: 30px; width: auto;"}
-        %ul.nav
+          %img.brand{:alt => "PAU", :href => "/", :src => "/img/logo.png", :style => "height: 30px; width: 30px; padding: 5px 5px 5px 110px;"}
+        %ul.nav.pull-right
           %li
-            %a.pull-left{:href => "/help"} Ayuda
+            %a.brand{:href => "/help"}
+              %img.brand{:alt => "Ayuda", :href => "/help", :src => "http://eytsc1011.pbworks.com/f/1290113720/incono-en-linea-ayuda.gif", :style => "height: 30px; width: 30px; padding: 3px 90px 10px;"}

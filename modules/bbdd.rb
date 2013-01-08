@@ -51,6 +51,15 @@ class Files
   property :uploader, String
   property :calification, Integer, :default => 0
   property :numberVotes, Integer, :default => 0
+  has n, :votes, :through => Resource
+end
+
+##Modelo de Voto de un Archivo
+class Vote
+  include DataMapper::Resource
+  property :id, Serial
+  property :userid, Integer
+  property :value, Integer
 end
 
 ##Modelo de Comentario

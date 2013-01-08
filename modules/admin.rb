@@ -116,8 +116,20 @@ end
 get '/admin/subjects/delete_subject/:id' do
   subject_delete = Subject.first(:id  => params[:id])
   subject_delete.filess.destroy!
+  subject_delete.comments.destroy!
   subject_delete.destroy!
   redirect '/admin/subjects'
+end
+
+post '/admin/subjects/edit_comment' do
+  comment_delete = Comment.first(:id => params[:numero])
+  if params[:text] == nil || params[:text] == ""
+    comment_delete.destroy!
+  else
+    comment_delete.text = params[:text].to_s
+    comment_delete.save
+  end
+  redirect back
 end
 
 get '/admin/subjects/edit_subject/:id' do
@@ -150,6 +162,7 @@ end
 
 get '/admin/files/delete/:id' do |id|
   file = Files.get(id)
+  file.users.destroy!
   file.destroy!
   redirect '/admin/files'
 end

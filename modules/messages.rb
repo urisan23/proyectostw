@@ -37,7 +37,7 @@ post '/send_message/:id' do|id|
   if params[:res] != nil
     redirect '/inbox'
   else
-    redirect '/profile'
+    redirect back
   end
 end
 get '/delete_message/:id' do|id|

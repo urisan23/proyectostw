@@ -13,46 +13,53 @@
         .modal-body
           = haml :upload, :locals => { :id => "#{sub.id}"} 
     %h4 Archivos
-      
-            
-    %table.table
-    - sub.filess.each do |aux|
-      %tr
-        Nombre: 
-        %td
-          =aux.filename
-          [
-          %a{:href => "/file/#{sub.id}/#{aux.id}"}Vista previa
-          ]
-        %br
-        Fecha de subida: 
-        %td= aux.date
-        %br
-        Tamaño: 
-        %td= "#{aux.size} bytes"
-        %br
-        Valoración: 
-        %td= "#{aux.calification} estrella(s)"
-        %br
-        %br
-        %td 
-          %a.btn.btn-info{:href => "/download/#{aux.id}"} Descargar
-        %br
-        %br
-    %br
+    .pagination-holder.clearfix
+      %ul{:id => "items", :style => "list-style-type: none;"}   
+        - sub.filess.each do |aux|
+          %li{:style => "margin-left: -25px;"}
+            .box
+              %tr
+                Nombre: 
+                %td
+                  =aux.filename
+                  [
+                  %a{:href => "/file/#{sub.id}/#{aux.id}"}Vista previa
+                  ]
+                %br
+                Fecha de subida: 
+                %td= aux.date
+                %br
+                Tamaño: 
+                %td= "#{aux.size} bytes"
+                %br
+                Valoración: 
+                - if aux.numberVotes != 0
+                  %td= "#{aux.calification / aux.numberVotes} estrella(s)"
+                - else
+                  %td= "#{aux.calification} estrella(s)"
+                %br
+                %br
+                %td 
+                  %a.btn.btn-info{:href => "/download/#{aux.id}"} Descargar
+                %br
+                %br
     %h3 Comentarios
     %br
     - sub.comments.each do |aux|
-      %img.img-rounded.profile{:src => "#{users.get(aux.userid).image}", :alt => "imagen de perfil de #{users.get(aux.userid).username}", :style => "width:30px; height: auto;"}
-      &nbsp;&nbsp;&nbsp;
-      #{users.get(aux.userid).username}
-      &nbsp;&nbsp;&nbsp;
-      #{aux.time.strftime("%m/%d/%Y")}
-      %br
-      #{aux.text}
-      %br
+      .div  
+        %img.img-rounded.profile{:src => "#{users.get(aux.userid).image}", :alt => "imagen de perfil de #{users.get(aux.userid).username}", :style => "width:30px; height: auto;"}
+        &nbsp;&nbsp;&nbsp;
+        #{users.get(aux.userid).username}
+        &nbsp;&nbsp;&nbsp;
+        #{aux.time.strftime("%m/%d/%Y")}
+        %br
+        - if aux.text != nil
+          #{Haml::Engine.new(aux.text.gsub(10.chr, '<br/>')).render}
+        -else
+          #{aux.text}
+        %br
     %form(action="/subjects/#{sub.id}" method="POST")
-      %textarea.span12{:placeholder=>"Escribir comentario...", :type=>"text-area", :name=>"body", :class => "sms" ,:id => "sms", :onChange=>"checkEnableSend();", :onKeyUp=>"checkEnableSend();"}
+      %textarea.span12{:placeholder=>"Escribir comentario...", :type=>"text-area", :name=>"text", :class => "sms" ,:id => "sms", :onChange=>"checkEnableSend();", :onKeyUp=>"checkEnableSend();"}
       %span
         %button.btn.btn-primary{:class => "confirm", :type => "submit", :disabled => "disabled", :id => "confirm"} Comentar
-    %a{:href => "/profile"} Regresar
+    %a.btn.btn-warning{:href => "/profile"} Regresar

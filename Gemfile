@@ -1,7 +1,5 @@
 source "http://rubygems.org"
 
-gem 'dropbox'
-gem 'dropbox-sdk'
 gem 'dm-postgres-adapter', :group => :production
 gem 'pg', :group => :production
 gem 'dm-sqlite-adapter', :group => :development
