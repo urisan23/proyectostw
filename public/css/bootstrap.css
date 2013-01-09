@@ -606,6 +606,51 @@ a:hover {
   clear: both;
 }
 
+/* file information */
+.file-icon {
+  background: url('../img/default-icon.png');
+    background-size: 120px 120px;
+    background-repeat: no-repeat;
+  width: 120px;
+  height: auto;
+  float: left;
+  margin: 10px;
+}
+
+.file-icon p {
+  margin: 0px;
+}
+
+.info {
+  float: left;
+  margin: 0;
+}
+
+.info .name {
+  font-size: 24px;
+  margin: 0;
+}
+
+.info .updater {
+  font-size: 18px;
+  margin: 0;
+}
+
+.info .date {
+  font-size: 16px;
+  margin: 0;
+}
+
+.info .size {
+  font-size: 16px;
+  margin: 0;
+}
+
+.actions {
+  float: right;
+  margin: 30px;
+}
+
 p {
   margin: 0 0 10px;
 }
@@ -5903,22 +5948,4 @@ a.badge:hover {
   background: url('../img/star_full_half.png'); 
     background-size: 40px 40px;
     background-repeat: no-repeat;
-}
-
-/* file information */
-.file-icon {
-  background: url('../img/default-icon.png');
-    background-size: 100px 150px;
-    background-repeat: no-repeat;
-  width: 100px;
-  height: 150px;
-  float: left;
-}
-
-.info {
-  float: left;
-}
-
-.actions {
-  float: right;
 }

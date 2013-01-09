@@ -19,16 +19,40 @@
           %li{:style => "margin-left: -25px;"}
             .box
               .file-icon
+                - if extension(aux.filename) =~ /pdf/
+                  %img.image{:src => "/img/icons/pdf.png", :alt => "documento pdf", :style => "width: 120px; height: auto;"}
+                - elsif extension(aux.filename) =~ /doc|docx|odt/
+                  %img.image{:src => "/img/icons/doc.png", :alt => "documento word o similar", :style => "width: 120px; height: auto;"}
+                - elsif extension(aux.filename) =~ /ppt|odp|pptx/
+                  %img.image{:src => "/img/icons/ppt.png", :alt => "documento powerpoint o similar", :style => "width: 120px; height: auto;"}
+                - elsif extension(aux.filename) =~ /xls|ods/
+                  %img.image{:src => "/img/icons/excel.png", :alt => "documento exel o similar", :style => "width: 120px; height: auto;"}
+                - elsif extension(aux.filename) =~ /mp3|mid|midi|wav|wma|cda|ogg|ogm|aac|ac3|flac/
+                  %img.image{:src => "/img/icons/audio.png", :alt => "archivo de audio", :style => "width: 120px; height: auto;"}
+                - elsif extension(aux.filename) =~ /3gp|3g2|asf|mov|avi|vob|flv|as|mpg|mp4|rm|f4v|swf|srt|wmv|bik|mod|mk|divx|h26.*/
+                  %img.image{:src => "/img/icons/video.png", :alt => "archivo de video", :style => "width: 120px; height: auto;"}
+                - elsif extension(aux.filename) =~ /bmp|dds|gif|jpg|png|psd.*|tga|thm|tif|tiff|yuv|abm|afx|jpeg/
+                  %img.image{:src => "/img/icons/image.png", :alt => "imagen", :style => "width: 120px; height: auto;"}
+                - elsif extension(aux.filename) =~ /calendar|css|csv|dns|example|html|rtf|rtx|vcard|vnd|xml|js|sgml|cpp|c|h|hpp|html|pas|java|php|h.*/
+                  %img.image{:src => "/img/icons/code.png", :alt => "fichero de codigo", :style => "width: 120px; height: auto;"}
+                - elsif extension(aux.filename) =~ /txt/
+                  %img.image{:src => "/img/icons/txt.png", :alt => "archivo de texto", :style => "width: 120px; height: auto;"}
+                - elsif extension(aux.filename) =~ /rar/
+                  %img.image{:src => "/img/icons/rar.png", :alt => "archivador", :style => "width: 120px; height: auto;"}
+                - elsif extension(aux.filename) =~ /zip|gz|tar/
+                  %img.image{:src => "/img/icons/pdf.png", :alt => "carpeta comprimida", :style => "width: 120px; height: auto;"}
+                - else
+                  %img.image{:src => "/img/icons/default.png", :alt => "formato desconocido", :style => "width: 120px; height: auto;"}
               .info
                 %p.name
                   %a{:href => "/file/#{sub.id}/#{aux.id}"} 
                     =aux.filename 
                 %p.updater
-                  =aux.uploader
+                  Subido por: #{aux.uploader}
                 %p.date
-                  = aux.date
+                  El #{aux.date}
                 %p.size
-                  ="#{hrsize(aux.size.to_i,2)}" 
+                  Tamaño: #{hrsize(aux.size.to_i,2)} 
                 - calification = 0
                 - aux.votes.each do |v|
                   - calification += v.value
@@ -65,11 +89,10 @@
                   %span  
                     %img{:src => "/img/star_empty.png", :alt => "star_empty", :width => "25px;", :height => "25px"}
               .actions
-                %br
-                %td 
-                  %a.btn.btn-info{:href => "/download/#{aux.id}"} Descargar
+                %a.btn.btn-info{:href => "/download/#{aux.id}"} Descargar
                 %br
                 %br
+                %a.btn.btn-warning{:href => "/file/#{sub.id}/#{aux.id}"} Ver online
     %h3 Comentarios
     %br
     %table.table.table-striped.table-hover
