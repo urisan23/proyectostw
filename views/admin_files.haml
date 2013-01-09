@@ -6,14 +6,33 @@
         %br
       %h3 Listado:
       - Subject.each do |sub|
-        %h4
-          = sub.subjectname
-        - sub.filess.each do |file|
-          %li 
-            #{file.filename} - [
-            %a{:href => "/admin/files/delete/#{file.id}"} Borrar
-            ]
-        %br
+        - if sub.filess.count != 0 
+          %h4  
+            = sub.subjectname
+          %table.table.table-hover
+            %tbody
+              - sub.filess.each do |file|
+                %tr
+                  %td
+                    .nil{:style => "float: left; margin-left: 30px;"}
+                      #{file.filename}
+                  %td
+                    .nil{:style => "float: right; margin-right: 30px;"}
+                      %a.btn.btn-danger{:href => "/admin/files/delete/#{file.id}"} Borrar
+        -#
+          - else
+            %h4  
+              = sub.subjectname
+            %table.table.table-hover
+              %tbody
+                %tr
+                  %td
+                    .nil{:style => "float: left; margin-left: 30px;"}
+                      No hay archivos en la asignatura en este momento
+      %br
+      %center
+        %h4 Si la asignatura que busca no se encuentra en esta lista es porque no tiene ningún archivo asociado.
+      %br
       %br
       %center
         %a.btn.btn-danger{:href => "/admin/files/delete_all"}Borrar todos

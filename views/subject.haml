@@ -18,26 +18,53 @@
         - sub.filess.each do |aux|
           %li{:style => "margin-left: -25px;"}
             .box
-              %tr
-                Nombre: 
-                %td
-                  =aux.filename
-                  [
-                  %a{:href => "/file/#{sub.id}/#{aux.id}"}Vista previa
-                  ]
-                %br
-                Fecha de subida: 
-                %td= aux.date
-                %br
-                Tamaño: 
-                %td= "#{aux.size} bytes"
-                %br
-                Valoración: 
-                - if aux.numberVotes != 0
-                  %td= "#{aux.calification / aux.numberVotes} estrella(s)"
+              .file-icon
+              .info
+                %p.name
+                  %a{:href => "/file/#{sub.id}/#{aux.id}"} 
+                    =aux.filename 
+                %p.updater
+                  =aux.uploader
+                %p.date
+                  = aux.date
+                %p.size
+                  ="#{hrsize(aux.size.to_i,2)}" 
+                - calification = 0
+                - aux.votes.each do |v|
+                  - calification += v.value
+                - if aux.votes.size > 0
+                  - calification = calification / aux.votes.size
+                - if calification > 0.5
+                  %span
+                    %img{:src => "/img/star_full.png", :alt => "star_full", :width => "25px;", :height => "25px"}
                 - else
-                  %td= "#{aux.calification} estrella(s)"
-                %br
+                  %span  
+                    %img{:src => "/img/star_empty.png", :alt => "star_empty", :width => "25px;", :height => "25px"}
+                - if calification > 1.5
+                  %span
+                    %img{:src => "/img/star_full.png", :alt => "star_full", :width => "25px;", :height => "25px"}
+                - else
+                  %span  
+                    %img{:src => "/img/star_empty.png", :alt => "star_empty", :width => "25px;", :height => "25px"}
+                - if calification > 2.5
+                  %span
+                    %img{:src => "/img/star_full.png", :alt => "star_full", :width => "25px;", :height => "25px"}
+                - else
+                  %span  
+                    %img{:src => "/img/star_empty.png", :alt => "star_empty", :width => "25px;", :height => "25px"}
+                - if calification > 3.5
+                  %span
+                    %img{:src => "/img/star_full.png", :alt => "star_full", :width => "25px;", :height => "25px"}
+                - else
+                  %span  
+                    %img{:src => "/img/star_empty.png", :alt => "star_empty", :width => "25px;", :height => "25px"}
+                - if calification > 4.5
+                  %span
+                    %img{:src => "/img/star_full.png", :alt => "star_full", :width => "25px;", :height => "25px"}
+                - else
+                  %span  
+                    %img{:src => "/img/star_empty.png", :alt => "star_empty", :width => "25px;", :height => "25px"}
+              .actions
                 %br
                 %td 
                   %a.btn.btn-info{:href => "/download/#{aux.id}"} Descargar
@@ -45,21 +72,23 @@
                 %br
     %h3 Comentarios
     %br
-    - sub.comments.each do |aux|
-      .div  
-        %img.img-rounded.profile{:src => "#{users.get(aux.userid).image}", :alt => "imagen de perfil de #{users.get(aux.userid).username}", :style => "width:30px; height: auto;"}
-        &nbsp;&nbsp;&nbsp;
-        #{users.get(aux.userid).username}
-        &nbsp;&nbsp;&nbsp;
-        #{aux.time.strftime("%m/%d/%Y")}
-        %br
-        - if aux.text != nil
-          #{Haml::Engine.new(aux.text.gsub(10.chr, '<br/>')).render}
-        -else
-          #{aux.text}
-        %br
+    %table.table.table-striped.table-hover
+      %tbody
+        - sub.comments.each do |aux|
+          %tr
+            %td        
+              .nil{:style => "font-size: 16px;"}  
+                %img.img-rounded.profile{:src => "#{users.get(aux.userid).image}", :alt => "imagen de perfil de #{users.get(aux.userid).username}", :style => "width:50px; height: auto;"}
+                &nbsp;&nbsp;&nbsp;
+                %a{:href => "/user/#{users.get(aux.userid).id}"} #{users.get(aux.userid).username}
+                &nbsp;&nbsp;&nbsp;
+                #{aux.time.strftime("%m/%d/%Y")}
+                %br
+                .nil{:style => "margin-left: 65px;"} 
+                  #{Haml::Engine.new(aux.text.gsub(10.chr, '<br/>')).render}
+                %br
     %form(action="/subjects/#{sub.id}" method="POST")
-      %textarea.span12{:placeholder=>"Escribir comentario...", :type=>"text-area", :name=>"text", :class => "sms" ,:id => "sms", :onChange=>"checkEnableSend();", :onKeyUp=>"checkEnableSend();"}
+      %textarea.span12{:placeholder=>"Escribir comentario...", :type=>"text-area", :name=>"text", :class => "sms", :rows => "4", :id => "sms", :onChange=>"checkEnableSend();", :onKeyUp=>"checkEnableSend();"}
       %span
-        %button.btn.btn-primary{:class => "confirm", :type => "submit", :disabled => "disabled", :id => "confirm"} Comentar
+        %button.btn.btn-primary{:class => "confirm", :type => "submit", :disabled => "disabled", :id => "confirm", :style => "margin-left: 10px;"} Comentar
     %a.btn.btn-warning{:href => "/profile"} Regresar

@@ -34,6 +34,28 @@ def read (id)
   contents
 end
 
+def extension (filename)
+  File.extname(filename)[1..-1].downcase
+end
+
+GIGA_SIZE = 1073741824.0
+MEGA_SIZE = 1048576.0
+KILO_SIZE = 1024.0
+
+def hrsize(size, precision)
+  if size == 1
+    "1 Byte"
+  elsif size < KILO_SIZE  
+    "%d Bytes" % size
+  elsif size < MEGA_SIZE  
+    "%.#{precision}f KB" % (size / KILO_SIZE)
+  elsif size < GIGA_SIZE  
+    "%.#{precision}f MB" % (size / MEGA_SIZE)
+  else 
+    "%.#{precision}f GB" % (size / GIGA_SIZE)
+  end
+end
+
 post '/upload' do
     file = params[:file]
     filename = file[:filename]

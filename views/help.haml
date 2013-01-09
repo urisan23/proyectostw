@@ -8,183 +8,113 @@
         %li
           %a{"data-toggle" => "tab", :href => "#files"} Archivos
         %li
-          %a{"data-toggle" => "tab", :href => "#groups"} Grupos
-        %li
           %a{"data-toggle" => "tab", :href => "#profile"} Perfil
         %li
           %a{"data-toggle" => "tab", :href => "#faqs"} FAQs
       .tab-content{:style => "padding-bottom: 9px; border-bottom: 1px solid #ddd;"}
         #signup.tab-pane.active
-          %p Explicación del registro.
+          %h4 Registro
+          %p Para registrarte, tan sólo hay que rellenar los campos con tus datos personales. Se te enviará un correo electrónico para confirmar el registro y garantizar el acceso.
+          %center
+            %img.imagen{:alt => "registro", :src => "/img/register.png", :style => "max-width: 80%; height: auto;"}
         #files.tab-pane
-          %p Explicación de subida y descarga de archivos.
-        #groups.tab-pane
-          %p Explicación grupos.
+          %h4 Archivos
+          %p Si quieres subir un archivo, pulsa primero el botón "Compartir un archivo" para acceder al menú de subida.
+          %center
+            %img.imagen{:alt => "compartir", :src => "/img/share.png", :style => "max-width: 80%; height: auto;"}
+          %br
+          %br
+          %p Primero se pulsa "Examinar" para elegir el archivo que se va a a subir, y luego se le da a "Upload" para completar la subida.
+          %center  
+            %img.imagen{:alt => "subida", :src => "/img/upload.png", :style => "max-width: 80%; height: auto;"}
         #profile.tab-pane
-          %p Explicación perfil.
+          %h4 Perfil
+          %p Esta es la página principal, en la que se pueden ver los datos de tu perfil y lo que has hecho hasta ahora.
+          %center
+            %img.imagen{:alt => "principal",:src => "/img/main.png", :style => "max-width: 80%; height: auto;"}
+          %br
+          %br
+          %p Para cambiar los datos del perfil, sólo hay que rellenar los campos de "Editar perfil". Si no se añade una imagen y tienes cuenta en Gravatar, se usará tu imagen de Gravatar. 
+          %center
+            %img.imagen{:alt => "camber",:src => "/img/profile.png", :style => "max-width: 80%; height: auto;"}
+          %br
+          %br
+          %p Para cambiar la contraseña, se introduce primero tu contraseña original, seguida de la nueva contraseña, que se pondrá dos veces para confirmarla.
+          %center
+            %img.imagen{:alt => "contraseña",:src => "/img/password.png", :style => "max-width: 80%; height: auto;"}
         #faqs.tab-pane
-          %p FAQs.
-
-    .container
-      .row
-        .span3.bs-docs-sidebar
-          %ul.nav.nav-list.bs-docs-sidenav
-            %li
-              %a{:href => "#signup"}
-                %i.icon-chevron-right
-                Registro
-            %li
-              %a{:href => "#files"}
-                %i.icon-chevron-right
-                Archivos
-            %li
-              %a{:href => "#groups"}
-                %i.icon-chevron-right
-                Grupos
-            %li
-              %a{:href => "#profile"}
-                %i.icon-chevron-right
-                Perfil
-            %li
-              %a{:href => "#FAQs"}
-                %i.icon-chevron-right
-                FAQs
-        .span7
-          %section#signup
-            %font{:size => "4"}
-              %b Registro
+          %h4 FAQs
+          %br
+          .nil
+            %h4 
+              ¿Qué es PAU?
             %p
-              %br
-              %br
-              %img.imagen{:align => "middle", :alt => "registro", :height => "auto", :src => "/img/register.png", :width => "350"}
-              %br
-              %br
-              Para registrarte, tan sólo hay que rellenar los campos con tus datos personales. Se te enviará un correo electrónico para confirmar el registro y garantizar el acceso.
-              %br
-              %br
-          %section#files
-            %font{:size => "4"}
-              %b Archivos
-            %p
-              %br
-              %br
-              %img.imagen{:align => "middle", :alt => "compartir", :height => "auto", :src => "/img/share.png", :width => "900"}
-              %br
-              %br
-              Si quieres subir un archivo, pulsa primero el botón "Compartir un archivo" para acceder al menú de subida.
-              %br
-              %br
-              %img.imagen{:align => "middle", :alt => "subida", :height => "auto", :src => "/img/upload.png", :width => "900"}
-              %br
-              %br
-              Primero se pulsa "Examinar" para elegir el archivo que se va a a subir, y luego se le da a "Upload" para completar la subida.
-              %br
-              %br
-          %section#groups
-            %font{:size => "4"}
-              %b Grupos
-            %p
-          %section#profile
-            %font{:size => "4"}
-              %b Perfil
-            %p
-              %br
-              %br
-              %img.imagen{:align => "middle", :alt => "principal", :height => "auto", :src => "/img/main.png", :width => "900"}
-              %br
-              %br
-              Esta es la página principal, en la que se pueden ver los datos de tu perfil y lo que has hecho hasta ahora.
-              %br
-              %br
-              %img.imagen{:align => "middle", :alt => "camber", :height => "auto", :src => "/img/profile.png", :width => "500"}
-              %br
-              %br
-              Para cambiar los datos del perfil, sólo hay que rellenar los campos de "Editar perfil". Si no se añade una imagen y tienes cuenta en Gravatar, se usará tu imagen de Gravatar. 
-              %br
-              %br
-              %img.imagen{:align => "middle", :alt => "contraseña", :height => "auto", :src => "/img/password.png", :width => "500"}
-              %br
-              %br
-              Para cambiar la contraseña, se introduce primero tu contraseña original, seguida de la nueva contraseña, que se pondrá dos veces para confirmarla.
-              %br
-              %br
-          %section#FAQs        
-          
-            %font{:size => "4"}
-              %b FAQs
-            %p
-            %li
-              %b 
-                ¿Qué es PAU?
-                %p
-                  PAU son las siglas de Plataforma Académica Universitaria. Es una plataforma web donde los alumnos de cualquier universidad
-                  pueden registrarse y matricularse en las asignaturas de su titulación. En ella, podrán gestionar sus asignaturas y descargar
-                  y compartir apuntes y demás recursos. Actualmente, está en fase de desarrollo.
-            %li
-              %b
-                ¿Cómo entrar?
-                %p
-                  Simplemente debes ir a la 
-                  %a{:href => '/'}página de inicio 
-                  y hacer clic en
-                  %i Regístrate ahora.
-                  Rellena el formulario y una vez hecho se te enviará al correo un email de confirmación. Pincha en el link que te aparezca
-                  y serás dado de alta correctamente.
-            %li
-              %b
-                ¿Qué hago si he olvidado la contraseña?
-                %p
-                  Pincha sobre el botón
-                  %i¿Olvidó su contraseña?
-                  en el menú inicio y sigue los pasos en pantalla.
-            %li
-              %b
-                ¿Cómo matricularse en una asignatura?
-                %p
-                  Para matricularse en una asignatura, lo primero es dirigirse a "Asignaturas", donde se halla un listado con todas las asignaturas ofertadas clasificadas por cursos. 
-                  Para matricularse en una de ellas, tan sólo hay que darle al botón "Matricularse en esta asignatura" y ya figurará como una de tus asignaturas matriculadas.
-            %li
-              %b
-                ¿Cómo desmatricularse de una asignatura?
-                %p
-                  El procedimiento es similar al de matricularse. En "Asignaturas", el botón situado al lado de las ya matriculadas ha pasado a ser "Desmatricularse de esta asignatura".
-                  Una vez pulsado ese botón, dejarás de estar matriculado en la asignatura en cuestión.
-            %li
-              %b
-                ¿Cómo se pueden subir archivos para compartir?
-                %p
-                  Para subir un archivo, lo primero es dirigirse a la página principal y seleccionar la asignatura para la que se quiere subir el archivo.
-                  A continuación, hay que pulsar el botón "Compartir un archivo", y seleccionar el archivo que se desee tras pulsar "Examinar". El archivo será subido una vez se pulse "Upload".
-            %li
-              %b
-                ¿Cómo modifico mis datos de perfil?
-                %p
-                  Una vez te hayas logueado, simplemente dirígete a "Editar perfil" en la página de tu perfil. Podrás cambiar toda tu información
-                  salvo tu correo que usastes para registrarte y el nombre de usuario. Por defecto, tu foto de perfil será la que tengas cargada en 
-                  %a{:href => 'http://www.gravatar.com'}Gravatar
-                  , y en caso de que no tengas cuenta, se te asignará una por defecto. También puedes usar otra de un link externo.
-                  Sólo tienes que pegar la url que contenga la foto. Para borrar la foto que haz cargado de un link externo, simplemente pincha en
-                  "Usar Gravatar". Si tienes una foto cargada allí aparecerá. En otro caso, te saldrá de nuevo la imagen por defecto.
-            %li
-              %b
-                ¿Cómo puedo entrar en un grupo de discusión?
-                %p
-            %li
-              %b
-                Mi pregunta no figura aquí. ¿Cómo puedo ponerme en contacto con el soporte?
-                %p
-                  Debes dirigirte a la
-                  %a{:href => '/contact'}página de contacto.
-                  En ella aparece los integrantes del soporte y sus direcciones de correo para cualquier incidencia. También se encuentran abiertos
-                  a cualquier sugerencia o mejora de la plataforma.
-            %li
-              %b
-                Estoy interesado en colaborar en este proyecto. ¿Es posible?
-                %p
-                  Por supuesto. Todo lo que tienes que hacer es clonar el repositorio de nuestro proyecto en
-                  %a{:href => 'https://github.com/urisan23/proyectostw'}GitHub
-                  y hacer un notificarnos de los cambios que has introducido.
-                  Si nos parece interesante la propuesta, la añadiremos a la plataforma.
-
-            %font{:size => "4"}
-              %a.btn.btn-warning{:href => "/"} Regresar
+              PAU son las siglas de Plataforma Académica Universitaria. Es una plataforma web donde los alumnos de cualquier universidad
+              pueden registrarse y matricularse en las asignaturas de su titulación. En ella, podrán gestionar sus asignaturas y descargar
+              y compartir apuntes y demás recursos. Actualmente, está en fase de desarrollo.
+          .nil
+            %h4
+              ¿Cómo entrar?
+              %p
+                Simplemente debes ir a la 
+                %a{:href => '/'}página de inicio 
+                y hacer clic en
+                %i Regístrate ahora.
+                Rellena el formulario y una vez hecho se te enviará al correo un email de confirmación. Pincha en el link que te aparezca
+                y serás dado de alta correctamente.
+          .nil
+            %h4
+              ¿Qué hago si he olvidado la contraseña?
+              %p
+                Pincha sobre el botón
+                %i¿Olvidó su contraseña?
+                en el menú inicio y sigue los pasos en pantalla.
+          .nil
+            %h4
+              ¿Cómo matricularse en una asignatura?
+              %p
+                Para matricularse en una asignatura, lo primero es dirigirse a "Asignaturas", donde se halla un listado con todas las asignaturas ofertadas clasificadas por cursos. 
+                Para matricularse en una de ellas, tan sólo hay que darle al botón "Matricularse en esta asignatura" y ya figurará como una de tus asignaturas matriculadas.
+          .nil
+            %h4
+              ¿Cómo desmatricularse de una asignatura?
+              %p
+                El procedimiento es similar al de matricularse. En "Asignaturas", el botón situado al lado de las ya matriculadas ha pasado a ser "Desmatricularse de esta asignatura".
+                Una vez pulsado ese botón, dejarás de estar matriculado en la asignatura en cuestión.
+          .nil
+            %h4
+              ¿Cómo se pueden subir archivos para compartir?
+              %p
+                Para subir un archivo, lo primero es dirigirse a la página principal y seleccionar la asignatura para la que se quiere subir el archivo.
+                A continuación, hay que pulsar el botón "Compartir un archivo", y seleccionar el archivo que se desee tras pulsar "Examinar". El archivo será subido una vez se pulse "Upload".
+          .nil
+            %h4
+              ¿Cómo modifico mis datos de perfil?
+              %p
+                Una vez te hayas logueado, simplemente dirígete a "Editar perfil" en la página de tu perfil. Podrás cambiar toda tu información
+                salvo tu correo que usastes para registrarte y el nombre de usuario. Por defecto, tu foto de perfil será la que tengas cargada en 
+                %a{:href => 'http://www.gravatar.com'}Gravatar
+                , y en caso de que no tengas cuenta, se te asignará una por defecto. También puedes usar otra de un link externo.
+                Sólo tienes que pegar la url que contenga la foto. Para borrar la foto que haz cargado de un link externo, simplemente pincha en
+                "Usar Gravatar". Si tienes una foto cargada allí aparecerá. En otro caso, te saldrá de nuevo la imagen por defecto.
+          .nil
+            %h4
+              Mi pregunta no figura aquí. ¿Cómo puedo ponerme en contacto con el soporte?
+              %p
+                Debes dirigirte a la
+                %a{:href => '/contact'}página de contacto.
+                En ella aparece los integrantes del soporte y sus direcciones de correo para cualquier incidencia. También se encuentran abiertos
+                a cualquier sugerencia o mejora de la plataforma.
+          .nil
+            %h4
+              Estoy interesado en colaborar en este proyecto. ¿Es posible?
+              %p
+                Por supuesto. Todo lo que tienes que hacer es clonar el repositorio de nuestro proyecto en
+                %a{:href => 'https://github.com/urisan23/proyectostw'}GitHub
+                y hacer un notificarnos de los cambios que has introducido.
+                Si nos parece interesante la propuesta, la añadiremos a la plataforma.
+  %br
+  %br
+  %center
+    %font{:size => "4"}
+      %a.btn.btn-warning{:href => "/"} Regresar

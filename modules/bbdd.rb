@@ -36,7 +36,7 @@ class Subject
   property :id, Serial
   property :subjectname, String
   property :course, Integer
-  property :description, String, :default => ""
+  property :description, String, :default => "", :length => 512
   has n, :filess, :through => Resource
   has n, :comments, :through => Resource
 end
@@ -67,7 +67,7 @@ class Comment
   include DataMapper::Resource
   property :id, Serial
   property :userid, Integer
-  property :text, String
+  property :text, String, :length => 512
   property :time, DateTime
 end
 

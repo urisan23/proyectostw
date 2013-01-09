@@ -26,6 +26,7 @@ get '/subjects/:idsub' do|idsub|
   haml :subject, :locals => { :sub => Subject.get(idsub), :users => User.all, :opc => "0"}
 end
 post '/subjects/:idsub' do|idsub|
+  aux = session[:current_user]
   comment = Comment.new
   subject = Subject.get(idsub)
   comment.text = params[:text]
@@ -34,5 +35,8 @@ post '/subjects/:idsub' do|idsub|
   subject.comments << comment
   subject.save
   comment.save
+  session.clear
+  session[:current_user] = User.first(:email => aux.email)
+  session[:log] = TRUE
   haml :subject, :locals => { :sub => Subject.get(idsub), :users => User.all, :opc => "0"}
 end
