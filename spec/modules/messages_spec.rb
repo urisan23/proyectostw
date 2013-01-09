@@ -1,20 +1,20 @@
 require 'spec_helper'
 
-describe Messages do
+describe "Messages" do
 
     before(:each) do
-        @user = Messages(:user)
+        @user = FactoryGirl.create(:user)
         @attr = { :content => "value for content" }
     end
     
     it "should create a new instance given valid attributes" do
-        @user.message.create!(@attr)
+        @user.messages.create!(@attr)
     end
     
     describe "user associations" do
         
         before(:each) do
-            @message = @user.message.create(@attr)
+            @message = @user.messages.create(@attr)
         end
         
         it "should have a user attribute" do
@@ -35,7 +35,7 @@ describe Messages do
         end
         
         it "should require nonblank content" do
-            @user.message.build(:content => "  ").should_not be_valid
+            @user.messages.build(:content => "  ").should_not be_valid
         end
 
     end

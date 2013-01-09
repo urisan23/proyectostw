@@ -1,29 +1,9 @@
 require 'spec_helper'
 
-Pau.define :user do |user|
-    user.name                  "Pedro Lopez"
-    user.email                 "plopez@example.com"
-    user.password              "plopez"
-    user.password_confirmation "plopez"
-end
-
-Pau.sequence :name do |n|
-    "Person #{n}"
-end
-
-Pau.sequence :email do |n|
-    "person-#{n}@example.com"
-end
-
-Pau.define :message do |msg|
-    msg.content "Something"
-    msg.association :user
-end
-
 describe "Plataforma Academica Universitaria" do
-
+        
     before(:each) do
-        user = Messages(:user)
+        user = FactoryGirl.create(:user)
         visit signin_path
         fill_in :email,    :with => user.email
         fill_in :password, :with => user.password
@@ -34,7 +14,7 @@ describe "Plataforma Academica Universitaria" do
     it "should respond to GET" do
         get '/'
         last_response.should be_ok
-        last_response.body.should match(/Inicio de sesión/)
+        last_response.body.should match(/Inicio de sesion/)
     end
 
     
@@ -45,59 +25,59 @@ describe "LayoutLinks" do
     
     it "should have a Home page at '/'" do
         get '/'
-        response.should have_selector('title', :content => "Inicio")
+        last_response.should have_selector('title', :content => "Inicio")
     end
     
     it "should have a Logout page at '/logout'" do
         get '/contact'
-        response.should have_selector('title', :content => "Cerrar sesión")
+        last_response.should have_selector('title', :content => "Cerrar sesion")
     end
     
     it "should have an Subjects page at '/subjects'" do
         get '/about'
-        response.should have_selector('title', :content => "Asignaturas")
+        last_response.should have_selector('title', :content => "Asignaturas")
     end
     
     it "should have a Help page at '/help'" do
         get '/help'
-        response.should have_selector('title', :content => "Ayuda")
+        last_response.should have_selector('title', :content => "Ayuda")
     end
     
     it "should have a Contact page at '/contact'" do
-        get '/help'
-        response.should have_selector('title', :content => "Contacta con nosotros")
+        get '/contact'
+        last_response.should have_selector('title', :content => "Contacta con nosotros")
     end
 
     
     it "should have a Signup page at '/signup'" do
         get '/signup'
-        response.should have_selector('title', :content => "Regístrate ahora")
+        last_response.should have_selector('title', :content => "Registrate ahora")
     end
 
     it "should have a Forgotten Password page at '/forgotten_pass'" do
-        get '/signup'
-        response.should have_selector('title', :content => "¿Olvidó su contraseña?")
+        get '/forgotten_pass'
+        last_response.should have_selector('title', :content => "Olvido su contrasena?")
     end
     
     it "should have a Change Password page at '/change_pass'" do
-        get '/signup'
-        response.should have_selector('title', :content => "Cambiar contraseña")
+        get '/change_pass'
+        last_response.should have_selector('title', :content => "Cambiar contrasena")
     end
     
     it "should have a Edit Profile page at '/edit_profile'" do
-        get '/signup'
-        response.should have_selector('title', :content => "Editar perfil")
+        get '/edit_profile'
+        last_response.should have_selector('title', :content => "Editar perfil")
     end
     
     it "should have a Admin page at '/admin'" do
-        get '/signup'
-        response.should have_selector('title', :content => "Administración")
+        get '/admin'
+        last_response.should have_selector('title', :content => "Administracion")
     end
     
     describe "when not signed in" do
         it "should have a signin link" do
             visit root_path
-            response.should have_selector("a", :href => signin_path,
+            last_response.should have_selector("a", :href => signin_path,
                                           :content => "Entrar")
         end
     end
@@ -105,7 +85,7 @@ describe "LayoutLinks" do
     describe "when signed in" do
         
         before(:each) do
-            @user = Messages(:user)
+            @user = FactoryGirl.create(:user)
             visit signin_path
             fill_in :email,    :with => @user.email
             fill_in :password, :with => @user.password
@@ -114,13 +94,13 @@ describe "LayoutLinks" do
         
         it "should have a signout link" do
             visit root_path
-            response.should have_selector("a", :href => signout_path,
+            last_response.should have_selector("a", :href => signout_path,
                                           :content => "Salir")
         end
         
         it "should have a profile link" do
             visit root_path
-            response.should have_selector("a", :href => user_path(@user),
+            last_response.should have_selector("a", :href => user_path(@user),
                                           :content => "Perfil")
         end
     end
@@ -141,8 +121,8 @@ describe "Users" do
                     fill_in "Password",           :with => ""
                     fill_in "Confirmar password", :with => ""
                     click_button
-                    response.should render_template('users/new')
-                    response.should have_selector("div#error_explanation")
+                    last_response.should render_template('users/new')
+                    last_response.should have_selector("div#error_explanation")
                 end.should_not change(User, :count)
             end
         end
@@ -157,9 +137,9 @@ describe "Users" do
                     fill_in "Confirmar password", :with => "plopez"
                     fill_in :user_notification,   :with => "0"
                     click_button
-                    response.should have_selector("div.flash.success",
+                    last_response.should have_selector("div.flash.success",
                                                   :content => "Bienvenido")
-                    response.should render_template('users/show')
+                    last_response.should render_template('users/show')
                 end.should change(User, :count).by(1)
             end
         end
@@ -173,13 +153,13 @@ describe "Users" do
                 fill_in :email,    :with => ""
                 fill_in :password, :with => ""
                 click_button
-                response.should have_selector("div.flash.error", :content => "Combinacion")
+                last_response.should have_selector("div.flash.error", :content => "Combinacion")
             end
         end
         
         describe "success" do
             it "should sign a user in and out" do
-                user = Messages(:user)
+                user = FactoryGirl.create(:user)
                 visit signin_path
                 fill_in :email,    :with => user.email
                 fill_in :password, :with => user.password
