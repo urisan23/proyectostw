@@ -59,9 +59,20 @@
         %center
           %h3 Mis Asignaturas
 
-        %table.table
-          %tr.error
+        #accordion2.accordion
           - us.subjects.each do |a|
-            %td
-              %a{:href => "/subjects/#{a.id}"} #{a.subjectname}
-              %br
+            .accordion-group
+              .accordion-heading{:style => "background-color:#222222"}
+                %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "#collapseOne", :style => "color: #ffffff"}
+                  #{a.subjectname}
+              #collapseOne.accordion-body.collapse.in
+                .accordion-inner
+                  %table.table.table-hover
+                    %tbody
+                      %tr
+                        %td
+                          Sin información.
+                        %td
+                        %td{:style => "text-align: right"}
+                          %a.btn.btn-inverse{:href => "/subjects/#{a.id}"}
+                            Acceder
