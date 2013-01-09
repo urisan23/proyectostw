@@ -63,15 +63,21 @@
           - us.subjects.each do |a|
             .accordion-group
               .accordion-heading{:style => "background-color:#222222"}
-                %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "#collapseOne", :style => "color: #ffffff"}
+                %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "##{a.id}", :style => "color: #ffffff"}
                   #{a.subjectname}
-              #collapseOne.accordion-body.collapse.in
+              .accordion-body.collapse{:id => "#{a.id}"}
                 .accordion-inner
                   %table.table.table-hover
                     %tbody
                       %tr
                         %td
-                          Sin información.
+                          %ul
+                            %li 
+                              %b Curso: 
+                              #{a.course}º
+                            %li 
+                              %b Descripcion: 
+                              #{a.description}
                         %td
                         %td{:style => "text-align: right"}
                           %a.btn.btn-inverse{:href => "/subjects/#{a.id}"}
