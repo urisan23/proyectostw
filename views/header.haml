@@ -1,4 +1,8 @@
+-aux=0
 -if $log == TRUE
+  -@user.messages.each do|m|
+    -if !m.read 
+      -aux += 1
   .navbar.navbar-fixed-top.navbar-inverse
     .navbar-inner
       .container-fluid
@@ -6,7 +10,7 @@
           %img.brand{:alt => "PAU", :href => "/", :src => "/img/logo.png", :style => "height: 30px; width: auto; padding: 5px 5px 5px 30px;"}
         %ul.nav
           %li
-            %a{:href => "/inbox", :style => "padding: 12px;"} Mensajes
+            %a{:href => "/inbox", :style => "padding: 12px;"}  Mensajes (#{aux})
           %li
             %a{:href => "/subjects", :style => "padding: 12px;"} Asignaturas
           %li
