@@ -1,9 +1,11 @@
 require 'spec_helper'
+require 'factories'
 
 describe "Messages" do
 
     before(:each) do
         @user = FactoryGirl.create(:user)
+        @message = FactoryGirl.create(:message)
         @attr = { :content => "value for content" }
     end
     
@@ -31,7 +33,7 @@ describe "Messages" do
     describe "validations" do
         
         it "should require a user id" do
-            Messages.new(@attr).should_not be_valid
+            FactoryGirl.new(@attr).should_not be_valid
         end
         
         it "should require nonblank content" do

@@ -13,6 +13,7 @@ require 'rubygems'
 require 'sinatra'
 require 'rspec'
 require 'rack/test'
+require 'webrat'
 
 Sinatra::Application.environment = :test
 #Bundler.require :default, Sinatra
@@ -36,12 +37,19 @@ end
 #    :logging => false
 #)
 
+Webrat.configure do |config|
+    config.mode = :rack
+end
+
 Rspec.configure do |config|
     config.include Rack::Test::Methods
     config.include TestMethods
     config.before(:each) { DataMapper.auto_migrate! }
-    #DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/bbdd.db")
-    #DataMapper.finalize
+    config.include Webrat::Matchers
+    config.include Webrat::Methods
+
+    DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/bbdd.db")
+    DataMapper.finalize
     #Post.auto_migrate!
     #Tag.auto_migrate!
     #config.use_transactional_fixtures = true

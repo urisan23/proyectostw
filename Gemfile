@@ -12,5 +12,9 @@ gem 'net-sftp'
 gem 'rspec'
 gem 'simplecov'
 gem 'rack-test'
-gem 'webrat'
-gem 'factory_girl'
+
+
+group :test do
+    gem 'webrat', '0.7.3'
+    gem 'factory_girl'
+end
