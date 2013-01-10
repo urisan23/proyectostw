@@ -4,15 +4,15 @@
       .hero-unit2
         %center
           %h4 #{file.filename}
-        %p
-        -if filetype(file.filename)=~ /image/
-          %img{:src => "/download/#{file.id}", :alt => "#{file.filename}", :style => "border: none;", :maxwidth => "100%"}
-        -elsif filetype(file.filename)=~ /text/
-          .box{:style => "max-height: 600px; overflow: auto;"}
-            %pre.prettyprint.prettyprinted{:style => "border: none;"}
-              = "\n\n\n" + read(file.id)
-        -else
-          %iframe{:height => "780", :src => "http://docs.google.com/viewer?url=http://obscure-savannah-8776.herokuapp.com/download/#{file.id}&embedded=true", :style => "border: none;", :width => "100%"}
+          %p
+          -if filetype(file.filename)=~ /image/
+            %img{:src => "/download/#{file.id}", :alt => "#{file.filename}", :style => "border: none;", :maxwidth => "100%"}
+          -elsif filetype(file.filename)=~ /text/
+            .box{:style => "max-height: 600px; overflow: auto;"}
+              %pre.prettyprint.prettyprinted{:style => "border: none;"}
+                = "\n\n\n" + read(file.id)
+          -else
+            %iframe{:height => "780", :src => "http://docs.google.com/viewer?url=http://obscure-savannah-8776.herokuapp.com/download/#{file.id}&embedded=true", :style => "border: none;", :width => "100%"}
     .span3
       .hero-unit2
         %b Nombre:
@@ -57,7 +57,7 @@
         %a.btn.btn-success{:href => "/download/#{file.id}", :style => "margin-top: 30px;"}Descargar
         %br
         %br
-        %a{:href => "/subjects/#{sub.id}"} Regresar
+        %a.btn.btn-warning{:href => "/subjects/#{sub.id}"} Regresar
 -if ids.include?(us.id)
   :javascript
     puntuacion(#{file.votes.first(:userid => us.id).value});
