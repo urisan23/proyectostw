@@ -1,7 +1,7 @@
 def filetype (filename)
   ext = File.extname(filename)[1..-1].downcase
   type = ""
-  if ext =~ /txt|calendar|css|csv|dns|example|html|rtf|rtx|vcard|vnd|xml|js|sgml|cpp|c|h|hpp|html|pas|java|php|h.*/
+  if ext =~ /txt|calendar|css|csv|dns|example|html|rtf|rtx|vcard|vnd|xml|js|sgml|cpp|c|h|hpp|html|pas|java|php|py|h.*/
     type = "text/#{ext}"
   elsif ext =~ /exe|bin|msi|doc|ppt|xls|pptx|doxx|xlsx|odt|ods|odx|pdf/
     type = "application/#{ext}"
