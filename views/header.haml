@@ -1,5 +1,5 @@
 -aux=0
--if $log == TRUE
+-if @user != nil
   -@user.messages.each do|m|
     -if !m.read 
       -aux += 1

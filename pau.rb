@@ -44,8 +44,17 @@ before do
   @user = session[:current_user]
 end
 
+after do
+  user = session[:current_user]
+  session.clear
+  if user != nil
+    session[:current_user] = User.first(:email => user.email)
+    @user = session[:current_user]
+  end
+end
+
 get '\/' do
-  if $log
+  if session[:current_user] != nil
     redirect '/profile'
   else
     redirect '/login'
@@ -103,7 +112,7 @@ end
 
 get '/login' do
   session[:failed_log] = 0
-  if $log
+  if session[:current_user] != nil
     redirect '/profile' 
   else
     haml :login, :locals => { :opc => session[:failed_log]}
@@ -166,10 +175,8 @@ post '/forgotten_pass' do
 end
 
 get '/profile' do
-  if $log == FALSE
-    if session[:current_user] == nil || $log = FALSE
-      redirect '/login'
-    end
+  if session[:current_user] == nil
+    redirect '/login'
   else
     haml :profile, :locals => { :us => session[:current_user] }
   end
