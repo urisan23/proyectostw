@@ -54,10 +54,11 @@
             %a.star-4{:href => "/file/vote/#{sub.id}/#{file.id}/4", :onmouseover => "puntuacion(4);", :onmouseout => "puntuacion(#{calification});"}
             %a.star-5{:href => "/file/vote/#{sub.id}/#{file.id}/5", :onmouseover => "puntuacion(5);", :onmouseout => "puntuacion(#{calification});"}
         %p
-        %a.btn.btn-success{:href => "/download/#{file.id}", :style => "margin-top: 30px;"}Descargar
-        %br
-        %br
-        %a.btn.btn-warning{:href => "/subjects/#{sub.id}"} Regresar
+        %span
+          %a.btn.btn-success{:href => "/download/#{file.id}", :style => "margin-top: 30px;"}Descargar
+        %span
+          &nbsp;&nbsp;
+          %a.btn.btn-warning{:href => "/subjects/#{sub.id}", :style => "margin-top: 30px;"} Regresar
 -if ids.include?(us.id)
   :javascript
     puntuacion(#{file.votes.first(:userid => us.id).value});
