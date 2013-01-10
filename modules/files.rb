@@ -69,7 +69,6 @@ post '/upload' do
       f.uploader = session[:current_user].username
       f.date = Time.now.to_s[0..18]
       f.size = tempfile.size
-      f.calification = 0
       Net::SFTP.start('193.145.101.220', 'root', :password => 'sanandreS12') do |sftp|
         sftp.upload!(tempfile.path, "/proyectostw/#{filename}")
       end
