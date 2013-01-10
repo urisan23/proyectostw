@@ -43,12 +43,20 @@ html {
       -ms-text-size-adjust: 100%;
 }
 
-body {
+body { 
+  background: url(http://i614.photobucket.com/albums/tt226/yerayrm90/graduation-university-backgrounds-wallpapers-2.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/*body {
   background-image: url(http://i614.photobucket.com/albums/tt226/yerayrm90/graduation-university-backgrounds-wallpapers-2.jpg);
   background-attachment: fixed;
   background-size: 100%;
   background-repeat:repeat-x;
-}
+}*/
 
 html, body {
   height: 100% !important;

@@ -6,7 +6,7 @@
       .span5
         .hero-unit2
           %h3{:align => "center"} Nuevo usuario
-          %form(action="signup" method="POST" onSubmit="return Valida_signup(this);")
+          %form(action="signup" method="POST" onSubmit="return Valida_signup(this,[#{"\"" + used_emails.map(&:to_s).join("\", \"") + "\""}],[#{"\"" + used_usrs.map(&:to_s).join("\", \"") + "\""}]);")
             %input.span12(placeholder= "Nombre" type="text" name="name")
             %input.span12(placeholder= "Apellidos" type="text" name="surnames")
             %input.span12(placeholder= "Correo electrónico" type="text" name="email")
@@ -18,7 +18,7 @@
                 %button.btn.btn-success{:type => "submit"} Registrarse
               %span
                 %button.btn.btn-success{:type => "reset"} Reestablecer
-      .span7
+      .span7.visible-desktop
         %br
         %br
         #myCarousel.carousel.slide
@@ -40,3 +40,7 @@
                   %h6 Sube tus documentos, exámenes y apuntes de clase en la asignatura y universidad en la que te encuentres.
           %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} &lsaquo;
           %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} &rsaquo; 
+- if used_emails != nil && used_emails.count != 0
+  :javascript
+    users_ar = [#{"\"" + used_usrs.map(&:to_s).join("\", \"") + "\""}];
+    emails_ar = [#{"\"" + used_emails.map(&:to_s).join("\", \"") + "\""}];   
