@@ -67,34 +67,43 @@ get '/signup' do
     emails << us[:email]
     usernames << us[:username]
   }
-  haml :signup, :locals => { :used_usrs => usernames, :used_emails => emails}
+  haml :signup, :locals => {:opc => "1", :used_usrs => usernames, :used_emails => emails}
 end
 
 post '/signup' do
-  aux = User.new
-  aux.name = params[:name]
-  aux.surnames = params[:surnames]
-  aux.email = params[:email]
-  aux.password = params[:password]
-  aux.username = params[:username]
-  aux.image = gravatar_for(params[:email])
-  aux.enabled = false
-  aux.activation_n = ""
-  10.times do 
-    aux.activation_n+=rand(10).to_s()
+  if User.first(:email => params[:email]) != nil || User.first(:username => params[:username]) != nil
+    emails,usernames = [],[]
+    User.all.each{|us|
+      emails << us[:email]
+      usernames << us[:username]
+    }
+    haml :signup, :locals => {:opc => "1", :used_usrs => usernames, :used_emails => emails}
+  else
+    aux = User.new
+    aux.name = params[:name]
+    aux.surnames = params[:surnames]
+    aux.email = params[:email]
+    aux.password = params[:password]
+    aux.username = params[:username]
+    aux.image = gravatar_for(params[:email])
+    aux.enabled = false
+    aux.activation_n = ""
+    10.times do 
+      aux.activation_n+=rand(10).to_s()
+    end
+    aux.comment = ""
+    Pony.mail(
+      :to => "#{aux.email}",
+      :from => "proyectopau100@gmail.com",
+      :subject => "Bienvenido a proyecto PAU, #{aux.name}!",
+      :body=>(haml :mail_welcome, :layout=>false, :locals => { :us => aux}),
+      :content_type=>'text/html',
+      :via => :smtp,
+      :smtp => smtp_options)
+    aux.password = Digest::MD5.hexdigest(aux.password)
+    aux.save
+    redirect '/login'
   end
-  aux.comment = ""
-   Pony.mail(
-     :to => "#{aux.email}",
-     :from => "proyectopau100@gmail.com",
-     :subject => "Bienvenido a proyecto PAU, #{aux.name}!",
-     :body=>(haml :mail_welcome, :layout=>false, :locals => { :us => aux}),
-     :content_type=>'text/html',
-     :via => :smtp,
-     :smtp => smtp_options)
-  aux.password = Digest::MD5.hexdigest(aux.password)
-  aux.save
-  redirect '/login'
 end
 
 get '/activeaccount' do
