@@ -162,7 +162,6 @@ end
 
 get '/admin/files/delete/:id' do |id|
   file = Files.get(id)
-  file.users.destroy!
   file.destroy!
   redirect '/admin/files'
 end

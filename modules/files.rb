@@ -76,8 +76,6 @@ post '/upload' do
       subject.filess << f
       subject.save
       f.save
-      user = session[:current_user]
-      user.numberFiles += 1
       redirect back
     end
 end

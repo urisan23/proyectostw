@@ -23,7 +23,7 @@
         #{us.id}
         %p
         %b Archivos compartidos:
-        #{us.numberFiles}
+        #{Files.all(:uploader => "#{us.username}").count}
         %p
         %b Sobre mi:
         = Haml::Engine.new(us.comment.gsub(10.chr, '<br/>')).render

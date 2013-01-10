@@ -25,7 +25,6 @@ class User
   property :image, String, :length => 512, :default => "/img/f1.png"
   property :enabled, Boolean
   property :activation_n, String
-  property :numberFiles, Integer, :default => 0
   has n, :subjects, :through => Resource
   has n, :messages, :through => Resource 
 end
@@ -49,8 +48,6 @@ class Files
   property :size, String
   property :date, String
   property :uploader, String
-  property :calification, Integer, :default => 0
-  property :numberVotes, Integer, :default => 0
   has n, :votes, :through => Resource
 end
 

@@ -1,6 +1,7 @@
+- url = ENV['URL']||"http://localhost:4567/"
 %div
   %div
-    %a{:href => "localhost:4567", :target => "_blank"}
+    %a{:href => "#{url}", :target => "_blank"}
       %img{:alt => "ir a Página principal de PAU", "margin-right" => "20px", :style => "vertical-align: middle;", :height => "50px", :width => "50px", :src => "http://web.educastur.princast.es/conc/patronatosanjose/Material/Libros/libros.gif"} 
     %span{:style => "font-size:40px;"} Plataforma Académica Universitaria
   %div{"padding-left" => "30px"}
@@ -9,8 +10,8 @@
     %h4 Tu nueva contraseña es: #{us.password}
     %br
     Para iniciar sesión ahora haz click en este enlace: 
-    %a{:href => "localhost:4567/login", :target => "_blank"} localhost:4567/login
+    %a{:href => "#{ url + "login"}", :target => "_blank"} #{ url + "login"}
   %br
   %div
     Copyright &copy; 2012 
-    %a{:href => "localhost:4567", :target => "_blank"} localhost:4567
+    %a{:href => "#{url}", :target => "_blank"} #{url}
