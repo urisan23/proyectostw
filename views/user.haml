@@ -37,12 +37,30 @@
             = haml :send_message, :locals => { :id => us.id}  
     .span9
       .hero-unit2
-        %h3 Asignaturas matriculadas
+        %center
+          %h3 Mis asignaturas
 
-        %table
-          %tr
+        #accordion2.accordion
           - us.subjects.each do |a|
-            %a{:href => "/subjects/#{a.id}"} #{a.subjectname}
-        
-        %br
-        %a.btn.btn-warning{:href => "/profile"} Regresar
+            .accordion-group
+              .accordion-heading{:style => "background-color:#222222"}
+                %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "##{a.id}", :style => "color: #ffffff"}
+                  #{a.subjectname}
+              .accordion-body.collapse{:id => "#{a.id}"}
+                .accordion-inner
+                  %table.table.table-hover
+                    %tbody
+                      %tr
+                        %td
+                          %ul
+                            %li 
+                              %b Curso: 
+                              #{a.course}º
+                            %li 
+                              %b Descripcion: 
+                              #{a.description}
+                        %td
+                        %td{:style => "text-align: right"}
+                          %a.btn.btn-inverse{:href => "/subjects/#{a.id}"}
+                            Acceder
+                            
