@@ -46,9 +46,9 @@ end
 
 get '\/' do
   if session[:log]
-    redirect '/login'
-  else
     redirect '/profile'
+  else
+    redirect '/login'
   end
 end
 
