@@ -21,7 +21,7 @@ class User
   property :username, String
   property :email, String
   property :password, String
-  property :comment, String
+  property :comment, Text
   property :image, String, :length => 512, :default => "/img/f1.png"
   property :enabled, Boolean
   property :activation_n, String
@@ -35,7 +35,7 @@ class Subject
   property :id, Serial
   property :subjectname, String
   property :course, Integer
-  property :description, String, :default => "", :length => 512
+  property :description, Text
   has n, :filess, :through => Resource
   has n, :comments, :through => Resource
 end
@@ -64,7 +64,7 @@ class Comment
   include DataMapper::Resource
   property :id, Serial
   property :userid, Integer
-  property :text, String, :length => 512
+  property :text, Text
   property :time, DateTime
 end
 
